@@ -29,7 +29,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    min-height: 650px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 650px;
+    min-height: 500px;
   }
 
   .popup-text-wrapper {
@@ -74,6 +74,8 @@
   }
 
   .popup-title {
+    font-size: 32px;
+    font-weight: bold;
     margin-bottom: 20px;
     line-height: 1.3;
     text-transform: uppercase;
@@ -109,7 +111,6 @@
     border-radius: 4px;
     transition: all 0.3s ease;
     letter-spacing: 1px;
-    cursor: pointer;
   }
 
   .popup-cta:hover {
@@ -124,8 +125,9 @@
     right: 15px;
     width: 35px;
     height: 35px;
+    background: rgba(255, 255, 255, 0.1);
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     color: #ffffff;
     font-size: 20px;
     cursor: pointer;
@@ -134,10 +136,10 @@
     justify-content: center;
     transition: all 0.3s ease;
     z-index: 10;
-    cursor: pointer;
   }
 
   .popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: rotate(90deg);
   }
 
@@ -145,12 +147,16 @@
     .popup-container {
       width: 95%;
       max-width: 450px;
-      min-height: 500px;
+      min-height: 450px;
     }
 
     .popup-content {
       padding: 40px 25px;
-      min-height: 500px;
+      min-height: 450px;
+    }
+
+    .popup-title {
+      font-size: 24px;
     }
 
     .popup-description {
@@ -167,14 +173,18 @@
 
 <div class="popup-overlay" id="newsletterPopup">
   <div class="popup-container">
-    <div class="popup-close" onclick="closePopup()">×</div>
+    <button class="popup-close" onclick="closePopup()">×</button>
     
     {% if section.settings.image != blank %}
       <img 
-        src="{{ section.settings.image | img_url: '800x' }}" 
+        src="{{ section.settings.image | image_url: width: 800 }}" 
+        srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                {{ section.settings.image | image_url: width: 800 }} 800w"
+        sizes="(max-width: 768px) 400px, 800px"
         alt="{{ section.settings.title }}"
         class="popup-image"
         loading="lazy"
+        decoding="async"
       >
     {% else %}
       <img 
@@ -182,12 +192,13 @@
         alt="Placeholder"
         class="popup-image"
         loading="lazy"
+        decoding="async"
       >
     {% endif %}
 
     <div class="popup-content">
       <div class="popup-text-wrapper">
-        <h2 class="popup-title h2">{{ section.settings.title }}</h2>
+        <h2 class="popup-title">{{ section.settings.title }}</h2>
         <p class="popup-description">{{ section.settings.description }}</p>
       </div>
       
@@ -257,7 +268,7 @@
       "type": "text",
       "id": "title",
       "label": "Tiêu đề",
-      "default": "BẠN ĐANG TÌN VÀO ĐIỀU GÌ?"
+      "default": "BẠN ĐANG TIN VÀO ĐIỀU GÌ?"
     },
     {
       "type": "textarea",
