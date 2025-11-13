@@ -176,7 +176,7 @@
       {% if settings.animation_speed == "fast" %}data-cc-animate-timeout="0"{% endif %}>
   {% if settings.animation_enabled_mobile %}
     <script>
-      // Bỏ việc che mờ toàn trang trước khi load trên mobile để cải thiện FCP/LCP
+      // Cải thiện FCP/LCP
       if (window.innerWidth < 768 && window.localStorage.getItem('is_first_visit') !== null) {
         function enableAnimations() {
           document.body.classList.add("cc-animate-enabled");
