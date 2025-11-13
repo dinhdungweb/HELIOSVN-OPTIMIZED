@@ -345,7 +345,7 @@
         "button_text": "KHÁM PHÁ BST ĐỨC TIN",
         "button_link": "shopify://collections/faith-collection",
         "delay": 5000,
-        "show_once": false
+        "show_once": true
       }
     }
   },
