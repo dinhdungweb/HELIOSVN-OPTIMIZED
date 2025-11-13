@@ -372,6 +372,19 @@
         "button_text": "#000000",
         "heading_h1": false
       }
+    },
+    "popup_overlay_custom_pFebVj": {
+      "type": "popup-overlay-custom",
+      "name": "Popup Newsletter",
+      "settings": {
+        "image": "shopify://shop_images/90.webp",
+        "title": "BẠN ĐANG TÌN VÀO ĐIỀU GÌ?",
+        "description": "Không nhiều người giữ được đức tin khi cuộc sống nhiều thử thách.\nNhưng chính những người bước tiếp trên hành trình ấy mới thật sự mạnh mẽ.\nHELIOS tạo nên BST Đức Tin - như lời tri ân dành cho bản lĩnh đó.",
+        "button_text": "KHÁM PHÁ BST ĐỨC TIN",
+        "button_link": "",
+        "delay": 3000,
+        "show_once": true
+      }
     }
   },
   "order": [
@@ -383,6 +396,7 @@
     "two_banner_E4NazD",
     "image_with_text_zjajPx",
     "background_video_NCMV83",
-    "popup_advanced_Home"
+    "popup_advanced_Home",
+    "popup_overlay_custom_pFebVj"
   ]
 }
