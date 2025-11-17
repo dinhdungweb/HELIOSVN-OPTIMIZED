@@ -11,22 +11,12 @@
     assign heading_font = settings.type_heading_font
     assign nav_font = settings.type_nav_font
     assign logo_font = settings.type_logo_font
-    assign base_font_extralight = base_font | font_modify: 'weight', '200'
-    assign base_font_medium = base_font | font_modify: 'weight', '500'
-    assign base_font_semibold = base_font | font_modify: 'weight', '600'
     assign base_font_bold = base_font | font_modify: 'weight', 'bolder'
-    assign base_font_italic = base_font | font_modify: 'style', 'italic'
-    assign base_font_bold_italic = base_font_bold | font_modify: 'style', 'italic'
   -%}
 
   <style>
     {{ base_font | font_face: font_display: 'swap' }}
-    {{ base_font_extralight | font_face: font_display: 'swap' }}
-    {{ base_font_medium | font_face: font_display: 'swap' }}
-    {{ base_font_semibold | font_face: font_display: 'swap' }}
     {{ base_font_bold | font_face: font_display: 'swap' }}
-    {{ base_font_italic | font_face: font_display: 'swap' }}
-    {{ base_font_bold_italic | font_face: font_display: 'swap' }}
     {{ heading_font | font_face: font_display: 'swap' }}
     {{ nav_font | font_face: font_display: 'swap' }}
     {{ logo_font | font_face: font_display: 'swap' }}
@@ -326,8 +316,30 @@
   <script src="{{ 'vendor.min.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'theme-addons.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'lazy-video.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'popup-overlay.js' | asset_url }}" defer="defer"></script>
 
   {% render 'body-end-tag' %}
+  <script src="{{ 'price-range-filter.js' | asset_url }}" defer="defer"></script>
+  
+  <script type="text/javascript">
+    // Defer Microsoft Clarity loading
+    function loadClarity() {
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "oiud3uic4c");
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(loadClarity, 3500);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadClarity, 3500);
+      });
+    }
+  </script>
   <script src="{{ 'price-range-filter.js' | asset_url }}" defer="defer"></script>
 </body>
 </html>
