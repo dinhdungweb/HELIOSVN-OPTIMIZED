@@ -52,14 +52,13 @@ Document này ghi lại tất cả các tối ưu đã được thực hiện đ
 
 ### Files Modified:
 - `sections/popup-overlay-custom.liquid`
-- `assets/popup-overlay.js` (NEW)
-- `assets/popup-overlay.css` (NEW)
+- `assets/popup-overlay.js` (NEW - includes inline CSS)
 
 ### Changes:
-- **Lazy Load CSS**: CSS được load riêng khi cần
+- **Inline CSS in JS**: CSS được inject động để tránh MIME type issues
 - **Lazy Load Image**: Popup image chỉ load khi popup hiển thị
 - **Interaction-Based Loading**: Load sau user interaction hoặc 3s
-- **Separate Files**: Tách CSS và JS ra khỏi inline
+- **Separate JS File**: Tách JS ra khỏi section
 
 ### Benefits:
 - Giảm initial HTML size: ~5KB
@@ -133,8 +132,7 @@ Document này ghi lại tất cả các tối ưu đã được thực hiện đ
 ## 🔧 NEW FILES CREATED
 
 1. `assets/lazy-video.js` - Video lazy loading handler
-2. `assets/popup-overlay.js` - Popup lazy loading handler
-3. `assets/popup-overlay.css` - Popup styles (lazy loaded)
+2. `assets/popup-overlay.js` - Popup lazy loading handler (includes inline CSS)
 
 ---
 

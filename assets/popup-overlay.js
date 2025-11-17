@@ -12,10 +12,32 @@
     if (popupStylesLoaded) return;
     popupStylesLoaded = true;
 
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = window.Shopify.routes.root + 'cdn/shop/t/' + window.Shopify.theme.id + '/assets/popup-overlay.css';
-    document.head.appendChild(link);
+    // Inject styles directly to avoid MIME type issues
+    var style = document.createElement('style');
+    style.textContent = `
+      .popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:9999;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease}
+      .popup-overlay.active{display:flex;opacity:1}
+      .popup-container{position:relative;max-width:600px;width:90%;background:#1a1a1a;border-radius:8px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5);min-height:650px;display:flex;flex-direction:column;justify-content:space-between;transform:scale(.9);transition:transform .3s ease}
+      .popup-overlay.active .popup-container{transform:scale(1)}
+      .popup-image{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
+      .popup-container::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(0,0,0,.3) 0%,rgba(0,0,0,.8) 100%);z-index:2}
+      .popup-content{position:relative;z-index:3;padding:50px 40px;text-align:center;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:650px}
+      .popup-text-wrapper{margin-bottom:auto}
+      .popup-title{margin-bottom:20px;line-height:1.3;text-transform:uppercase;letter-spacing:1.5px;text-shadow:2px 2px 4px rgba(0,0,0,.5)}
+      .popup-description{font-size:15px;line-height:1.8;margin-bottom:0;color:#fff;max-width:500px;margin-left:auto;margin-right:auto;text-shadow:1px 1px 3px rgba(0,0,0,.5)}
+      .popup-cta-wrapper{margin-top:auto;padding-top:30px}
+      .popup-cta{display:inline-block;background:#f5a623;color:#1a1a1a;padding:15px 40px;font-size:14px;font-weight:bold;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all .3s ease;letter-spacing:1px;cursor:pointer}
+      .popup-cta:hover{background:#e09615;transform:translateY(-2px);box-shadow:0 5px 15px rgba(245,166,35,.4)}
+      .popup-close{position:absolute;top:15px;right:15px;width:35px;height:35px;border:none;background:rgba(255,255,255,.1);border-radius:5px;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;z-index:10}
+      .popup-close:hover{background:rgba(255,255,255,.2);transform:rotate(90deg)}
+      @media (max-width:768px){
+        .popup-container{width:95%;max-width:450px;min-height:500px}
+        .popup-content{padding:40px 25px;min-height:500px}
+        .popup-description{font-size:13px;line-height:1.7}
+        .popup-cta{padding:12px 30px;font-size:13px}
+      }
+    `;
+    document.head.appendChild(style);
   }
 
   function initPopup() {
