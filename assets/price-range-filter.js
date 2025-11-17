@@ -66,26 +66,28 @@ if (typeof theme !== 'undefined') {
 }
 
 // Dùng MutationObserver để phát hiện thay đổi DOM
-const observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
-    if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-      // Kiểm tra nếu có custom-price-range-filter được thêm vào DOM
-      for (let i = 0; i < mutation.addedNodes.length; i++) {
-        const node = mutation.addedNodes[i];
-        if (node.nodeType === 1) { // ELEMENT_NODE
-          if (node.classList && node.classList.contains('custom-price-range-filter') || 
-              node.querySelector && node.querySelector('.custom-price-range-filter')) {
-            initPriceRangeFilters();
-            break;
+(function() {
+  var priceRangeObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+        // Kiểm tra nếu có custom-price-range-filter được thêm vào DOM
+        for (var i = 0; i < mutation.addedNodes.length; i++) {
+          var node = mutation.addedNodes[i];
+          if (node.nodeType === 1) { // ELEMENT_NODE
+            if (node.classList && node.classList.contains('custom-price-range-filter') || 
+                node.querySelector && node.querySelector('.custom-price-range-filter')) {
+              initPriceRangeFilters();
+              break;
+            }
           }
         }
       }
-    }
+    });
   });
-});
 
-// Bắt đầu theo dõi thay đổi DOM
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-}); 
+  // Bắt đầu theo dõi thay đổi DOM
+  priceRangeObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+})(); 
