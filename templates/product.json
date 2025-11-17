@@ -58,10 +58,11 @@
         },
         "inventory_level": {
           "type": "inventory_level",
+          "disabled": true,
           "settings": {
             "inventory_threshold": 10,
             "show_inventory_notice": "low",
-            "show_inventory_count": "low",
+            "show_inventory_count": "never",
             "show_inventory_indicator_bar": true,
             "col_indicator_below": "#dd9a1a",
             "col_indicator_above": "#108043"
