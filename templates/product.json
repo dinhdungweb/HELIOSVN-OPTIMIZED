@@ -174,7 +174,9 @@
         "accordion_RN6Adz",
         "accordion_WnzprC"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".product-detail__gap-lg.product-detail__trust-icons {padding-top: 0;}"
+      ],
       "settings": {
         "media_style": "one-column",
         "sticky_behaviour": "none",
