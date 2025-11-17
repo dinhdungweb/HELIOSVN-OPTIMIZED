@@ -215,26 +215,8 @@ body.filter-open {
         padding: 0;
     }
 }
-/* header */
-/* .site-control__inner {
-    position: relative;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    min-height: 60px;
-} */
+
 @media (min-width: 1100px) {
-    /* .site-control.nav-inline-desktop .site-control__inner .site-control__inline-links, 
-    .site-control.nav-inline-desktop .site-control__inner .nav-row, 
-    .site-control.nav-inline-desktop .site-control__inner .nav-row .tier-1 {
-      width: 100%;
-    } */
-    /* .site-control.nav-inline-desktop .site-control__inner .nav-row ul:first-child {
-      display: flex;
-      justify-content: space-around;
-    } */
-  /* .site-control.nav-inline-desktop .site-control__inner .nav-row a {
-    font-size: 12px;
-  } */
   /* product page */
   .product-area.product-area--restrict-width.product-area--one-col {
     max-width: 1400px;
@@ -247,18 +229,10 @@ body.filter-open {
     max-width: 100%;
     margin: 0 auto;
 }
-  /* #quick-buy-modal .product-area.product-area--restrict-width.product-area--one-col .theme-images {
-    padding-top: 0;
-  } */
 }
 .product-recommendations-container {
     margin-bottom: 50px;
 }
-/* .section-featured-collection > .product-slider {
-    max-width: 100%;
-    width: 1400px;
-    margin: 0 auto;
-} */
 
 .product-slider .section-heading h2 {
     padding-right: 0;
@@ -267,13 +241,10 @@ body.filter-open {
 .site-control.nav-opaque {
     background-color: transparent!important;
 }
-/* div#site-control {
-    border-bottom: 1px solid #ddddddde;
-} */
+
 .section-footer {
     background: #222!important;
     padding: 15px;
-    /* margin-top: 50px; */
 }
 .section-footer__row-container {
     background: #000!important;
@@ -302,13 +273,13 @@ body.filter-open {
 
 /* tab product description */
 .description-content {
-    max-height: 650px; /* Giới hạn chiều cao khi ẩn nội dung */
-    overflow: hidden; /* Ẩn nội dung thừa */
-    transition: max-height 0.3s ease; /* Hiệu ứng mượt khi mở rộng */
+    max-height: 650px; 
+    overflow: hidden; 
+    transition: max-height 0.3s ease; 
 }
 
 .description-content.expanded {
-    max-height: none; /* Hiển thị đầy đủ nội dung */
+    max-height: none; 
 }
 
 .btn-toggle {
@@ -372,17 +343,6 @@ body.filter-open {
     color: #111;
     position: relative;
 }
-
-/* li.tab-item.active:before {
-    content: "";
-    width: 100%;
-    height: 3px;
-    background-color: #FAB320;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transition: 2s;
-} */
 
 .tab-content {
   padding: 20px 0 40px;
