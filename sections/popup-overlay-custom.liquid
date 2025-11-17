@@ -3,183 +3,16 @@
   File: sections/popup-newsletter.liquid
 {% endcomment %}
 
-<style>
-  .popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-  }
 
-  .popup-overlay.active {
-    display: flex;
-  }
 
-  .popup-container {
-    position: relative;
-    max-width: 600px;
-    width: 90%;
-    background: #1a1a1a;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    min-height: 650px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .popup-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 1;
-  }
-
-  .popup-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
-    z-index: 2;
-  }
-
-  .popup-content {
-    position: relative;
-    z-index: 3;
-    padding: 50px 40px;
-    text-align: center;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 650px;
-  }
-
-  .popup-text-wrapper {
-    margin-bottom: auto;
-  }
-
-  .popup-title {
-    margin-bottom: 20px;
-    line-height: 1.3;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  .popup-description {
-    font-size: 15px;
-    line-height: 1.8;
-    margin-bottom: 0;
-    color: #ffffff;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  }
-
-  .popup-cta-wrapper {
-    margin-top: auto;
-    padding-top: 30px;
-  }
-
-  .popup-cta {
-    display: inline-block;
-    background: #f5a623;
-    color: #1a1a1a;
-    padding: 15px 40px;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
-    cursor: pointer;
-  }
-
-  .popup-cta:hover {
-    background: #e09615;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(245, 166, 35, 0.4);
-  }
-
-  .popup-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 35px;
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
-    cursor: pointer;
-  }
-
-  .popup-close:hover {
-    transform: rotate(90deg);
-  }
-
-  @media (max-width: 768px) {
-    .popup-container {
-      width: 95%;
-      max-width: 450px;
-      min-height: 500px;
-    }
-
-    .popup-content {
-      padding: 40px 25px;
-      min-height: 500px;
-    }
-
-    .popup-description {
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .popup-cta {
-      padding: 12px 30px;
-      font-size: 13px;
-    }
-  }
-</style>
-
-<div class="popup-overlay" id="newsletterPopup">
+<div class="popup-overlay" id="newsletterPopup-{{ section.id }}" data-popup-delay="{{ section.settings.delay | default: 5000 }}" data-popup-show-once="{{ section.settings.show_once }}">
   <div class="popup-container">
-    <div class="popup-close" onclick="closePopup()">×</div>
+    <div class="popup-close" data-popup-close>×</div>
     
     {% if section.settings.image != blank %}
       <img 
-        src="{{ section.settings.image | img_url: '800x' }}" 
+        data-popup-image="{{ section.settings.image | img_url: '800x' }}" 
         alt="{{ section.settings.title }}"
-        class="popup-image"
-        loading="lazy"
-      >
-    {% else %}
-      <img 
-        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop" 
-        alt="Placeholder"
         class="popup-image"
         loading="lazy"
       >
@@ -199,50 +32,6 @@
     </div>
   </div>
 </div>
-
-<script>
-  // Show popup after delay
-  document.addEventListener('DOMContentLoaded', function() {
-    const popup = document.getElementById('newsletterPopup');
-    const delay = {{ section.settings.delay | default: 3000 }};
-    const showOnce = {{ section.settings.show_once }};
-    
-    // Check if popup was already shown
-    if (showOnce && localStorage.getItem('popupShown')) {
-      return;
-    }
-
-    setTimeout(function() {
-      popup.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }, delay);
-  });
-
-  function closePopup() {
-    const popup = document.getElementById('newsletterPopup');
-    popup.classList.remove('active');
-    document.body.style.overflow = '';
-    
-    // Save to localStorage if show once is enabled
-    if ({{ section.settings.show_once }}) {
-      localStorage.setItem('popupShown', 'true');
-    }
-  }
-
-  // Close popup when clicking outside
-  document.getElementById('newsletterPopup').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closePopup();
-    }
-  });
-
-  // Close popup with ESC key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closePopup();
-    }
-  });
-</script>
 
 {% schema %}
 {

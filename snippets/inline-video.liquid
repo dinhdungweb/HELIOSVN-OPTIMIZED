@@ -12,7 +12,7 @@
 -%}
 
 <div data-section-type="background-video" class="section-background-video section-background-video--inline">
-  <div class="video-container video-container--background"
+  <div class="video-container video-container--background video-lazy-load"
     {% if video_shopify != blank %}
       data-video-sources="{%- for source in video_shopify.sources -%}
         {{ source.format }} {{ source.mime_type }} {{ source.url }}
@@ -25,7 +25,8 @@
       data-video-url="{{ video | escape }}"
     {% endif %}
     data-video-autoplay="{{ autoplay_value }}"
-    data-video-loop="{{ loop_value }}">
+    data-video-loop="{{ loop_value }}"
+    data-video-lazy="true">
     <div class="video-container__video"></div>
 
     {% if image != blank %}
