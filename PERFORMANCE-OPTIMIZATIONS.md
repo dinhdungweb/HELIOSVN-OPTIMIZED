@@ -68,26 +68,7 @@ Document này ghi lại tất cả các tối ưu đã được thực hiện đ
 
 ---
 
-## 4. ✅ PRODUCT GRID OPTIMIZATION
-
-### Files Modified:
-- `assets/lazy-products.js` (NEW)
-
-### Changes:
-- **Priority Loading**: 4 sản phẩm đầu load ngay
-- **Lazy Load Images**: Sản phẩm 5+ lazy load
-- **Lazy Load Reviews**: Reviews load khi vào viewport
-- **Lazy Load Add to Cart**: Buttons load khi cần
-- **Intersection Observer**: rootMargin 50px cho images
-
-### Benefits:
-- Giảm initial image load: 50%
-- LCP cải thiện nếu product image là LCP
-- Bandwidth tiết kiệm
-
----
-
-## 5. ✅ FONT OPTIMIZATION
+## 4. ✅ FONT OPTIMIZATION
 
 ### Files Modified:
 - `layout/theme.liquid`
@@ -114,7 +95,7 @@ Document này ghi lại tất cả các tối ưu đã được thực hiện đ
 
 ---
 
-## 6. ✅ IMAGE OPTIMIZATION
+## 5. ✅ IMAGE OPTIMIZATION
 
 ### Files Modified:
 - `sections/two-banner.liquid`
@@ -154,7 +135,6 @@ Document này ghi lại tất cả các tối ưu đã được thực hiện đ
 1. `assets/lazy-video.js` - Video lazy loading handler
 2. `assets/popup-overlay.js` - Popup lazy loading handler
 3. `assets/popup-overlay.css` - Popup styles (lazy loaded)
-4. `assets/lazy-products.js` - Product grid lazy loading
 
 ---
 
