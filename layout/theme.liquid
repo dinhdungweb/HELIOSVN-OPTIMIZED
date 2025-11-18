@@ -147,18 +147,6 @@
       }
     };
   </script>
-  {% comment %} <script>
-    function generateSessionId() {
-      return 'sess-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
-    }
-  
-    if (!localStorage.getItem('sessionID')) {
-      localStorage.setItem('sessionID', generateSessionId());
-    }
-  
-    const sessionId = localStorage.getItem('sessionID');
-    clarity('set', 'user_id', sessionId);
-  </script> {% endcomment %}
 
 </head>
 
