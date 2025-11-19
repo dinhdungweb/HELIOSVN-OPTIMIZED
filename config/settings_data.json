@@ -51,7 +51,7 @@
     "quickbuy_enabled": false,
     "addtocart_enabled": true,
     "prod_show_videos": true,
-    "prod_hover": "all_images",
+    "prod_hover": "second_image",
     "show_product_block_reviews": true,
     "show_sale_label": true,
     "show_sold_out_label": true,
