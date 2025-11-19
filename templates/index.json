@@ -78,7 +78,7 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/SRK00361.webp",
+            "image": "shopify://shop_images/srk00356_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -117,13 +117,13 @@
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/SRK00698.webp",
+            "image": "shopify://shop_images/srk00535_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/new-in",
-            "title": "NEW IN",
+            "link": "shopify://collections/mat-day-chuyen-bac-s925",
+            "title": "MẶT DÂY CHUYỀN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -137,13 +137,13 @@
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/2025-11-05_17-06-08_B_R1_S1.webp",
+            "image": "shopify://shop_images/6-1_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/khuyen-tai-bac-nam",
-            "title": "KHUYÊN TAI BẠC",
+            "link": "shopify://collections/new-in",
+            "title": "NEW IN",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -196,13 +196,13 @@
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/SRK00535.webp",
+            "image": "shopify://shop_images/srk00464_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/mat-day-chuyen-bac-s925",
-            "title": "MẶT DÂY CHUYỀN BẠC",
+            "link": "shopify://collections/khuyen-tai-bac-nam",
+            "title": "KHUYÊN TAI BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -255,7 +255,7 @@
         "banner_bVTGHD": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/2_3e769dbb-b213-4df1-889e-a290ef62e976.webp",
+            "image": "shopify://shop_images/srk00771_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -288,29 +288,6 @@
         "sticky_z_index": 1000
       }
     },
-    "background_video_NCMV83": {
-      "type": "background-video",
-      "disabled": true,
-      "settings": {
-        "video_shopify": "shopify://files/videos/Video chế tác trên trang chủ website 29.3.3025 (1).mp4",
-        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "subheading": "",
-        "title": "9 NĂM HÀNH TRÌNH CHẾ TÁC THỦ CÔNG BẠC",
-        "title_size": 24,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê trong từng nét chạm khắc tỉ mỉ.</p>",
-        "enlarge_text": false,
-        "button_label": "",
-        "button_link": "",
-        "overlay_position": "position--hcenter position--vcenter",
-        "height": "fixed",
-        "height_desktop": 520,
-        "height_mobile": 360,
-        "full_width": true,
-        "overlay_style_tint": true
-      }
-    },
     "popup_overlay_custom_pFebVj": {
       "type": "popup-overlay-custom",
       "name": "Popup Newsletter",
@@ -332,7 +309,6 @@
     "two_banner_C3RzCw",
     "two_banner_qNEPMY",
     "two_banner_E4NazD",
-    "background_video_NCMV83",
     "popup_overlay_custom_pFebVj"
   ]
 }
