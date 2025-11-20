@@ -76,9 +76,15 @@
 
     function renderProgress(){
       if(!showProgress) return;
+      
+      // Don't update if showing result (already at 100%)
+      if(section.classList.contains('show-result')) return;
+      
       var current = Math.min(state.index+1, questions.length);
       var total = questions.length;
-      var pct = total ? Math.round((current-1) / total * 100) : 0;
+      // Calculate progress: at question 1/5 = 0%, 2/5 = 20%, ..., 5/5 = 80%
+      // Result screen will show 100%
+      var pct = total ? Math.round(state.index / total * 100) : 0;
       elProgress.textContent = 'Câu ' + current + '/' + total;
       if(elProgressBar){
         elProgressBar.style.width = pct + '%';
@@ -285,8 +291,15 @@
 
       section.classList.add('show-result');
       elResult.hidden = false; elCard.setAttribute('data-state','result');
-      if(elProgressBar){ elProgressBar.style.width = '100%'; elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow','100'); }
-      renderProgress();
+      
+      // Update progress to show completion
+      if(showProgress){
+        elProgress.textContent = 'Hoàn thành!';
+      }
+      if(elProgressBar){ 
+        elProgressBar.style.width = '100%'; 
+        elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow','100'); 
+      }
     }
 
     function restartQuiz(){
