@@ -211,7 +211,21 @@
       state.tags = [];
       state.completed = false;
       save();
+      // Explicitly clear and hide result UI
+      section.classList.remove('show-result');
+      elResult.hidden = true;
+      var rt = $('.quiz-result__title', section);
+      var rd = $('.quiz-result__desc', section);
+      var rc = $('.quiz-result__cta', section);
+      var rm = $('.quiz-result__media', section);
+      if(rt) rt.textContent = '';
+      if(rd) rd.innerHTML = '';
+      if(rc) rc.innerHTML = '';
+      if(rm) rm.innerHTML = '';
+      if(elProgressBar){ elProgressBar.style.width = '0%'; elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow','0'); }
       renderQuestion();
+      // Bring quiz into view for a clean restart
+      if(section.scrollIntoView){ try { section.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e){} }
     }
 
     // Normalise state if quiz structure changed
