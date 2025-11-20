@@ -243,10 +243,31 @@
         }
         // highest_category fallback
         var bestKey = null, bestVal = -Infinity;
+        var tiedKeys = []; // Track categories with same highest score
+        
+        // Find highest score
         Object.keys(state.scores).forEach(function(k){
           var val = state.scores[k] || 0;
-          if(val > bestVal){ bestVal = val; bestKey = k; }
+          if(val > bestVal){ 
+            bestVal = val; 
+            bestKey = k;
+            tiedKeys = [k]; // Reset tied keys
+          } else if(val === bestVal && val > 0){
+            tiedKeys.push(k); // Add to tied keys
+          }
         });
+        
+        // If multiple categories tied, pick first one that has a result
+        if(tiedKeys.length > 1){
+          console.log('Quiz: Multiple categories tied with score ' + bestVal + ':', tiedKeys);
+          for(var i=0; i<tiedKeys.length; i++){
+            for(var j=0; j<results.length; j++){
+              if(results[j].category_key === tiedKeys[i]) return results[j];
+            }
+          }
+        }
+        
+        // Single winner or no tie
         for(var j=0;j<results.length;j++){
           if(results[j].category_key === bestKey) return results[j];
         }

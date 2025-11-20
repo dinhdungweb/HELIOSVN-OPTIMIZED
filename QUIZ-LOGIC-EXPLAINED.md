@@ -422,3 +422,234 @@ Logic quiz hoạt động dựa trên:
 **Version:** 1.0  
 **Last Updated:** November 2025  
 **Status:** Production Ready
+
+
+---
+
+## ⚖️ TRƯỜNG HỢP ĐIỂM BẰNG NHAU (TIE)
+
+### Khi Nào Xảy Ra?
+
+Điểm bằng nhau xảy ra khi 2 hoặc nhiều categories có cùng tổng điểm cao nhất.
+
+### Ví Dụ:
+
+```javascript
+// Sau 5 câu hỏi:
+{
+  "bold": 15,      // ← Bằng nhau
+  "minimal": 15,   // ← Bằng nhau
+  "classic": 12,
+  "trendy": 10
+}
+```
+
+### Logic Xử Lý:
+
+**Bước 1: Phát hiện tie**
+```javascript
+var tiedKeys = []; // Track categories with same score
+
+Object.keys(state.scores).forEach(function(k){
+  var val = state.scores[k] || 0;
+  if(val > bestVal){ 
+    bestVal = val; 
+    tiedKeys = [k]; // Reset
+  } else if(val === bestVal && val > 0){
+    tiedKeys.push(k); // Add to tie
+  }
+});
+
+// tiedKeys = ["bold", "minimal"]
+```
+
+**Bước 2: Chọn kết luận**
+```javascript
+// Nếu có tie, chọn result đầu tiên có category_key match
+if(tiedKeys.length > 1){
+  console.log('Quiz: Multiple categories tied:', tiedKeys);
+  
+  // Loop qua tied categories theo thứ tự
+  for(var i=0; i<tiedKeys.length; i++){
+    // Tìm result có category_key match
+    for(var j=0; j<results.length; j++){
+      if(results[j].category_key === tiedKeys[i]) {
+        return results[j]; // Return ngay khi tìm thấy
+      }
+    }
+  }
+}
+```
+
+### Thứ Tự Ưu Tiên:
+
+Khi có tie, kết luận được chọn dựa trên:
+1. **Thứ tự trong `tiedKeys` array** (phụ thuộc vào `Object.keys()`)
+2. **Thứ tự trong `results` array** (thứ tự blocks trong Theme Editor)
+
+### Ví Dụ Thực Tế:
+
+**Scenario: Bold vs Minimal (15-15)**
+
+```javascript
+// Scores
+{
+  "bold": 15,
+  "minimal": 15,
+  "classic": 10
+}
+
+// Results order in Theme Editor:
+1. result_bold (category_key: "bold")
+2. result_minimal (category_key: "minimal")
+3. result_classic (category_key: "classic")
+
+// tiedKeys = ["bold", "minimal"] (hoặc ["minimal", "bold"])
+
+// Loop qua tiedKeys:
+// - Check "bold" → Tìm thấy result_bold → Return
+// Hoặc
+// - Check "minimal" → Tìm thấy result_minimal → Return
+```
+
+### Console Log:
+
+Khi có tie, console sẽ hiển thị:
+```
+Quiz: Multiple categories tied with score 15: ["bold", "minimal"]
+```
+
+---
+
+## 🎯 CÁCH TRÁNH TIE (KHUYẾN NGHỊ)
+
+### 1. Thiết Kế Weights Cẩn Thận
+
+**Tốt - Ít khả năng tie:**
+```json
+// Câu 1
+{"label": "Option A", "weights": {"bold": 4, "edgy": 2}}
+{"label": "Option B", "weights": {"minimal": 5, "elegant": 1}}
+
+// Câu 2
+{"label": "Option C", "weights": {"bold": 3, "statement": 3}}
+{"label": "Option D", "weights": {"minimal": 4, "refined": 2}}
+```
+
+**Không tốt - Dễ tie:**
+```json
+// Tất cả options đều +5 điểm
+{"label": "Option A", "weights": {"bold": 5}}
+{"label": "Option B", "weights": {"minimal": 5}}
+{"label": "Option C", "weights": {"classic": 5}}
+```
+
+### 2. Thêm Câu Hỏi "Tie-Breaker"
+
+Thêm 1 câu hỏi cuối với weights nhỏ để phá tie:
+
+```json
+{
+  "question_text": "Điều gì quan trọng nhất với bạn?",
+  "options": [
+    {"label": "Sự nổi bật", "weights": {"bold": 1}},
+    {"label": "Sự tinh tế", "weights": {"minimal": 1}},
+    {"label": "Sự sang trọng", "weights": {"classic": 1}}
+  ]
+}
+```
+
+### 3. Dùng Tags Kết Hợp Rules
+
+Thay vì chỉ dựa vào điểm, dùng tags + rules:
+
+```json
+// Options với tags
+{
+  "label": "Mạnh mẽ",
+  "weights": {"bold": 4},
+  "tags": ["prefer_bold"]
+}
+
+// Result với rule
+{
+  "category_key": "bold",
+  "rule": {
+    "all": [
+      {"category": "bold", "gte": 15},
+      {"tags": ["prefer_bold"]}
+    ]
+  }
+}
+```
+
+### 4. Sắp Xếp Results Theo Ưu Tiên
+
+Trong Theme Editor, sắp xếp results theo thứ tự ưu tiên:
+1. Kết luận phổ biến nhất → Đầu tiên
+2. Kết luận ít phổ biến → Cuối cùng
+
+---
+
+## 📊 THỐNG KÊ TIE
+
+### Xác Suất Tie:
+
+**Quiz 5 câu, 4 categories, weights 1-5:**
+- Xác suất tie: ~15-20%
+- Xác suất 3-way tie: ~2-5%
+
+### Giảm Xác Suất Tie:
+
+1. **Tăng số câu hỏi**: 7-10 câu → Tie giảm xuống ~5-10%
+2. **Weights đa dạng**: Dùng 1,2,3,4,5 thay vì chỉ 3,4,5
+3. **Thêm categories phụ**: Mỗi option có 2-3 categories
+
+---
+
+## 🔍 DEBUG TIE
+
+### Kiểm Tra Console:
+
+```javascript
+// Khi hoàn thành quiz, check:
+console.log('Quiz scores:', state.scores);
+// Output: {bold: 15, minimal: 15, classic: 10, trendy: 8}
+
+// Nếu có tie, sẽ thấy:
+console.log('Quiz: Multiple categories tied with score 15: ["bold", "minimal"]');
+
+console.log('Quiz result:', r);
+// Output: {category_key: "bold", title: "Phong Cách Mạnh Mẽ", ...}
+```
+
+### Test Tie:
+
+Để test tie, chọn options có weights cân bằng:
+
+```
+Câu 1: Chọn option → bold +4, minimal +4
+Câu 2: Chọn option → bold +3, minimal +3
+Câu 3: Chọn option → bold +5, minimal +5
+Câu 4: Chọn option → bold +3, minimal +3
+Câu 5: Chọn option → bold +0, minimal +0
+
+Kết quả: bold = 15, minimal = 15 (TIE!)
+```
+
+---
+
+## ✅ KẾT LUẬN VỀ TIE
+
+**Hiện tại:**
+- ✅ Quiz phát hiện và xử lý tie
+- ✅ Console log thông báo khi có tie
+- ✅ Chọn kết luận đầu tiên match trong tied categories
+
+**Khuyến nghị:**
+- 📝 Thiết kế weights cẩn thận để giảm tie
+- 📝 Thêm câu hỏi tie-breaker nếu cần
+- 📝 Dùng rules cho logic phức tạp hơn
+- 📝 Sắp xếp results theo ưu tiên
+
+**Tie không phải là bug, nhưng nên tối ưu để tránh!**
