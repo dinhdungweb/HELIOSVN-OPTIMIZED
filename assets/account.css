@@ -136,10 +136,7 @@ a.logout-button {
 .text-ellipsis {
   overflow: hidden;
   white-space: nowrap;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
   text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

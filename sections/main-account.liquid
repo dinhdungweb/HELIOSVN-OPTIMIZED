@@ -210,7 +210,20 @@
             <div class="stat-label">Hạng thành viên</div>
             <div class="stat-change">
               {% if tier != "BLACK DIAMOND" %}
-                Còn {{ formatted_remaining }} VND để lên hạng
+                {% assign remaining_for_next = next_tier_amount | minus: total_spent %}
+                {% assign formatted_remaining_amount = remaining_for_next | floor | split: '' | reverse %}
+                {% assign formatted_remaining_display = '' %}
+                
+                {% for digit in formatted_remaining_amount %}
+                  {% assign remainder = forloop.index0 | modulo: 3 %}
+                  {% if remainder == 0 and forloop.index0 != 0 %}
+                    {% assign formatted_remaining_display = formatted_remaining_display | append: '.' %}
+                  {% endif %}
+                  {% assign formatted_remaining_display = formatted_remaining_display | append: digit %}
+                {% endfor %}
+                
+                {% assign formatted_remaining_display = formatted_remaining_display | split: '' | reverse | join: '' %}
+                Còn {{ formatted_remaining_display }} VND để lên hạng
               {% else %}
                 Hạng cao nhất
               {% endif %}
