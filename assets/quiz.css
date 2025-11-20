@@ -227,7 +227,7 @@
 
 /* Result */
 .quiz-result { 
-  display: grid; 
+  display: grid;
   grid-template-columns: 1fr; 
   gap: 32px; 
   align-items: center; 
@@ -238,6 +238,16 @@
   padding: 32px; 
   box-shadow: 0 var(--quiz-shadow, 20px) 60px rgba(0,0,0,.4);
   animation: fadeInUp 0.6s ease;
+}
+
+/* Hide result by default - respect hidden attribute */
+.quiz-result[hidden] {
+  display: none !important;
+}
+
+/* Show result when quiz is completed */
+.quiz-section.show-result .quiz-result {
+  display: grid !important;
 }
 
 @media(min-width: 768px){ 
@@ -298,7 +308,7 @@
 }
 
 .quiz-section.show-result .quiz-card { 
-  display: none; 
+  display: none !important; 
 }
 
 /* Recommendations */
