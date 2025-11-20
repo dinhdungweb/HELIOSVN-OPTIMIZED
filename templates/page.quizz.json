@@ -46,7 +46,10 @@
             "result_desc": "<p>Bạn hợp với các thiết kế clean, form gọn và ít chi tiết. Gợi ý các mẫu bạc trơn, size vừa, dễ kết hợp mỗi ngày.</p>",
             "cta_label": "Khám phá",
             "cta_link": "shopify://collections/minimal",
-            "rule_json": ""
+            "rule_json": "",
+            "reco_collection": "all-products",
+            "reco_limit": 6,
+            "reco_title": "Sản phẩm phù hợp"
           }
         },
         "result_JiAtpB": {
@@ -57,7 +60,10 @@
             "result_desc": "<p>Bạn yêu thích độ nổi bật và khác biệt. Gợi ý các mẫu bạc đen, texture mạnh, kích thước lớn tạo điểm nhấn mạnh.</p>",
             "cta_label": "Khám phá",
             "cta_link": "shopify://collections/bold",
-            "rule_json": ""
+            "rule_json": "",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Sản phẩm phù hợp"
           }
         },
         "result_am6FMg": {
@@ -68,7 +74,10 @@
             "result_desc": "<p>Bạn thiên về sự tinh tế truyền thống. Gợi ý các mẫu đánh sáng, chi tiết cổ điển, phù hợp sự kiện trang trọng.</p>",
             "cta_label": "Khám phá",
             "cta_link": "shopify://collections/classic",
-            "rule_json": ""
+            "rule_json": "",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Sản phẩm phù hợp"
           }
         }
       },
@@ -86,7 +95,15 @@
         "show_progress": true,
         "persist_answer": true,
         "restart_enabled": true,
-        "heading_h1": false
+        "heading_h1": false,
+        "title": "Khảo sát nhanh dành cho bạn",
+        "accent_color": "#fab320",
+        "bg_color": "#0e0e0e",
+        "text_color": "#f2f2f2",
+        "card_bg": "#ffffff0f",
+        "radius": 12,
+        "shadow_strength": 16,
+        "glass_effect": true
       }
     }
   },
