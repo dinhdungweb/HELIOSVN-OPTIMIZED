@@ -36,18 +36,26 @@
       index: 0,
       answers: new Array(questions.length).fill(null),
       scores: Array.from(categories).reduce(function(acc,k){ acc[k]=0; return acc; }, {}),
-      tags: []
+      tags: [],
+      completed: false
     };
 
     var key = 'quiz-state-' + id;
     if(persist){
       var saved = parseJSON(localStorage.getItem(key) || '{}', {});
-      if(saved && saved.answers && saved.scores){ state = saved; }
+      if(saved && Array.isArray(saved.answers) && saved.scores){ state = Object.assign(state, saved); }
     }
 
     var elProgress = $('.quiz-progress', section);
     var elCard = $('.quiz-card', section);
     var elResult = $('.quiz-result', section);
+
+    function renderNoQuestions(){
+      elCard.innerHTML = '<p>Chưa cấu hình câu hỏi cho quiz.</p>';
+      elResult.hidden = true;
+      section.classList.remove('show-result');
+      elCard.setAttribute('data-state','question');
+    }
 
     function renderProgress(){
       if(!showProgress) return;
@@ -105,11 +113,16 @@
       if(opt && Array.isArray(opt.tags)){
         state.tags = state.tags.concat(opt.tags);
       }
-      save();
       // Next question or result
       state.index++;
-      if(state.index >= questions.length){ showResult(); }
-      else { renderQuestion(); }
+      if(state.index >= questions.length){
+        state.completed = true;
+        save();
+        showResult();
+      } else {
+        save();
+        renderQuestion();
+      }
     }
 
     function evaluateRules(rule){
@@ -187,13 +200,36 @@
       state.index = 0; state.answers = new Array(questions.length).fill(null);
       Object.keys(state.scores).forEach(function(k){ state.scores[k]=0; });
       state.tags = [];
+      state.completed = false;
       save();
       renderQuestion();
     }
 
+    // Normalise state if quiz structure changed
+    if(state.answers.length !== questions.length){
+      state.answers = new Array(questions.length).fill(null);
+      state.index = 0;
+      Object.keys(state.scores).forEach(function(k){ state.scores[k]=0; });
+      state.completed = false;
+      save();
+    }
+
     // Start
-    if(state.index >= questions.length){ showResult(); }
-    else { renderQuestion(); }
+    var total = questions.length;
+    if(total === 0){ renderNoQuestions(); return; }
+
+    var firstUnanswered = (function(){
+      for(var i=0;i<total;i++){ if(state.answers[i] == null) return i; }
+      return total;
+    })();
+
+    if(persist && state.completed && firstUnanswered === total){
+      showResult();
+    } else {
+      state.index = Math.min(firstUnanswered, state.index || 0);
+      if(state.index >= total) state.index = 0;
+      renderQuestion();
+    }
   }
 
   function init(){
