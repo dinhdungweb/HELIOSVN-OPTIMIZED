@@ -44,6 +44,7 @@
             "category_key": "minimal",
             "result_title": "Phong cách tối giản",
             "result_desc": "<p>Bạn hợp với các thiết kế clean, form gọn và ít chi tiết. Gợi ý các mẫu bạc trơn, size vừa, dễ kết hợp mỗi ngày.</p>",
+            "result_image": "shopify://shop_images/ascensis-draconis-len-mau.jpg",
             "cta_label": "Khám phá",
             "cta_link": "shopify://collections/minimal",
             "rule_json": "",
@@ -72,6 +73,7 @@
             "category_key": "classic",
             "result_title": "Phong cách cổ điển",
             "result_desc": "<p>Bạn thiên về sự tinh tế truyền thống. Gợi ý các mẫu đánh sáng, chi tiết cổ điển, phù hợp sự kiện trang trọng.</p>",
+            "result_image": "shopify://shop_images/ascensis-draconis-len-mau.jpg",
             "cta_label": "Khám phá",
             "cta_link": "shopify://collections/classic",
             "rule_json": "",
@@ -98,11 +100,11 @@
         "heading_h1": false,
         "title": "Khảo sát nhanh dành cho bạn",
         "accent_color": "#fab320",
-        "bg_color": "#0e0e0e",
+        "bg_color": "#000000",
         "text_color": "#f2f2f2",
-        "card_bg": "#ffffff0f",
-        "radius": 12,
-        "shadow_strength": 16,
+        "card_bg": "#111111",
+        "radius": 0,
+        "shadow_strength": 15,
         "glass_effect": true
       }
     }
