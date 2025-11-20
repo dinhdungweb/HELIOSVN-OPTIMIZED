@@ -90,7 +90,7 @@
             "cta_label": "Khám Phá Bộ Sưu Tập",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
+            "reco_collection": "ca-chep",
             "reco_limit": 6,
             "reco_title": "Trang Sức Cho Người Kiên Trì"
           }
@@ -105,7 +105,7 @@
             "cta_label": "Xem Bộ Sưu Tập Đại Thụ",
             "cta_link": "",
             "rule_json": "{\"any\":[{\"all\":[{\"category\":\"ca_chep\",\"gte\":15},{\"category\":\"dai_thu\",\"gte\":10}]},{\"category\":\"dai_thu\",\"gte\":20}]}",
-            "reco_collection": "",
+            "reco_collection": "dại-thụ",
             "reco_limit": 6,
             "reco_title": "Trang Sức Cho Người Vững Chãi"
           }
@@ -120,7 +120,7 @@
             "cta_label": "Khám Phá Hoa Nhỏ",
             "cta_link": "",
             "rule_json": "{\"any\":[{\"all\":[{\"category\":\"ca_chep\",\"gte\":15},{\"category\":\"chuong_ho_menh\",\"gte\":8}]},{\"category\":\"hoa_nho\",\"gte\":20}]}",
-            "reco_collection": "",
+            "reco_collection": "hoa-nhỏ",
             "reco_limit": 6,
             "reco_title": "Trang Sức Cho Tâm Hồn Tinh Tế"
           }
@@ -135,7 +135,7 @@
             "cta_label": "Tìm Hiểu Chuông Hộ Mệnh",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
+            "reco_collection": "chuong",
             "reco_limit": 6,
             "reco_title": "Trang Sức Hộ Mệnh"
           }
@@ -150,7 +150,7 @@
             "cta_label": "Khám Phá Sức Mạnh Rồng",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
+            "reco_collection": "rong",
             "reco_limit": 6,
             "reco_title": "Trang Sức Cho Người Dũng Cảm"
           }
