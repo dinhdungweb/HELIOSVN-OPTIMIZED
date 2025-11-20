@@ -49,6 +49,7 @@
     var elProgress = $('.quiz-progress', section);
     var elCard = $('.quiz-card', section);
     var elResult = $('.quiz-result', section);
+    var elProgressBar = $('.quiz-progressbar__bar', section);
 
     function renderNoQuestions(){
       elCard.innerHTML = '<p>Chưa cấu hình câu hỏi cho quiz.</p>';
@@ -59,7 +60,14 @@
 
     function renderProgress(){
       if(!showProgress) return;
-      elProgress.textContent = 'Câu ' + Math.min(state.index+1, questions.length) + '/' + questions.length;
+      var current = Math.min(state.index+1, questions.length);
+      var total = questions.length;
+      var pct = total ? Math.round((current-1) / total * 100) : 0;
+      elProgress.textContent = 'Câu ' + current + '/' + total;
+      if(elProgressBar){
+        elProgressBar.style.width = pct + '%';
+        elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow', pct);
+      }
     }
 
     function save(){ if(persist){ localStorage.setItem(key, JSON.stringify(state)); } }
@@ -193,6 +201,7 @@
       }
       section.classList.add('show-result');
       elResult.hidden = false; elCard.setAttribute('data-state','result');
+      if(elProgressBar){ elProgressBar.style.width = '100%'; elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow','100'); }
       renderProgress();
     }
 

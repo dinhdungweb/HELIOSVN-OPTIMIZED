@@ -5,14 +5,35 @@
   endif
 -%}
 
-<div id="quiz-{{ section.id }}" class="quiz-section"
+<div id="quiz-{{ section.id }}" class="quiz-section{% if section.settings.glass_effect %} quiz--glass{% endif %}"
      data-method="{{ section.settings.method }}"
      data-show-progress="{{ section.settings.show_progress }}"
      data-persist="{{ section.settings.persist_answer }}"
      data-restart-enabled="{{ section.settings.restart_enabled }}">
 
+  <style>
+    #quiz-{{ section.id }}{
+      --quiz-accent: {{ section.settings.accent_color }};
+      --quiz-bg: {{ section.settings.bg_color }};
+      --quiz-text: {{ section.settings.text_color }};
+      --quiz-card-bg: {{ section.settings.card_bg }};
+      --quiz-radius: {{ section.settings.radius }}px;
+      --quiz-shadow: {{ section.settings.shadow_strength }};
+    }
+    #quiz-{{ section.id }}.quiz--glass .quiz-card,
+    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: blur(8px); }
+  </style>
+
   <div class="quiz-inner">
+    {% if section.settings.title != blank %}
+      <div class="quiz-header">
+        <{{ heading_tag }} class="quiz-title">{{ section.settings.title | escape }}</{{ heading_tag }}>
+      </div>
+    {% endif %}
     <div class="quiz-progress" aria-live="polite"></div>
+    <div class="quiz-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="quiz-progressbar__bar"></div>
+    </div>
 
     <div class="quiz-card" data-state="question">
       <!-- Question content inserted by quiz.js -->
@@ -77,6 +98,14 @@
     {"type": "checkbox", "id": "persist_answer", "label": "Lưu trạng thái (localStorage)", "default": false},
     {"type": "checkbox", "id": "restart_enabled", "label": "Cho phép làm lại", "default": true},
     {"type": "checkbox", "id": "heading_h1", "label": "Dùng H1 cho tiêu đề kết luận", "default": false}
+    ,{"type":"text","id":"title","label":"Tiêu đề (tuỳ chọn)","default":"Khảo sát nhanh dành cho bạn"}
+    ,{"type":"color","id":"accent_color","label":"Màu nhấn","default":"#fab320"}
+    ,{"type":"color","id":"bg_color","label":"Màu nền","default":"#0e0e0e"}
+    ,{"type":"color","id":"text_color","label":"Màu chữ","default":"#f2f2f2"}
+    ,{"type":"color","id":"card_bg","label":"Màu khối nội dung","default":"rgba(255,255,255,0.06)"}
+    ,{"type":"range","id":"radius","label":"Bo góc (px)","min":0,"max":24,"step":1,"default":12,"unit":"px"}
+    ,{"type":"range","id":"shadow_strength","label":"Độ đổ bóng","min":0,"max":24,"step":1,"default":16}
+    ,{"type":"checkbox","id":"glass_effect","label":"Hiệu ứng mờ (glass)","default":true}
   ],
   "blocks": [
     {
