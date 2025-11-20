@@ -48,13 +48,37 @@
             "cta_link": "",
             "rule_json": ""
           }
+        },
+        "result_JiAtpB": {
+          "type": "result",
+          "settings": {
+            "category_key": "bold",
+            "result_title": "Phong cách tối giản",
+            "result_desc": "<p>Bạn hợp với các thiết kế clean, form gọn và ít chi tiết. Gợi ý các mẫu bạc trơn, size vừa, dễ kết hợp mỗi ngày.</p>",
+            "cta_label": "Khám phá",
+            "cta_link": "",
+            "rule_json": ""
+          }
+        },
+        "result_am6FMg": {
+          "type": "result",
+          "settings": {
+            "category_key": "classic",
+            "result_title": "Phong cách tối giản",
+            "result_desc": "<p>Bạn hợp với các thiết kế clean, form gọn và ít chi tiết. Gợi ý các mẫu bạc trơn, size vừa, dễ kết hợp mỗi ngày.</p>",
+            "cta_label": "Khám phá",
+            "cta_link": "",
+            "rule_json": ""
+          }
         }
       },
       "block_order": [
         "question_nrMqDx",
         "question_94Rh6P",
         "question_DX3YeE",
-        "result_9a4zUg"
+        "result_9a4zUg",
+        "result_JiAtpB",
+        "result_am6FMg"
       ],
       "name": "Quiz",
       "settings": {
