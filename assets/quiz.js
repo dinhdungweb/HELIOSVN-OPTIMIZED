@@ -91,10 +91,17 @@
     function renderQuestion(){
       var q = questions[state.index];
       if(!q){ return showResult(); }
+      
+      // Add loading state
+      elCard.setAttribute('data-state', 'loading');
+      
       renderProgress();
       elCard.innerHTML = '';
       var wrap = document.createElement('div');
       wrap.className = 'quiz-question';
+      
+      // Remove loading state after render
+      setTimeout(function(){ elCard.setAttribute('data-state', 'question'); }, 50);
 
       // Media (left)
       if(q.image){
@@ -123,14 +130,23 @@
         btn.textContent = opt.label || ('Lựa chọn ' + (i+1));
         btn.setAttribute('data-index', i);
         btn.setAttribute('aria-label', opt.label || ('Lựa chọn ' + (i+1)));
-        btn.addEventListener('click', function(){ selectOption(i, opt); });
+        
+        // Add click handler with animation
+        btn.addEventListener('click', function(){ 
+          // Visual feedback
+          btn.classList.add('quiz-option--selected');
+          setTimeout(function(){ selectOption(i, opt); }, 200);
+        });
+        
         // Keyboard support
         btn.addEventListener('keydown', function(e){
           if(e.key === 'Enter' || e.key === ' '){
             e.preventDefault();
-            selectOption(i, opt);
+            btn.classList.add('quiz-option--selected');
+            setTimeout(function(){ selectOption(i, opt); }, 200);
           }
         });
+        
         list.appendChild(btn);
       });
       content.appendChild(list);
@@ -140,8 +156,12 @@
       if(state.index > 0){
         var back = document.createElement('button');
         back.className = 'quiz-btn-secondary';
-        back.textContent = 'Quay lại';
-        back.addEventListener('click', function(){ state.index--; renderQuestion(); });
+        back.innerHTML = '← Quay lại';
+        back.setAttribute('aria-label', 'Quay lại câu hỏi trước');
+        back.addEventListener('click', function(){ 
+          state.index--; 
+          renderQuestion(); 
+        });
         controls.appendChild(back);
       }
       content.appendChild(controls);
@@ -249,7 +269,12 @@
         var a = document.createElement('a'); a.className='quiz-btn-primary'; a.href=r.cta.link; a.textContent=r.cta.label; ctaWrap.appendChild(a);
       }
       if(restartEnabled){
-        var restart = document.createElement('button'); restart.className='quiz-btn-secondary'; restart.textContent='Làm lại'; restart.addEventListener('click', function(){ restartQuiz(); }); ctaWrap.appendChild(restart);
+        var restart = document.createElement('button'); 
+        restart.className='quiz-btn-secondary'; 
+        restart.innerHTML='↻ Làm lại';
+        restart.setAttribute('aria-label', 'Làm lại quiz từ đầu');
+        restart.addEventListener('click', function(){ restartQuiz(); }); 
+        ctaWrap.appendChild(restart);
       }
 
       // Toggle recommendations sets
