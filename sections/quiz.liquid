@@ -46,26 +46,27 @@
         <div class="quiz-result__desc rte"></div>
         <div class="quiz-result__cta"></div>
       </div>
-      {%- assign results_for_products = section.blocks | where: 'type', 'result' -%}
-      <div class="quiz-recommendations" aria-live="polite">
-        {%- for block in results_for_products -%}
-          {%- assign reco_collection = collections[block.settings.reco_collection] -%}
-          <div class="quiz-reco-set" id="quiz-reco-{{ block.id }}" hidden>
-            {%- if block.settings.reco_title != blank -%}
-              <h3 class="quiz-reco-title">{{ block.settings.reco_title | escape }}</h3>
-            {%- endif -%}
-            {%- if reco_collection -%}
-              <div class="quiz-reco-grid product-list">
-                {%- for product in reco_collection.products limit: block.settings.reco_limit -%}
-                  {% render 'product-block', product: product, show_title: true, show_price: true, show_review: true, show_add_to_cart: true %}
-                {%- endfor -%}
-              </div>
-            {%- else -%}
-              <p class="feature-subheader">Chưa gán collection đề xuất cho kết luận này.</p>
-            {%- endif -%}
-          </div>
-        {%- endfor -%}
-      </div>
+    </div>
+
+    {%- assign results_for_products = section.blocks | where: 'type', 'result' -%}
+    <div class="quiz-recommendations" aria-live="polite">
+      {%- for block in results_for_products -%}
+        {%- assign reco_collection = collections[block.settings.reco_collection] -%}
+        <div class="quiz-reco-set" id="quiz-reco-{{ block.id }}" hidden>
+          {%- if block.settings.reco_title != blank -%}
+            <h3 class="quiz-reco-title">{{ block.settings.reco_title | escape }}</h3>
+          {%- endif -%}
+          {%- if reco_collection -%}
+            <div class="quiz-reco-grid product-list">
+              {%- for product in reco_collection.products limit: block.settings.reco_limit -%}
+                {% render 'product-block', product: product, show_title: true, show_price: true, show_review: true, show_add_to_cart: true %}
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <p class="feature-subheader">Chưa gán collection đề xuất cho kết luận này.</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
     </div>
   </div>
 

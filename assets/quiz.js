@@ -229,6 +229,9 @@
       if(rd) rd.innerHTML = '';
       if(rc) rc.innerHTML = '';
       if(rm) rm.innerHTML = '';
+      // Hide any visible recommendation sets
+      var sets = section.querySelectorAll('.quiz-reco-set');
+      sets.forEach(function(s){ s.hidden = true; });
       if(elProgressBar){ elProgressBar.style.width = '0%'; elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow','0'); }
       renderQuestion();
       // Bring quiz into view for a clean restart
