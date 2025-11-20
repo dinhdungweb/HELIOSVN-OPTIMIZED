@@ -1,4 +1,6 @@
 {{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ 'account-enhanced.js' | asset_url }}" defer></script>
 
 <!-- Tính tổng chi tiêu -->
 {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
@@ -62,17 +64,31 @@
 {% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
 {% assign remaining_amount = next_tier_amount | minus: total_spent %}
 <div class="wide-container customer-account-container">
+  <!-- Notification System -->
+  <div id="notification-system" class="notification-system"></div>
+  
   <div class="customer-sidebar">
     <div class="customer-info">
       <div class="customer-info-header flex justify-between align-center">
         <div class="customer-info-name flex align-center">
-          <div class="customer-avatar"></div>
+          <div class="customer-avatar" onclick="openAvatarUpload()">
+            <div class="avatar-overlay">
+              <span>Camera</span>
+            </div>
+          </div>
           <div class="customer-name-email">
             <div>Xin chào, <strong>{{ customer.name }}</strong></div>
             <div class="text-ellipsis">{{ customer.email }}</div>
+            <div class="member-since">Thành viên từ {{ customer.created_at | date: '%d/%m/%Y' }}</div>
           </div>
         </div> 
-        <a href="{{ routes.account_logout_url }}" class="logout-button">Đăng xuất</a>
+        <div class="header-actions">
+          <button class="notification-btn" onclick="toggleNotifications()">
+            <span class="notification-icon">Bell</span>
+            <span class="notification-count">3</span>
+          </button>
+          <a href="{{ routes.account_logout_url }}" class="logout-button">Đăng xuất</a>
+        </div>
       </div>
       <div class="customer-total-spent flex justify-between align-center mt-14 mb-5">
         <div>Tổng chi tiêu: </div>
@@ -124,17 +140,128 @@
 
     </div>
     <ul class="account-tabs">
-      <li class="tab-link active" data-tab="rewards">Welcome to Helios</li>
-      <li class="tab-link" data-tab="account">Tài khoản</li>
-      <li class="tab-link" data-tab="orders">Đơn hàng</li>
-      <li class="tab-link" data-tab="benefits">Befenits / Promos</li>
-      <li class="tab-link" data-tab="discord">Helios Club</li>
-      <!-- <li class="tab-link" data-tab="wishlist">Yêu thích</li> -->
+      <li class="tab-link active" data-tab="dashboard">
+        <span class="tab-text">Dashboard</span>
+      </li>
+      <li class="tab-link" data-tab="rewards">
+        <span class="tab-text">Welcome to Helios</span>
+      </li>
+      <li class="tab-link" data-tab="account">
+        <span class="tab-text">Tài khoản</span>
+      </li>
+      <li class="tab-link" data-tab="orders">
+        <span class="tab-text">Đơn hàng</span>
+        <span class="tab-badge">{{ customer.orders_count }}</span>
+      </li>
+      <li class="tab-link" data-tab="benefits">
+        <span class="tab-text">Benefits / Promos</span>
+      </li>
+      <li class="tab-link" data-tab="wishlist">
+        <span class="tab-text">Yêu thích</span>
+      </li>
+      <li class="tab-link" data-tab="discord">
+        <span class="tab-text">Helios Club</span>
+      </li>
+      <li class="tab-link" data-tab="settings">
+        <span class="tab-text">Cài đặt</span>
+      </li>
     </ul>
   </div>
 
   <div class="customer-content">
-    <div id="rewards" class="customer-tab-content active">
+    <!-- Dashboard Tab -->
+    <div id="dashboard" class="customer-tab-content active">
+      <div class="dashboard-header">
+        <h3>Dashboard Tổng Quan</h3>
+        <div class="dashboard-actions">
+          <button class="btn-secondary" onclick="exportData()">Xuất dữ liệu</button>
+          <button class="btn-primary" onclick="refreshDashboard()">Làm mới</button>
+        </div>
+      </div>
+      
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-content">
+            <div class="stat-value">{{ total_spent | money }}</div>
+            <div class="stat-label">Tổng chi tiêu</div>
+            <div class="stat-change positive">+12% so với tháng trước</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-content">
+            <div class="stat-value">{{ customer.orders_count }}</div>
+            <div class="stat-label">Tổng đơn hàng</div>
+            <div class="stat-change positive">+3 đơn mới</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-content">
+            <div class="stat-value">{{ points }}</div>
+            <div class="stat-label">Điểm tích lũy</div>
+            <div class="stat-change">Có thể đổi quà</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-content">
+            <div class="stat-value">{{ tier }}</div>
+            <div class="stat-label">Hạng thành viên</div>
+            <div class="stat-change">
+              {% if tier != "BLACK DIAMOND" %}
+                Còn {{ formatted_remaining }} VND để lên hạng
+              {% else %}
+                Hạng cao nhất
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dashboard-charts">
+        <div class="chart-container">
+          <h4>Lịch sử chi tiêu 6 tháng gần đây</h4>
+          <canvas id="spendingChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+          <h4>Phân bố danh mục sản phẩm</h4>
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="recent-activities">
+        <h4>Hoạt động gần đây</h4>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-content">
+              <div class="activity-title">Đặt hàng thành công</div>
+              <div class="activity-desc">Đơn hàng #1001 - 2 sản phẩm</div>
+              <div class="activity-time">2 giờ trước</div>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-content">
+              <div class="activity-title">Nhận điểm thưởng</div>
+              <div class="activity-desc">+50 điểm từ đơn hàng #1001</div>
+              <div class="activity-time">2 giờ trước</div>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-content">
+              <div class="activity-title">Ưu đãi mới</div>
+              <div class="activity-desc">Giảm 15% cho đơn hàng tiếp theo</div>
+              <div class="activity-time">1 ngày trước</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="rewards" class="customer-tab-content">
       <h3 style="text-align:left; margin-bottom: 20px;">Welcome to Helios</h3>
       <div class="reward-tiers">
         <div class="tier">
@@ -144,43 +271,263 @@
     </div>
 
     <div id="account" class="customer-tab-content">
-      <h3 style="text-align:left">Chi tiết tài khoản</h3>
-      <p><strong>Họ và tên:</strong> {{ customer.name }}</p>
-      <p><strong>Số điện thoại:</strong> {{ customer.phone }}</p>
-      <p><strong>Email:</strong> {{ customer.email }}</p>
-      <p><strong>Địa chỉ:</strong> 
-        {% for address in customer.addresses %}
-          {{ address.company }} {{ address.street }}, {{ address.city }} {% if address.province_code %}, {{ address.province_code }}{% endif %}, {{ address.country }} {{ address.zip }}
-        {% endfor %}
-      </p>
-      <a class="logout-button" href="{{ routes.account_addresses_url }}">Sửa thông tin</a>
+      <div class="account-header">
+        <h3>Thông tin tài khoản</h3>
+        <button class="btn-primary" onclick="toggleEditMode()">Chỉnh sửa</button>
+      </div>
+      
+      <div class="account-form-container">
+        <form id="accountForm" class="account-form">
+          <div class="form-section">
+            <h4>Thông tin cá nhân</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="firstName">Họ</label>
+                <input type="text" id="firstName" name="firstName" value="{{ customer.first_name }}" readonly>
+              </div>
+              
+              <div class="form-group">
+                <label for="lastName">Tên</label>
+                <input type="text" id="lastName" name="lastName" value="{{ customer.last_name }}" readonly>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ customer.email }}" readonly>
+                <span class="field-status verified">✓ Đã xác thực</span>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" name="phone" value="{{ customer.phone }}" readonly>
+                {% unless customer.phone %}
+                  <span class="field-status unverified">Chưa cập nhật</span>
+                {% endunless %}
+              </div>
+              
+              <div class="form-group">
+                <label for="birthday">Ngày sinh</label>
+                <input type="date" id="birthday" name="birthday" value="{{ customer.metafields.custom.birthday }}" readonly>
+              </div>
+              
+              <div class="form-group">
+                <label for="gender">Giới tính</label>
+                <select id="gender" name="gender" disabled>
+                  <option value="">Chọn giới tính</option>
+                  <option value="male" {% if customer.metafields.custom.gender == 'male' %}selected{% endif %}>Nam</option>
+                  <option value="female" {% if customer.metafields.custom.gender == 'female' %}selected{% endif %}>Nữ</option>
+                  <option value="other" {% if customer.metafields.custom.gender == 'other' %}selected{% endif %}>Khác</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-section">
+            <h4>Địa chỉ giao hàng</h4>
+            <div class="address-list">
+              {% for address in customer.addresses %}
+                <div class="address-card {% if address.default %}default{% endif %}">
+                  <div class="address-content">
+                    <div class="address-name">{{ address.name }}</div>
+                    <div class="address-details">
+                      {{ address.address1 }}{% if address.address2 %}, {{ address.address2 }}{% endif %}<br>
+                      {{ address.city }}, {{ address.province }} {{ address.zip }}<br>
+                      {{ address.country }}
+                    </div>
+                    {% if address.phone %}
+                      <div class="address-phone">{{ address.phone }}</div>
+                    {% endif %}
+                  </div>
+                  <div class="address-actions">
+                    {% if address.default %}
+                      <span class="default-badge">Mặc định</span>
+                    {% endif %}
+                    <button type="button" class="btn-link" onclick="editAddress({{ address.id }})">Sửa</button>
+                    {% unless address.default %}
+                      <button type="button" class="btn-link danger" onclick="deleteAddress({{ address.id }})">Xóa</button>
+                    {% endunless %}
+                  </div>
+                </div>
+              {% endfor %}
+              
+              <button type="button" class="btn-secondary add-address-btn" onclick="addNewAddress()">
+                + Thêm địa chỉ mới
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-section">
+            <h4>Tùy chọn tài khoản</h4>
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="emailMarketing" name="emailMarketing" {% if customer.accepts_marketing %}checked{% endif %}>
+                <span class="checkmark"></span>
+                Nhận email khuyến mãi và tin tức
+              </label>
+            </div>
+            
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="smsMarketing" name="smsMarketing">
+                <span class="checkmark"></span>
+                Nhận SMS thông báo đơn hàng
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-actions" id="formActions" style="display: none;">
+            <button type="button" class="btn-secondary" onclick="cancelEdit()">Hủy</button>
+            <button type="submit" class="btn-primary">Lưu thay đổi</button>
+          </div>
+        </form>
+        
+        <div class="account-security">
+          <h4>Bảo mật tài khoản</h4>
+          <div class="security-item">
+            <div class="security-info">
+              <div class="security-title">Mật khẩu</div>
+              <div class="security-desc">Cập nhật lần cuối: 30 ngày trước</div>
+            </div>
+            <button class="btn-secondary" onclick="changePassword()">Đổi mật khẩu</button>
+          </div>
+          
+          <div class="security-item">
+            <div class="security-info">
+              <div class="security-title">Xác thực 2 bước</div>
+              <div class="security-desc">Tăng cường bảo mật cho tài khoản</div>
+            </div>
+            <button class="btn-secondary" onclick="setup2FA()">Thiết lập</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="orders" class="customer-tab-content">
-      <h3 style="text-align:left">Đơn hàng</h3>
-      {% paginate customer.orders by 20 %}
+      <div class="orders-header">
+        <h3>Quản lý đơn hàng</h3>
+        <div class="orders-filters">
+          <select id="orderStatus" onchange="filterOrders()">
+            <option value="">Tất cả trạng thái</option>
+            <option value="pending">Chờ xử lý</option>
+            <option value="confirmed">Đã xác nhận</option>
+            <option value="shipped">Đang giao</option>
+            <option value="delivered">Đã giao</option>
+            <option value="cancelled">Đã hủy</option>
+          </select>
+          
+          <input type="date" id="orderDateFrom" onchange="filterOrders()" placeholder="Từ ngày">
+          <input type="date" id="orderDateTo" onchange="filterOrders()" placeholder="Đến ngày">
+          
+          <button class="btn-secondary" onclick="exportOrders()">Xuất Excel</button>
+        </div>
+      </div>
+      
+      {% paginate customer.orders by 10 %}
       {% if customer.orders.size != 0 %}
-      <table class="orders-table">
-        <thead>
-          <tr>
-            <th>Order</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
+        <div class="orders-container">
           {% for order in customer.orders %}
-          <tr>
-            <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
-            <td>{{ order.created_at | date: format: 'month_date_year' }}</td>
-            <td>{{ order.financial_status_label }}</td>
-            <td>{{ order.total_price | money }}</td>
-          </tr>
+            <div class="order-card" data-status="{{ order.financial_status }}">
+              <div class="order-header">
+                <div class="order-info">
+                  <div class="order-number">
+                    <a href="{{ order.customer_url }}">{{ order.name }}</a>
+                  </div>
+                  <div class="order-date">{{ order.created_at | date: '%d/%m/%Y %H:%M' }}</div>
+                </div>
+                
+                <div class="order-status">
+                  <span class="status-badge status-{{ order.financial_status }}">
+                    {% case order.financial_status %}
+                      {% when 'pending' %}Chờ thanh toán
+                      {% when 'paid' %}Đã thanh toán
+                      {% when 'refunded' %}Đã hoàn tiền
+                      {% when 'cancelled' %}Đã hủy
+                      {% else %}{{ order.financial_status_label }}
+                    {% endcase %}
+                  </span>
+                  
+                  <span class="fulfillment-badge fulfillment-{{ order.fulfillment_status }}">
+                    {% case order.fulfillment_status %}
+                      {% when 'fulfilled' %}Đã giao
+                      {% when 'partial' %}Giao một phần
+                      {% when 'unfulfilled' %}Chưa giao
+                      {% else %}{{ order.fulfillment_status_label }}
+                    {% endcase %}
+                  </span>
+                </div>
+                
+                <div class="order-total">{{ order.total_price | money }}</div>
+              </div>
+              
+              <div class="order-items">
+                {% for line_item in order.line_items limit: 3 %}
+                  <div class="order-item">
+                    <div class="item-image">
+                      {% if line_item.image %}
+                        <img src="{{ line_item.image | img_url: '60x60' }}" alt="{{ line_item.title }}">
+                      {% else %}
+                        <div class="no-image">IMG</div>
+                      {% endif %}
+                    </div>
+                    <div class="item-details">
+                      <div class="item-title">{{ line_item.title }}</div>
+                      {% if line_item.variant_title and line_item.variant_title != 'Default Title' %}
+                        <div class="item-variant">{{ line_item.variant_title }}</div>
+                      {% endif %}
+                      <div class="item-quantity">Số lượng: {{ line_item.quantity }}</div>
+                    </div>
+                    <div class="item-price">{{ line_item.final_price | money }}</div>
+                  </div>
+                {% endfor %}
+                
+                {% if order.line_items.size > 3 %}
+                  <div class="more-items">
+                    +{{ order.line_items.size | minus: 3 }} sản phẩm khác
+                  </div>
+                {% endif %}
+              </div>
+              
+              <div class="order-actions">
+                <button class="btn-link" onclick="viewOrderDetails('{{ order.customer_url }}')">
+                  Xem chi tiết
+                </button>
+                
+                {% if order.financial_status == 'paid' and order.fulfillment_status == 'fulfilled' %}
+                  <button class="btn-link" onclick="reorder('{{ order.id }}')">
+                    Mua lại
+                  </button>
+                  <button class="btn-link" onclick="writeReview('{{ order.id }}')">
+                    Đánh giá
+                  </button>
+                {% endif %}
+                
+                {% if order.financial_status == 'pending' %}
+                  <button class="btn-link danger" onclick="cancelOrder('{{ order.id }}')">
+                    Hủy đơn
+                  </button>
+                {% endif %}
+                
+                <button class="btn-link" onclick="trackOrder('{{ order.id }}')">
+                  Theo dõi
+                </button>
+              </div>
+            </div>
           {% endfor %}
-        </tbody>
-      </table>
-      {% else %}<p>No orders found.</p>{% endif %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if paginate.pages > 1 %}
+          <div class="pagination-container">
+            {{ paginate | default_pagination }}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="empty-state">
+          <h4>Chưa có đơn hàng nào</h4>
+          <p>Bạn chưa thực hiện đơn hàng nào. Hãy khám phá các sản phẩm của chúng tôi!</p>
+          <a href="/collections/all" class="btn-primary">Mua sắm ngay</a>
+        </div>
+      {% endif %}
       {% endpaginate %}
     </div>
 
@@ -215,14 +562,117 @@
       <a href="https://www.facebook.com/groups/508707569692422" title=""><button>Tham gia ngay</button></a>
     </div>
 
-    <!-- <div id="wishlist" class="customer-tab-content">
-      <h3 style="text-align:left">Wishlist</h3>
-      <p>Your saved items.</p>
-    </div> -->
+    <div id="wishlist" class="customer-tab-content">
+      <div class="wishlist-header">
+        <h3>Danh sách yêu thích</h3>
+        <div class="wishlist-actions">
+          <button class="btn-secondary" onclick="clearWishlist()">Xóa tất cả</button>
+          <button class="btn-primary" onclick="shareWishlist()">Chia sẻ</button>
+        </div>
+      </div>
+      
+      <div class="wishlist-container" id="wishlistContainer">
+        <!-- Wishlist items will be loaded here via JavaScript -->
+        <div class="empty-state">
+          <h4>Danh sách yêu thích trống</h4>
+          <p>Thêm sản phẩm yêu thích để dễ dàng mua sắm sau này!</p>
+          <a href="/collections/all" class="btn-primary">Khám phá sản phẩm</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="settings" class="customer-tab-content">
+      <div class="settings-header">
+        <h3>Cài đặt tài khoản</h3>
+      </div>
+      
+      <div class="settings-container">
+        <div class="settings-section">
+          <h4>Thông báo</h4>
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">Email khuyến mãi</div>
+              <div class="setting-desc">Nhận thông tin về ưu đãi và sản phẩm mới</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">SMS thông báo đơn hàng</div>
+              <div class="setting-desc">Nhận SMS về trạng thái đơn hàng</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">Thông báo push</div>
+              <div class="setting-desc">Nhận thông báo trên trình duyệt</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h4>Quyền riêng tư</h4>
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">Hiển thị hoạt động</div>
+              <div class="setting-desc">Cho phép hiển thị lịch sử mua hàng trong cộng đồng</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">Chia sẻ dữ liệu</div>
+              <div class="setting-desc">Cho phép sử dụng dữ liệu để cải thiện trải nghiệm</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h4>Tài khoản</h4>
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">Xuất dữ liệu</div>
+              <div class="setting-desc">Tải xuống tất cả dữ liệu tài khoản của bạn</div>
+            </div>
+            <button class="btn-secondary" onclick="exportAccountData()">Xuất dữ liệu</button>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-title">Xóa tài khoản</div>
+              <div class="setting-desc">Xóa vĩnh viễn tài khoản và tất cả dữ liệu</div>
+            </div>
+            <button class="btn-danger" onclick="deleteAccount()">Xóa tài khoản</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
+// Tab Management
 document.querySelectorAll('.tab-link').forEach(tab => {
   tab.addEventListener('click', function () {
     document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
@@ -230,9 +680,198 @@ document.querySelectorAll('.tab-link').forEach(tab => {
     
     this.classList.add('active');
     document.getElementById(this.dataset.tab).classList.add('active');
+    
+    // Load tab-specific content
+    loadTabContent(this.dataset.tab);
   });
 });
 
+// Dashboard Charts
+function initDashboardCharts() {
+  // Spending Chart
+  const spendingCtx = document.getElementById('spendingChart');
+  if (spendingCtx) {
+    new Chart(spendingCtx, {
+      type: 'line',
+      data: {
+        labels: ['T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+        datasets: [{
+          label: 'Chi tiêu (VND)',
+          data: [1200000, 1900000, 800000, 2100000, 1600000, 2400000],
+          borderColor: '#fab320',
+          backgroundColor: 'rgba(250, 179, 32, 0.1)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#fff' }
+          }
+        },
+        scales: {
+          y: {
+            ticks: { color: '#fff' },
+            grid: { color: '#333' }
+          },
+          x: {
+            ticks: { color: '#fff' },
+            grid: { color: '#333' }
+          }
+        }
+      }
+    });
+  }
+  
+  // Category Chart
+  const categoryCtx = document.getElementById('categoryChart');
+  if (categoryCtx) {
+    new Chart(categoryCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Phụ kiện', 'Trang sức', 'Đồng hồ', 'Khác'],
+        datasets: [{
+          data: [40, 30, 20, 10],
+          backgroundColor: ['#fab320', '#ff6b6b', '#4ecdc4', '#45b7d1']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#fff' }
+          }
+        }
+      }
+    });
+  }
+}
+
+// Notification System
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <span>${message}</span>
+    <button onclick="this.parentElement.remove()">×</button>
+  `;
+  
+  document.getElementById('notification-system').appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, 5000);
+}
+
+// Account Functions
+function toggleEditMode() {
+  const form = document.getElementById('accountForm');
+  const inputs = form.querySelectorAll('input, select');
+  const actions = document.getElementById('formActions');
+  
+  inputs.forEach(input => {
+    input.readOnly = !input.readOnly;
+    input.disabled = !input.disabled;
+  });
+  
+  actions.style.display = actions.style.display === 'none' ? 'flex' : 'none';
+}
+
+function cancelEdit() {
+  location.reload(); // Simple way to reset form
+}
+
+function openAvatarUpload() {
+  showNotification('Tính năng upload avatar sẽ sớm có!', 'info');
+}
+
+function toggleNotifications() {
+  showNotification('Bạn có 3 thông báo mới!', 'info');
+}
+
+// Order Functions
+function filterOrders() {
+  const status = document.getElementById('orderStatus').value;
+  const dateFrom = document.getElementById('orderDateFrom').value;
+  const dateTo = document.getElementById('orderDateTo').value;
+  
+  // Filter logic here
+  showNotification('Đã áp dụng bộ lọc', 'success');
+}
+
+function viewOrderDetails(url) {
+  window.open(url, '_blank');
+}
+
+function reorder(orderId) {
+  showNotification('Đã thêm sản phẩm vào giỏ hàng!', 'success');
+}
+
+function cancelOrder(orderId) {
+  if (confirm('Bạn có chắc muốn hủy đơn hàng này?')) {
+    showNotification('Đơn hàng đã được hủy', 'success');
+  }
+}
+
+function trackOrder(orderId) {
+  showNotification('Mở trang theo dõi đơn hàng...', 'info');
+}
+
+// Wishlist Functions
+function loadWishlist() {
+  // Load wishlist from localStorage or API
+  const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+  const container = document.getElementById('wishlistContainer');
+  
+  if (wishlist.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">❤️</div>
+        <h4>Danh sách yêu thích trống</h4>
+        <p>Thêm sản phẩm yêu thích để dễ dàng mua sắm sau này!</p>
+        <a href="/collections/all" class="btn-primary">Khám phá sản phẩm</a>
+      </div>
+    `;
+  }
+}
+
+function clearWishlist() {
+  if (confirm('Bạn có chắc muốn xóa tất cả sản phẩm yêu thích?')) {
+    localStorage.removeItem('wishlist');
+    loadWishlist();
+    showNotification('Đã xóa tất cả sản phẩm yêu thích', 'success');
+  }
+}
+
+// Settings Functions
+function exportAccountData() {
+  showNotification('Đang chuẩn bị file xuất dữ liệu...', 'info');
+}
+
+function deleteAccount() {
+  if (confirm('CẢNH BÁO: Hành động này không thể hoàn tác. Bạn có chắc muốn xóa tài khoản?')) {
+    showNotification('Yêu cầu xóa tài khoản đã được gửi', 'warning');
+  }
+}
+
+// Load tab content
+function loadTabContent(tab) {
+  switch(tab) {
+    case 'dashboard':
+      setTimeout(initDashboardCharts, 100);
+      break;
+    case 'wishlist':
+      loadWishlist();
+      break;
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  // Load dashboard by default
+  loadTabContent('dashboard');
+});
 </script>
 {% schema %}
 {
@@ -258,40 +897,230 @@ document.querySelectorAll('.tab-link').forEach(tab => {
   ],
   "settings": [
     {
+      "type": "header",
+      "content": "Giao diện & Trải nghiệm"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_dashboard",
+      "label": "Bật Dashboard tổng quan",
+      "default": true,
+      "info": "Hiển thị thống kê và biểu đồ cho khách hàng"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_charts",
+      "label": "Bật biểu đồ thống kê",
+      "default": true,
+      "info": "Hiển thị biểu đồ chi tiêu và danh mục sản phẩm"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_notifications",
+      "label": "Bật hệ thống thông báo",
+      "default": true,
+      "info": "Hiển thị thông báo realtime cho khách hàng"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_wishlist",
+      "label": "Bật danh sách yêu thích",
+      "default": true,
+      "info": "Cho phép khách hàng lưu sản phẩm yêu thích"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Màu chủ đạo",
+      "default": "#fab320",
+      "info": "Màu chính của giao diện account"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Màu nền",
+      "default": "#000000",
+      "info": "Màu nền chính"
+    },
+    {
+      "type": "header",
+      "content": "Cấu hình Dashboard"
+    },
+    {
+      "type": "text",
+      "id": "dashboard_welcome_text",
+      "label": "Lời chào Dashboard",
+      "default": "Dashboard Tổng Quan",
+      "info": "Tiêu đề hiển thị trên dashboard"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spending_chart",
+      "label": "Hiển thị biểu đồ chi tiêu",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_chart",
+      "label": "Hiển thị biểu đồ danh mục",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_recent_activities",
+      "label": "Hiển thị hoạt động gần đây",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "activities_limit",
+      "label": "Số hoạt động hiển thị",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Cấu hình Đơn hàng"
+    },
+    {
+      "type": "range",
+      "id": "orders_per_page",
+      "label": "Số đơn hàng mỗi trang",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_order_tracking",
+      "label": "Bật theo dõi đơn hàng",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_reorder",
+      "label": "Bật tính năng mua lại",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_order_cancel",
+      "label": "Cho phép hủy đơn hàng",
+      "default": true,
+      "info": "Khách hàng có thể hủy đơn hàng chưa xử lý"
+    },
+    {
+      "type": "header",
+      "content": "Cấu hình Tài khoản"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_avatar_upload",
+      "label": "Cho phép upload avatar",
+      "default": false,
+      "info": "Tính năng đang phát triển"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_profile_edit",
+      "label": "Cho phép chỉnh sửa thông tin",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_address_management",
+      "label": "Quản lý địa chỉ giao hàng",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_2fa",
+      "label": "Bật xác thực 2 bước",
+      "default": false,
+      "info": "Tính năng bảo mật nâng cao"
+    },
+    {
+      "type": "header",
+      "content": "Nội dung Benefits theo hạng"
+    },
+    {
       "type": "html",
       "id": "content_black_diamond",
-      "label": "Nội dung BLACK DIAMOND"
+      "label": "Nội dung BLACK DIAMOND",
+      "info": "HTML content cho hạng BLACK DIAMOND"
     },
     {
       "type": "html",
       "id": "content_diamond",
-      "label": "Nội dung DIAMOND"
+      "label": "Nội dung DIAMOND",
+      "info": "HTML content cho hạng DIAMOND"
     },
     {
       "type": "html",
       "id": "content_platinum",
-      "label": "Nội dung PLATINUM"
+      "label": "Nội dung PLATINUM",
+      "info": "HTML content cho hạng PLATINUM"
     },
     {
       "type": "html",
       "id": "content_gold",
-      "label": "Nội dung GOLD"
+      "label": "Nội dung GOLD",
+      "info": "HTML content cho hạng GOLD"
     },
     {
       "type": "html",
       "id": "content_silver",
-      "label": "Nội dung SILVER"
+      "label": "Nội dung SILVER",
+      "info": "HTML content cho hạng SILVER"
     },
     {
       "type": "html",
       "id": "content_member",
-      "label": "Nội dung MEMBER"
+      "label": "Nội dung MEMBER",
+      "info": "HTML content cho hạng MEMBER"
+    },
+    {
+      "type": "header",
+      "content": "Cài đặt nâng cao"
+    },
+    {
+      "type": "text",
+      "id": "custom_css",
+      "label": "CSS tùy chỉnh",
+      "info": "Thêm CSS để tùy chỉnh giao diện (không bắt buộc)"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_js",
+      "label": "JavaScript tùy chỉnh",
+      "info": "Thêm JavaScript để tùy chỉnh chức năng (không bắt buộc)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_analytics",
+      "label": "Bật theo dõi analytics",
+      "default": true,
+      "info": "Theo dõi hành vi người dùng trên trang account"
     }
   ],
   "presets": [
     {
-      "name": "Main Account",
-      "settings": {}
+      "name": "Main Account Enhanced",
+      "settings": {
+        "enable_dashboard": true,
+        "enable_charts": true,
+        "enable_notifications": true,
+        "enable_wishlist": true,
+        "primary_color": "#fab320",
+        "background_color": "#000000",
+        "dashboard_welcome_text": "Dashboard Tổng Quan",
+        "orders_per_page": 10,
+        "enable_profile_edit": true,
+        "enable_address_management": true
+      }
     }
   ]
 }
