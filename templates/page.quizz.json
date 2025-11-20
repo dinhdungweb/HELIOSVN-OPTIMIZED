@@ -117,7 +117,7 @@
             "cta_label": "Xem Xu Hướng Mới",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
+            "reco_collection": "all-products",
             "reco_limit": 4,
             "reco_title": "Trang Sức Trendy Cho Bạn"
           }
