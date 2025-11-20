@@ -72,8 +72,8 @@
             "cta_label": "Khám Phá Ngay",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
-            "reco_limit": 6,
+            "reco_collection": "all-products",
+            "reco_limit": 4,
             "reco_title": "Trang Sức Phù Hợp Với Bạn"
           }
         },
@@ -87,8 +87,8 @@
             "cta_label": "Xem Bộ Sưu Tập",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
-            "reco_limit": 6,
+            "reco_collection": "all-products",
+            "reco_limit": 4,
             "reco_title": "Trang Sức Tối Giản Cho Bạn"
           }
         },
@@ -102,8 +102,8 @@
             "cta_label": "Khám Phá Bộ Sưu Tập",
             "cta_link": "",
             "rule_json": "",
-            "reco_collection": "",
-            "reco_limit": 6,
+            "reco_collection": "all-products",
+            "reco_limit": 4,
             "reco_title": "Trang Sức Cổ Điển Dành Cho Bạn"
           }
         },
@@ -118,7 +118,7 @@
             "cta_link": "",
             "rule_json": "",
             "reco_collection": "",
-            "reco_limit": 6,
+            "reco_limit": 4,
             "reco_title": "Trang Sức Trendy Cho Bạn"
           }
         }
