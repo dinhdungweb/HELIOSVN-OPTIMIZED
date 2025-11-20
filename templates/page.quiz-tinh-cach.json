@@ -21,7 +21,7 @@
           "type": "question",
           "settings": {
             "question_text": "Việc đầu tiên bạn làm khi sửa soạn vào buổi sáng là gì?",
-            "options_json": "[{\"label\":\"Mặc quần\",\"weights\":{\"ca_chep\":4},\"tags\":[\"steady\",\"persistent\"]},{\"label\":\"mặc áo\",\"weights\":{\"rong\":4},\"tags\":[\"bold\",\"action\"]},{\"label\":\"Mặc kệ quần áo, đeo trang sức trước\",\"weights\":{\"chuong_ho_menh\":4},\"tags\":[\"intuitive\",\"timing\"]},{\"label\":\"Vuốt tóc\",\"weights\":{\"dai_thu\":4},\"tags\":[\"planning\",\"systematic\"]}]",
+            "options_json": "[{\"label\":\"Mặc quần\",\"weights\":{\"ca_chep\":4},\"tags\":[\"steady\",\"persistent\"]},{\"label\":\"Mặc áo\",\"weights\":{\"rong\":4},\"tags\":[\"bold\",\"action\"]},{\"label\":\"Mặc kệ quần áo, đeo trang sức trước\",\"weights\":{\"chuong_ho_menh\":4},\"tags\":[\"intuitive\",\"timing\"]},{\"label\":\"Vuốt tóc\",\"weights\":{\"dai_thu\":4},\"tags\":[\"planning\",\"systematic\"]}]",
             "question_image": "shopify://shop_images/khan-bandana-seravix-2.jpg",
             "question_image_alt": ""
           }
