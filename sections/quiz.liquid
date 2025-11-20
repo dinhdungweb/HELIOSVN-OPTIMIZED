@@ -38,7 +38,7 @@
           {
             "id": "{{ block.id }}",
             "text": {{ block.settings.question_text | json }},
-            "options": {{ q_options | default: '[]' }}
+            "options": {%- if q_options == blank -%}[]{% else %}{{ q_options }}{%- endif -%}
           }{%- unless forloop.last -%},{%- endunless -%}
         {%- endif -%}
       {%- endfor -%}
@@ -54,7 +54,7 @@
           "desc": {{ block.settings.result_desc | json }},
           "image": {%- if block.settings.result_image -%}{{ block.settings.result_image | image_url: width: 1600 | json }}{%- else -%}null{%- endif -%},
           "cta": { "label": {{ block.settings.cta_label | json }}, "link": {{ block.settings.cta_link | json }} },
-          "rule": {{ rule_json | default: '{}' }}
+          "rule": {%- if rule_json == blank -%}{}{% else %}{{ rule_json }}{%- endif -%}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
