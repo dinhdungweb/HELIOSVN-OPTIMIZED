@@ -21,7 +21,9 @@
 .quiz-btn-secondary { background: transparent; color:#fff; border:1px solid rgba(255,255,255,.35); }
 
 .quiz-result { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; margin-top: 18px; background: var(--quiz-card-bg, rgba(255,255,255,.06)); border: 1px solid rgba(255,255,255,.12); border-radius: var(--quiz-radius, 12px); padding: 20px; box-shadow: 0 var(--quiz-shadow, 16px) 40px rgba(0,0,0,.35); }
-@media(min-width: 768px){ .quiz-result { grid-template-columns: 1fr 1fr; } }
+@media(min-width: 768px){ .quiz-result { grid-template-columns: 1fr 1fr; } .quiz-result__content {
+    padding: 50px;
+}}
 .quiz-result__media img { width: 100%; height: auto; border-radius: 12px; display:block; }
 .quiz-result__title { font-size: 24px; font-weight: 800; text-transform: uppercase; }
 .quiz-result__desc { opacity: .92; }
