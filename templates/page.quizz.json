@@ -11,10 +11,63 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "quiz_73AwWN": {
+      "type": "quiz",
+      "blocks": {
+        "question_nrMqDx": {
+          "type": "question",
+          "settings": {
+            "question_text": "Phong cách bạn thích?",
+            "options_json": "[\n  { \"label\": \"Tối giản\",           \"weights\": { \"minimal\": 3 } },\n  { \"label\": \"Cá tính nổi bật\",    \"weights\": { \"bold\": 3 },     \"tags\": [\"prefer_bold\"] },\n  { \"label\": \"Cổ điển\",            \"weights\": { \"classic\": 3 } }\n]"
+          }
+        },
+        "question_94Rh6P": {
+          "type": "question",
+          "settings": {
+            "question_text": "Bạn thường chọn chất liệu?",
+            "options_json": "[\n  { \"label\": \"Bạc trơn\",                 \"weights\": { \"minimal\": 2 } },\n  { \"label\": \"Bạc đen / vân mạnh\",       \"weights\": { \"bold\": 2 } },\n  { \"label\": \"Bạc đánh sáng truyền thống\",\"weights\": { \"classic\": 2 } }\n]"
+          }
+        },
+        "question_DX3YeE": {
+          "type": "question",
+          "settings": {
+            "question_text": "Mục đích sử dụng chính?",
+            "options_json": "[\n  { \"label\": \"Daily nhẹ nhàng\",      \"weights\": { \"minimal\": 2 } },\n  { \"label\": \"Statement cho outfit\", \"weights\": { \"bold\": 2 } },\n  { \"label\": \"Trang trọng / sự kiện\",\"weights\": { \"classic\": 2 } }\n]"
+          }
+        },
+        "result_9a4zUg": {
+          "type": "result",
+          "settings": {
+            "category_key": "minimal",
+            "result_title": "Phong cách tối giản",
+            "result_desc": "<p>Bạn hợp với các thiết kế clean, form gọn và ít chi tiết. Gợi ý các mẫu bạc trơn, size vừa, dễ kết hợp mỗi ngày.</p>",
+            "cta_label": "Khám phá",
+            "cta_link": "",
+            "rule_json": ""
+          }
+        }
+      },
+      "block_order": [
+        "question_nrMqDx",
+        "question_94Rh6P",
+        "question_DX3YeE",
+        "result_9a4zUg"
+      ],
+      "name": "Quiz",
+      "settings": {
+        "method": "highest_category",
+        "show_progress": true,
+        "persist_answer": true,
+        "restart_enabled": true,
+        "heading_h1": false
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "quiz_73AwWN"
   ]
 }
