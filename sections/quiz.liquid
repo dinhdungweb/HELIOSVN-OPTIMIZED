@@ -46,6 +46,26 @@
         <div class="quiz-result__desc rte"></div>
         <div class="quiz-result__cta"></div>
       </div>
+      {%- assign results_for_products = section.blocks | where: 'type', 'result' -%}
+      <div class="quiz-recommendations" aria-live="polite">
+        {%- for block in results_for_products -%}
+          {%- assign reco_collection = collections[block.settings.reco_collection] -%}
+          <div class="quiz-reco-set" id="quiz-reco-{{ block.id }}" hidden>
+            {%- if block.settings.reco_title != blank -%}
+              <h3 class="quiz-reco-title">{{ block.settings.reco_title | escape }}</h3>
+            {%- endif -%}
+            {%- if reco_collection -%}
+              <div class="quiz-reco-grid product-list">
+                {%- for product in reco_collection.products limit: block.settings.reco_limit -%}
+                  {% render 'product-block', product: product, show_title: true, show_price: true, show_review: true, show_add_to_cart: true %}
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              <p class="feature-subheader">Chưa gán collection đề xuất cho kết luận này.</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
     </div>
   </div>
 
@@ -126,7 +146,10 @@
         {"type": "image_picker", "id": "result_image", "label": "Ảnh kết luận (tuỳ chọn)"},
         {"type": "text", "id": "cta_label", "label": "Nhãn nút", "default": "Khám phá"},
         {"type": "url", "id": "cta_link", "label": "Link nút"},
-        {"type": "textarea", "id": "rule_json", "label": "Rule JSON (dùng khi phương pháp = rules)", "info": "Ví dụ: {\"any\":[{\"category\":\"bold\",\"gte\":6},{\"tags\":[\"prefer_bold\"]}]}"}
+        {"type": "textarea", "id": "rule_json", "label": "Rule JSON (dùng khi phương pháp = rules)", "info": "Ví dụ: {\"any\":[{\"category\":\"bold\",\"gte\":6},{\"tags\":[\"prefer_bold\"]}]}"},
+        {"type": "collection", "id": "reco_collection", "label": "Collection đề xuất (hiển thị sau kết luận)"},
+        {"type": "range", "id": "reco_limit", "label": "Số sản phẩm đề xuất", "min": 1, "max": 12, "step": 1, "default": 6},
+        {"type": "text", "id": "reco_title", "label": "Tiêu đề đề xuất", "default": "Sản phẩm phù hợp"}
       ]
     }
   ],

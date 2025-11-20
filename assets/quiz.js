@@ -199,6 +199,13 @@
       if(restartEnabled){
         var restart = document.createElement('button'); restart.className='quiz-btn-secondary'; restart.textContent='Làm lại'; restart.addEventListener('click', function(){ restartQuiz(); }); ctaWrap.appendChild(restart);
       }
+
+      // Toggle recommendations sets
+      var sets = section.querySelectorAll('.quiz-reco-set');
+      sets.forEach(function(s){ s.hidden = true; });
+      var activeSet = document.getElementById('quiz-reco-' + r.id);
+      if(activeSet){ activeSet.hidden = false; }
+
       section.classList.add('show-result');
       elResult.hidden = false; elCard.setAttribute('data-state','result');
       if(elProgressBar){ elProgressBar.style.width = '100%'; elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow','100'); }
