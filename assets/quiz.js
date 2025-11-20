@@ -22,13 +22,29 @@
     var questions = Array.isArray(data.questions) ? data.questions : [];
     var results = Array.isArray(data.results) ? data.results : [];
 
-    // Normalise options & collect categories
+    // Validate and normalise options & collect categories
     var categories = new Set();
     questions.forEach(function(q){
       if(typeof q.options === 'string'){ q.options = parseJSON(q.options, []); }
       q.options = Array.isArray(q.options) ? q.options : [];
+      
+      // Validate each option
+      q.options = q.options.filter(function(opt){
+        if(!opt || typeof opt !== 'object'){
+          console.warn('Quiz: Invalid option format', opt);
+          return false;
+        }
+        if(!opt.label){
+          console.warn('Quiz: Option missing label', opt);
+          return false;
+        }
+        return true;
+      });
+      
       q.options.forEach(function(opt){
-        if(opt && opt.weights){ Object.keys(opt.weights).forEach(function(k){ categories.add(k); }); }
+        if(opt && opt.weights){ 
+          Object.keys(opt.weights).forEach(function(k){ categories.add(k); }); 
+        }
       });
     });
 
@@ -106,7 +122,15 @@
         btn.className = 'quiz-option';
         btn.textContent = opt.label || ('Lựa chọn ' + (i+1));
         btn.setAttribute('data-index', i);
+        btn.setAttribute('aria-label', opt.label || ('Lựa chọn ' + (i+1)));
         btn.addEventListener('click', function(){ selectOption(i, opt); });
+        // Keyboard support
+        btn.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            selectOption(i, opt);
+          }
+        });
         list.appendChild(btn);
       });
       content.appendChild(list);
@@ -129,25 +153,30 @@
     }
 
     function selectOption(idx, opt){
-      state.answers[state.index] = idx;
-      if(opt && opt.weights){
-        Object.keys(opt.weights).forEach(function(k){
-          var val = Number(opt.weights[k]) || 0;
-          state.scores[k] = (state.scores[k] || 0) + val;
-        });
-      }
-      if(opt && Array.isArray(opt.tags)){
-        state.tags = state.tags.concat(opt.tags);
-      }
-      // Next question or result
-      state.index++;
-      if(state.index >= questions.length){
-        state.completed = true;
-        save();
-        showResult();
-      } else {
-        save();
-        renderQuestion();
+      try {
+        state.answers[state.index] = idx;
+        if(opt && opt.weights){
+          Object.keys(opt.weights).forEach(function(k){
+            var val = Number(opt.weights[k]) || 0;
+            state.scores[k] = (state.scores[k] || 0) + val;
+          });
+        }
+        if(opt && Array.isArray(opt.tags)){
+          state.tags = state.tags.concat(opt.tags);
+        }
+        // Next question or result
+        state.index++;
+        if(state.index >= questions.length){
+          state.completed = true;
+          save();
+          showResult();
+        } else {
+          save();
+          renderQuestion();
+        }
+      } catch(e) {
+        console.error('Quiz: Error selecting option', e);
+        elCard.innerHTML = '<p style="color:#ff6b6b;">Đã xảy ra lỗi. Vui lòng thử lại.</p>';
       }
     }
 
@@ -178,23 +207,28 @@
     }
 
     function pickResult(){
-      if(method === 'rules'){
-        for(var i=0;i<results.length;i++){
-          var r = results[i];
-          if(typeof r.rule === 'string'){ r.rule = parseJSON(r.rule, {}); }
-          if(evaluateRules(r.rule)) return r;
+      try {
+        if(method === 'rules'){
+          for(var i=0;i<results.length;i++){
+            var r = results[i];
+            if(typeof r.rule === 'string'){ r.rule = parseJSON(r.rule, {}); }
+            if(evaluateRules(r.rule)) return r;
+          }
         }
+        // highest_category fallback
+        var bestKey = null, bestVal = -Infinity;
+        Object.keys(state.scores).forEach(function(k){
+          var val = state.scores[k] || 0;
+          if(val > bestVal){ bestVal = val; bestKey = k; }
+        });
+        for(var j=0;j<results.length;j++){
+          if(results[j].category_key === bestKey) return results[j];
+        }
+        return results[0] || null;
+      } catch(e) {
+        console.error('Quiz: Error picking result', e);
+        return results[0] || null;
       }
-      // highest_category fallback
-      var bestKey = null, bestVal = -Infinity;
-      Object.keys(state.scores).forEach(function(k){
-        var val = state.scores[k] || 0;
-        if(val > bestVal){ bestVal = val; bestKey = k; }
-      });
-      for(var j=0;j<results.length;j++){
-        if(results[j].category_key === bestKey) return results[j];
-      }
-      return results[0] || null;
     }
 
     function showResult(){
