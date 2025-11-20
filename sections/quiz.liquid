@@ -1,0 +1,109 @@
+{%- liquid
+  assign heading_tag = "h2"
+  if section.settings.heading_h1
+    assign heading_tag = "h1"
+  endif
+-%}
+
+<div id="quiz-{{ section.id }}" class="quiz-section"
+     data-method="{{ section.settings.method }}"
+     data-show-progress="{{ section.settings.show_progress }}"
+     data-persist="{{ section.settings.persist_answer }}"
+     data-restart-enabled="{{ section.settings.restart_enabled }}">
+
+  <div class="quiz-inner">
+    <div class="quiz-progress" aria-live="polite"></div>
+
+    <div class="quiz-card" data-state="question">
+      <!-- Question content inserted by quiz.js -->
+    </div>
+
+    <div class="quiz-result" hidden>
+      <div class="quiz-result__media"></div>
+      <div class="quiz-result__content">
+        <{{ heading_tag }} class="quiz-result__title"></{{ heading_tag }}>
+        <div class="quiz-result__desc rte"></div>
+        <div class="quiz-result__cta"></div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Embed configuration as JSON for JS to consume {%- endcomment -%}
+  <script type="application/json" id="quiz-data-{{ section.id }}">
+  {
+    "questions": [
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'question' -%}
+          {%- capture q_options -%}{{ block.settings.options_json | strip }}{%- endcapture -%}
+          {
+            "id": "{{ block.id }}",
+            "text": {{ block.settings.question_text | json }},
+            "options": {{ q_options | default: '[]' }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ],
+    "results": [
+      {%- assign results = section.blocks | where: 'type', 'result' -%}
+      {%- for block in results -%}
+        {%- capture rule_json -%}{{ block.settings.rule_json | strip }}{%- endcapture -%}
+        {
+          "id": "{{ block.id }}",
+          "category_key": {{ block.settings.category_key | json }},
+          "title": {{ block.settings.result_title | json }},
+          "desc": {{ block.settings.result_desc | json }},
+          "image": {%- if block.settings.result_image -%}{{ block.settings.result_image | image_url: width: 1600 | json }}{%- else -%}null{%- endif -%},
+          "cta": { "label": {{ block.settings.cta_label | json }}, "link": {{ block.settings.cta_link | json }} },
+          "rule": {{ rule_json | default: '{}' }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="{{ 'quiz.css' | asset_url }}">
+  <script src="{{ 'quiz.js' | asset_url }}" defer></script>
+</div>
+
+{% schema %}
+{
+  "name": "Quiz",
+  "class": "section-quiz",
+  "settings": [
+    {"type": "select", "id": "method", "label": "Phương pháp kết luận", "default": "highest_category", "options": [
+      {"value": "highest_category", "label": "Category có điểm cao nhất"},
+      {"value": "rules", "label": "Theo rules (điều kiện)"}
+    ]},
+    {"type": "checkbox", "id": "show_progress", "label": "Hiển thị tiến độ", "default": true},
+    {"type": "checkbox", "id": "persist_answer", "label": "Lưu trạng thái (localStorage)", "default": false},
+    {"type": "checkbox", "id": "restart_enabled", "label": "Cho phép làm lại", "default": true},
+    {"type": "checkbox", "id": "heading_h1", "label": "Dùng H1 cho tiêu đề kết luận", "default": false}
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Câu hỏi",
+      "settings": [
+        {"type": "text", "id": "question_text", "label": "Nội dung câu hỏi", "default": "Câu hỏi của bạn"},
+        {"type": "textarea", "id": "options_json", "label": "Danh sách lựa chọn (JSON)", "info": "Dán JSON dạng danh sách: [{\"label\":\"...\", \"weights\": {\"bold\": 3}, \"tags\":[\"prefer_bold\"]}]"}
+      ]
+    },
+    {
+      "type": "result",
+      "name": "Kết luận",
+      "settings": [
+        {"type": "text", "id": "category_key", "label": "Category (dùng cho phương pháp điểm cao nhất)", "info": "Ví dụ: bold, minimal, classic"},
+        {"type": "text", "id": "result_title", "label": "Tiêu đề"},
+        {"type": "richtext", "id": "result_desc", "label": "Mô tả"},
+        {"type": "image_picker", "id": "result_image", "label": "Ảnh kết luận (tuỳ chọn)"},
+        {"type": "text", "id": "cta_label", "label": "Nhãn nút", "default": "Khám phá"},
+        {"type": "url", "id": "cta_link", "label": "Link nút"},
+        {"type": "textarea", "id": "rule_json", "label": "Rule JSON (dùng khi phương pháp = rules)", "info": "Ví dụ: {\"any\":[{\"category\":\"bold\",\"gte\":6},{\"tags\":[\"prefer_bold\"]}]}"}
+      ]
+    }
+  ],
+  "presets": [
+    {"name": "Quiz", "category": "Custom content"}
+  ]
+}
+{% endschema %}
