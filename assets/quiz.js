@@ -259,9 +259,25 @@
 
     function showResult(){
       var r = pickResult();
-      if(!r){ elCard.innerHTML = '<p>Không tìm thấy kết luận phù hợp.</p>'; return; }
-      $('.quiz-result__title', section).textContent = r.title || '';
-      $('.quiz-result__desc', section).innerHTML = r.desc || '';
+      
+      // Debug: Log result and scores
+      console.log('Quiz scores:', state.scores);
+      console.log('Quiz result:', r);
+      
+      if(!r){ 
+        elCard.innerHTML = '<p style="color:#ff6b6b;">Không tìm thấy kết luận phù hợp. Vui lòng kiểm tra cấu hình.</p>'; 
+        return; 
+      }
+      
+      // Validate result has content
+      if(!r.title && !r.desc){
+        console.error('Quiz: Result has no title or description', r);
+        elCard.innerHTML = '<p style="color:#ff6b6b;">Kết luận chưa có nội dung. Vui lòng cấu hình trong Theme Editor.</p>'; 
+        return;
+      }
+      
+      $('.quiz-result__title', section).textContent = r.title || 'Kết quả';
+      $('.quiz-result__desc', section).innerHTML = r.desc || '<p>Chưa có mô tả.</p>';
       var media = $('.quiz-result__media', section);
       media.innerHTML = '';
       if(r.image){
