@@ -27,7 +27,7 @@
 .quiz-result__media img { width: 100%; height: auto; border-radius: 3px; display:block; }
 .quiz-result__title { text-align: left; font-weight: 800; text-transform: uppercase; }
 .quiz-result__desc { opacity: .92; }
-.quiz-result__cta { display:flex; gap:12px; align-items:center; margin-top: 8px; }
+.quiz-result__cta { display:flex; gap:12px; align-items:center; margin-top: 20px; }
 
 .quiz-section.show-result .quiz-card { display:none; }
 
