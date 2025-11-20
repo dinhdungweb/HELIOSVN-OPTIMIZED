@@ -80,7 +80,9 @@
         {
           "id": "{{ block.id }}",
           "text": {{ block.settings.question_text | json }},
-          "options": {{ q_options | json }}
+          "options": {{ q_options | json }},
+          "image": {%- if block.settings.question_image -%}{{ block.settings.question_image | image_url: width: 1200 | json }}{%- else -%}null{%- endif -%},
+          "image_alt": {{ block.settings.question_image_alt | json }}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ],
@@ -134,7 +136,9 @@
       "name": "Câu hỏi",
       "settings": [
         {"type": "text", "id": "question_text", "label": "Nội dung câu hỏi", "default": "Câu hỏi của bạn"},
-        {"type": "textarea", "id": "options_json", "label": "Danh sách lựa chọn (JSON)", "info": "Dán JSON dạng danh sách: [{\"label\":\"...\", \"weights\": {\"bold\": 3}, \"tags\":[\"prefer_bold\"]}]"}
+        {"type": "textarea", "id": "options_json", "label": "Danh sách lựa chọn (JSON)", "info": "Dán JSON dạng danh sách: [{\"label\":\"...\", \"weights\": {\"bold\": 3}, \"tags\":[\"prefer_bold\"]}]"},
+        {"type": "image_picker", "id": "question_image", "label": "Ảnh câu hỏi (tuỳ chọn)"},
+        {"type": "text", "id": "question_image_alt", "label": "Alt ảnh", "default": ""}
       ]
     },
     {

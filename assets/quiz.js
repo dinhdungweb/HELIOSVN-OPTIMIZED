@@ -77,10 +77,26 @@
       if(!q){ return showResult(); }
       renderProgress();
       elCard.innerHTML = '';
+      var wrap = document.createElement('div');
+      wrap.className = 'quiz-question';
+
+      // Media (left)
+      if(q.image){
+        var media = document.createElement('div');
+        media.className = 'quiz-question__media';
+        var img = document.createElement('img');
+        img.src = q.image; img.alt = q.image_alt || q.text || '';
+        media.appendChild(img);
+        wrap.appendChild(media);
+      }
+
+      // Content (right)
+      var content = document.createElement('div');
+      content.className = 'quiz-question__content';
       var title = document.createElement('div');
       title.className = 'quiz-question__title';
       title.textContent = q.text || 'Câu hỏi';
-      elCard.appendChild(title);
+      content.appendChild(title);
 
       var list = document.createElement('div');
       list.className = 'quiz-options';
@@ -93,7 +109,7 @@
         btn.addEventListener('click', function(){ selectOption(i, opt); });
         list.appendChild(btn);
       });
-      elCard.appendChild(list);
+      content.appendChild(list);
 
       var controls = document.createElement('div');
       controls.className = 'quiz-controls';
@@ -104,7 +120,9 @@
         back.addEventListener('click', function(){ state.index--; renderQuestion(); });
         controls.appendChild(back);
       }
-      elCard.appendChild(controls);
+      content.appendChild(controls);
+      wrap.appendChild(content);
+      elCard.appendChild(wrap);
       section.classList.remove('show-result');
       elResult.hidden = true;
       elCard.setAttribute('data-state','question');
