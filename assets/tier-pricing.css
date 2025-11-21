@@ -122,14 +122,14 @@
 
 .tier-price-final.tier-price-discounted {
   color: #fab320;
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 
 /* Compare at price (sale price) */
 .tier-price-compare {
   text-decoration: line-through;
   opacity: 0.5;
-  font-size: 0.85em;
+  font-size: 1em;
   color: #666;
 }
 
