@@ -108,6 +108,14 @@
     "atc_locked_text_tag": "Sản phẩm bị khóa",
     "currency_code_enabled": true,
     "cart_currency_code_enabled": true,
+    "tier_pricing_enabled": true,
+    "tier_1_discount": 20,
+    "tier_show_original_price": true,
+    "tier_show_badge": true,
+    "tier_badge_font_size_small": 10,
+    "tier_badge_border_radius": 3,
+    "tier_prioritize_tags": true,
+    "tier_use_custom_metafield": true,
     "enable_cart_upsell": true,
     "cart_drawer_recommendations_background_color": "#111111",
     "cart_drawer_recommendations_heading_color": "#f2f2f2",
@@ -379,11 +387,6 @@
       },
       "2200952712151285029": {
         "type": "shopify://apps/microsoft-clarity/blocks/brandAgents_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
-        "disabled": false,
-        "settings": {}
-      },
-      "15106866019075792560": {
-        "type": "shopify://apps/massy/blocks/massy-app-embed/755249cf-b2d3-401e-a5e9-91307113bce4",
         "disabled": false,
         "settings": {}
       }
