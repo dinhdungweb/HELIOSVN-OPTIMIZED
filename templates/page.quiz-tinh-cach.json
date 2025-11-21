@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -20,8 +11,8 @@
         "question_chR9Wg": {
           "type": "question",
           "settings": {
-            "question_text": "Việc đầu tiên bạn làm khi sửa soạn vào buổi sáng là gì?",
-            "options_json": "[{\"label\":\"Mặc quần\",\"weights\":{\"ca_chep\":4},\"tags\":[\"steady\",\"persistent\"]},{\"label\":\"Mặc áo\",\"weights\":{\"rong\":4},\"tags\":[\"bold\",\"action\"]},{\"label\":\"Mặc kệ quần áo, đeo trang sức trước\",\"weights\":{\"chuong_ho_menh\":4},\"tags\":[\"intuitive\",\"timing\"]},{\"label\":\"Vuốt tóc\",\"weights\":{\"dai_thu\":4},\"tags\":[\"planning\",\"systematic\"]}]",
+            "question_text": "Câu 1: Việc đầu tiên anh em làm khi sửa soạn vào buổi sáng là gì?",
+            "options_json": "[{\"label\":\"Mặc quần.\",\"weights\":{\"A\":1}},{\"label\":\"Mặc áo.\",\"weights\":{\"B\":1}},{\"label\":\"Mặc kệ quần áo, đeo trang sức trước.\",\"weights\":{\"C\":1}},{\"label\":\"Vuốt tóc.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/khan-bandana-seravix-2.jpg",
             "question_image_alt": ""
           }
@@ -29,8 +20,8 @@
         "question_1": {
           "type": "question",
           "settings": {
-            "question_text": "Khi đứng trước một mục tiêu mới, việc đầu tiên anh em nghĩ đến là gì?",
-            "options_json": "[{\"label\":\"Âm thầm bắt tay vào làm từng bước nhỏ, miễn là mỗi ngày đều tiến lên\",\"weights\":{\"ca_chep\":4},\"tags\":[\"steady\",\"persistent\"]},{\"label\":\"Ok, làm luôn!, không do dự, thích cảm giác thử thách mạnh\",\"weights\":{\"rong\":4},\"tags\":[\"bold\",\"action\"]},{\"label\":\"Ngồi quan sát dấu hiệu – nếu cảm thấy đúng thời điểm, anh mới bắt đầu\",\"weights\":{\"chuong_ho_menh\":4},\"tags\":[\"intuitive\",\"timing\"]},{\"label\":\"Lập kế hoạch chi tiết: đường đi – deadline – checklist rõ ràng rồi mới tiến hành\",\"weights\":{\"dai_thu\":4},\"tags\":[\"planning\",\"systematic\"]}]",
+            "question_text": "Câu 2: Khi đứng trước một mục tiêu mới, việc đầu tiên anh em nghĩ đến là gì?",
+            "options_json": "[{\"label\":\"Âm thầm bắt tay vào làm từng bước nhỏ, miễn là mỗi ngày đều tiến lên.\",\"weights\":{\"A\":1}},{\"label\":\"Làm luôn không do dự, thích cảm giác thử thách mạnh.\",\"weights\":{\"B\":1}},{\"label\":\"Ngồi quan sát dấu hiệu - nếu cảm thấy \\\"đúng thời điểm\\\", anh mới bắt đầu.\",\"weights\":{\"C\":1}},{\"label\":\"Lập kế hoạch chi tiết: đường đi - deadline - checklist rõ ràng rồi mới tiến hành.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/khan-bandana-seravix-2.jpg",
             "question_image_alt": "Mục tiêu mới"
           }
@@ -38,8 +29,8 @@
         "question_2": {
           "type": "question",
           "settings": {
-            "question_text": "Nếu công việc đang bế tắc, anh em thường làm gì để thoát khỏi vòng lặp?",
-            "options_json": "[{\"label\":\"Đổi góc nhìn, phân nhỏ việc ra và xử lý từng mảnh một\",\"weights\":{\"ca_chep\":4},\"tags\":[\"methodical\",\"patient\"]},{\"label\":\"Tạo cú hích mạnh: đổi môi trường, thử một thứ mới hoàn toàn, hoặc nhảy thẳng vào hành động\",\"weights\":{\"rong\":4},\"tags\":[\"breakthrough\",\"dynamic\"]},{\"label\":\"Tìm một vật/niềm tin nhỏ để reset, kiểu như đeo nhẫn, thiền, hoặc đi lặng vài phút\",\"weights\":{\"chuong_ho_menh\":4,\"hoa_nho\":2},\"tags\":[\"spiritual\",\"reset\"]},{\"label\":\"Mổ xẻ vấn đề, dò đúng nguyên nhân và xử lý tận gốc bằng logic\",\"weights\":{\"dai_thu\":4},\"tags\":[\"analytical\",\"logical\"]}]",
+            "question_text": "Câu 3: Nếu công việc đang bế tắc, anh em thường làm gì để thoát khỏi vòng lặp?",
+            "options_json": "[{\"label\":\"Đổi góc nhìn, phân nhỏ việc ra và xử lý từng mảnh một.\",\"weights\":{\"A\":1}},{\"label\":\"Đổi môi trường làm việc, thử một thứ mới hoàn toàn, hoặc nhảy thẳng vào hành động.\",\"weights\":{\"B\":1}},{\"label\":\"Tĩnh tâm lại, chờ đến thời điểm thích hợp để hoàn thành công việc.\",\"weights\":{\"C\":1}},{\"label\":\"Mổ xẻ vấn đề, dò đúng nguyên nhân và xử lý tận gốc bằng logic.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a_ed15616a-ef31-430a-a488-bfcf41a0ec45.jpg",
             "question_image_alt": "Giải quyết bế tắc"
           }
@@ -47,8 +38,8 @@
         "question_3": {
           "type": "question",
           "settings": {
-            "question_text": "Trong một nhóm bạn, anh em thường là người…",
-            "options_json": "[{\"label\":\"Trầm nhưng vững – kiểu người ai cũng thấy tin cậy\",\"weights\":{\"ca_chep\":4,\"dai_thu\":2},\"tags\":[\"reliable\",\"steady\"]},{\"label\":\"Nổi bật, bùng nổ năng lượng, dễ thành tâm điểm\",\"weights\":{\"rong\":4},\"tags\":[\"energetic\",\"leader\"]},{\"label\":\"Lặng lẽ để ý mọi người, là nơi an toàn để bạn bè tâm sự\",\"weights\":{\"hoa_nho\":4,\"chuong_ho_menh\":2},\"tags\":[\"empathetic\",\"listener\"]},{\"label\":\"Rõ ràng – nói thẳng, nghĩ gì nói nấy, ghét dây dưa\",\"weights\":{\"dai_thu\":4},\"tags\":[\"direct\",\"honest\"]}]",
+            "question_text": "Câu 4: Trong một nhóm bạn, anh em thường là người…",
+            "options_json": "[{\"label\":\"Ít nói nhưng là kiểu người ai cũng thấy tin cậy.\",\"weights\":{\"A\":1}},{\"label\":\"Nổi bật, nhiều năng lượng, dễ thành tâm điểm.\",\"weights\":{\"B\":1}},{\"label\":\"Lặng lẽ để ý mọi người, là người thích hợp để bạn bè tâm sự.\",\"weights\":{\"C\":1}},{\"label\":\"Rõ ràng - nói thẳng, nghĩ gì nói nấy, không thích lòng vòng.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0_3b157b5d-648e-4189-ace3-ad993258e172.jpg",
             "question_image_alt": "Vai trò trong nhóm"
           }
@@ -56,8 +47,8 @@
         "question_4": {
           "type": "question",
           "settings": {
-            "question_text": "Khi quyết định một điều quan trọng, anh em đặt nặng yếu tố nào nhất?",
-            "options_json": "[{\"label\":\"Mức độ bền vững, dài hạn\",\"weights\":{\"ca_chep\":4,\"dai_thu\":2},\"tags\":[\"sustainable\",\"long_term\"]},{\"label\":\"Cơ hội tạo bứt phá lớn\",\"weights\":{\"rong\":4},\"tags\":[\"opportunity\",\"breakthrough\"]},{\"label\":\"Cảm giác đúng linh cảm hoặc dấu hiệu cuộc sống gửi đến\",\"weights\":{\"chuong_ho_menh\":4,\"hoa_nho\":2},\"tags\":[\"intuition\",\"signs\"]},{\"label\":\"Sự hợp lý, tính toán và kiểm soát\",\"weights\":{\"dai_thu\":4},\"tags\":[\"rational\",\"control\"]}]",
+            "question_text": "Câu 5: Khi quyết định một điều quan trọng, anh em đặt nặng yếu tố nào nhất?",
+            "options_json": "[{\"label\":\"Mức độ bền vững, dài hạn.\",\"weights\":{\"A\":1}},{\"label\":\"Cơ hội tạo bứt phá lớn.\",\"weights\":{\"B\":1}},{\"label\":\"Cảm giác \\\"đúng linh cảm\\\".\",\"weights\":{\"C\":1}},{\"label\":\"Sự hợp lý, tính toán và kiểm soát.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/talis-charm-helios-black-silver-len-mau_2.webp",
             "question_image_alt": "Quyết định quan trọng"
           }
@@ -65,8 +56,8 @@
         "question_5": {
           "type": "question",
           "settings": {
-            "question_text": "Một ngày hoàn hảo của anh em sẽ diễn ra như thế nào?",
-            "options_json": "[{\"label\":\"Làm được đúng những điều mình tự hứa với bản thân\",\"weights\":{\"ca_chep\":4,\"dai_thu\":1},\"tags\":[\"commitment\",\"self_discipline\"]},{\"label\":\"Học được điều mới, gặp người mới, có cảm giác mình đang lớn lên nhanh\",\"weights\":{\"rong\":4},\"tags\":[\"growth\",\"adventure\"]},{\"label\":\"Một ngày nhẹ nhàng, bình yên, cảm giác tinh thần được nạp lại\",\"weights\":{\"hoa_nho\":4,\"chuong_ho_menh\":2},\"tags\":[\"peaceful\",\"recharge\"]},{\"label\":\"Hoàn thành một danh sách công việc sạch sẽ, gọn gàng\",\"weights\":{\"dai_thu\":4},\"tags\":[\"organized\",\"productive\"]}]",
+            "question_text": "Câu 6: Một ngày hoàn hảo của anh em sẽ diễn ra như thế nào?",
+            "options_json": "[{\"label\":\"Làm được đúng những điều mình tự hứa với bản thân.\",\"weights\":{\"A\":1}},{\"label\":\"Học được điều mới, gặp người mới, có cảm giác mình đang \\\"lớn lên nhanh\\\".\",\"weights\":{\"B\":1}},{\"label\":\"Một ngày nhẹ nhàng, bình yên, cảm giác tinh thần được hồi phục.\",\"weights\":{\"C\":1}},{\"label\":\"Hoàn thành một danh sách công việc sạch sẽ, gọn gàng.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/SRK08186.jpg",
             "question_image_alt": "Ngày hoàn hảo"
           }
@@ -74,8 +65,8 @@
         "question_6": {
           "type": "question",
           "settings": {
-            "question_text": "Khi cuộc sống ném cho anh em một biến cố bất ngờ, anh em sẽ phản ứng như thế nào?",
-            "options_json": "[{\"label\":\"Giữ bình tĩnh, làm từng phần nhỏ trong tầm kiểm soát\",\"weights\":{\"ca_chep\":4,\"dai_thu\":1},\"tags\":[\"calm\",\"step_by_step\"]},{\"label\":\"Tạo một hành động mạnh để thay đổi ngay tình thế\",\"weights\":{\"rong\":4},\"tags\":[\"decisive\",\"strong_action\"]},{\"label\":\"Tìm điểm tựa tinh thần – một người, một vật, một ký ức để trấn an lại bản thân\",\"weights\":{\"chuong_ho_menh\":4,\"hoa_nho\":2},\"tags\":[\"spiritual_support\",\"comfort\"]},{\"label\":\"Lập tức phân tích: chuyện này đến từ đâu, rủi ro – hướng xử lý – phương án dự phòng là gì\",\"weights\":{\"dai_thu\":4},\"tags\":[\"analytical\",\"strategic\"]}]",
+            "question_text": "Câu 7: Khi cuộc sống ném cho anh em một biến cố bất ngờ, anh em sẽ phản ứng như thế nào?",
+            "options_json": "[{\"label\":\"Giữ bình tĩnh, làm từng phần nhỏ trong tầm kiểm soát.\",\"weights\":{\"A\":1}},{\"label\":\"Tạo một hành động mạnh để thay đổi ngay tình thế.\",\"weights\":{\"B\":1}},{\"label\":\"Tìm điểm tựa tinh thần - một người, một vật, một ký ức để trấn an lại bản thân.\",\"weights\":{\"C\":1}},{\"label\":\"Lập tức phân tích: chuyện này đến từ đâu, rủi ro - hướng xử lý - phương án dự phòng là gì.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/len-mau-khan-bandana-seravix-helios-2_a3cd02cc-d0cc-46f1-9788-d05a591dd722.jpg",
             "question_image_alt": "Biến cố bất ngờ"
           }
@@ -83,8 +74,8 @@
         "question_7": {
           "type": "question",
           "settings": {
-            "question_text": "Điều gì khiến anh em cảm thấy mình trưởng thành hơn sau mỗi giai đoạn khó khăn?",
-            "options_json": "[{\"label\":\"Nhìn lại và thấy mình kiên trì hơn, bền bỉ hơn\",\"weights\":{\"ca_chep\":4,\"dai_thu\":1},\"tags\":[\"persistence\",\"endurance\"]},{\"label\":\"Những lần dám bước vào điều mình sợ và vượt qua nó\",\"weights\":{\"rong\":4},\"tags\":[\"courage\",\"overcome_fear\"]},{\"label\":\"Mỗi lần tìm được sự bình yên bên trong, ngay cả lúc cuộc sống hỗn loạn nhất\",\"weights\":{\"hoa_nho\":4,\"chuong_ho_menh\":2},\"tags\":[\"inner_peace\",\"resilience\"]},{\"label\":\"Hiểu rõ hơn cách thế giới vận hành và biết cách chủ động giải quyết vấn đề\",\"weights\":{\"dai_thu\":4},\"tags\":[\"understanding\",\"problem_solving\"]}]",
+            "question_text": "Câu 8: Điều gì khiến anh em cảm thấy mình trưởng thành hơn sau mỗi giai đoạn khó khăn?",
+            "options_json": "[{\"label\":\"Nhìn lại và thấy mình kiên trì hơn, bền bỉ hơn.\",\"weights\":{\"A\":1}},{\"label\":\"Những lần dám bước vào điều mình sợ và vượt qua nó.\",\"weights\":{\"B\":1}},{\"label\":\"Mỗi lần tìm được sự bình yên bên trong, ngay cả lúc cuộc sống hỗn loạn nhất.\",\"weights\":{\"C\":1}},{\"label\":\"Hiểu rõ hơn cách thế giới vận hành và biết cách chủ động giải quyết vấn đề.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/z7237648816315_d539119df974a5b38a2635231c9a3dde_f7e6a0a3-286d-489c-9d28-ac0921ddf548.jpg",
             "question_image_alt": "Trưởng thành"
           }
