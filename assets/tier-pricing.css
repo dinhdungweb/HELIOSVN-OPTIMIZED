@@ -9,19 +9,9 @@
   margin: 8px 0;
 }
 
-/* Product block: Inline display */
-.product-block .price {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-}
-
+/* Product block: Inline display - match theme default behavior */
 .product-block .price .tier-pricing-wrapper {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
+  display: inline;
   margin: 0;
 }
 
@@ -29,18 +19,17 @@
   display: inline-block;
   font-size: 9px;
   padding: 2px 6px;
+  margin-left: 4px;
   vertical-align: middle;
   white-space: nowrap;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  display: inline;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
+  display: inline;
   white-space: nowrap;
 }
 
