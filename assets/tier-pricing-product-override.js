@@ -135,10 +135,35 @@
       
       // Trigger update immediately to apply tier pricing
       setTimeout(function() {
-        const $variantInput = $('.product-area').find('[name="id"]').first();
-        if ($variantInput.length) {
-          console.log('Tier Pricing: Triggering variant update to apply tier pricing');
-          $variantInput.trigger('change.themeProductOptions');
+        // Use vanilla JS or check if jQuery is available
+        if (typeof $ !== 'undefined') {
+          const $variantInput = $('.product-area').find('[name="id"]').first();
+          if ($variantInput.length) {
+            console.log('Tier Pricing: Triggering variant update to apply tier pricing');
+            $variantInput.trigger('change.themeProductOptions');
+          }
+        } else {
+          // Fallback: manually call updatePrice
+          const variantInput = document.querySelector('.product-area [name="id"]');
+          if (variantInput && typeof theme !== 'undefined' && theme.OptionManager) {
+            console.log('Tier Pricing: Manually calling updatePrice (jQuery not available)');
+            const productJson = document.querySelector('[id^="cc-product-json-"]');
+            if (productJson) {
+              try {
+                const product = JSON.parse(productJson.textContent);
+                const variantId = variantInput.value;
+                const variant = product.variants.find(v => v.id == variantId);
+                if (variant) {
+                  const container = document.querySelector('.product-area');
+                  if (container) {
+                    theme.OptionManager.updatePrice(variant, $(container));
+                  }
+                }
+              } catch (e) {
+                console.error('Tier Pricing: Error calling updatePrice', e);
+              }
+            }
+          }
         }
       }, 100);
       
@@ -156,34 +181,40 @@
       return;
     }
     
+    let isRestoring = false;
+    
     const observer = new MutationObserver(function(mutations) {
+      if (isRestoring) return; // Prevent infinite loop
+      
       mutations.forEach(function(mutation) {
         // Check if tier-pricing-wrapper was removed
         const hasTierWrapper = priceArea.querySelector('.tier-pricing-wrapper');
         if (!hasTierWrapper && mutation.type === 'childList') {
           console.log('Tier Pricing: Detected price override, restoring...');
           
-          // Get current variant from product JSON
-          const productJson = document.querySelector('#cc-product-json-' + window.location.pathname.split('/').pop());
-          if (productJson) {
+          isRestoring = true;
+          
+          // Get current variant from product JSON or variant input
+          const variantInput = document.querySelector('.product-area [name="id"]');
+          const productJson = document.querySelector('[id^="cc-product-json-"]');
+          
+          if (productJson && variantInput) {
             try {
               const product = JSON.parse(productJson.textContent);
-              const variantId = new URLSearchParams(window.location.search).get('variant');
-              const variant = variantId ? 
-                product.variants.find(v => v.id == variantId) : 
-                product.variants[0];
+              const variantId = variantInput.value;
+              const variant = product.variants.find(v => v.id == variantId) || product.variants[0];
               
               if (variant) {
-                setTimeout(() => {
-                  const newHTML = buildTierPricingHTML(variant);
-                  priceArea.innerHTML = newHTML;
-                  console.log('Tier Pricing: Restored via observer');
-                }, 50);
+                const newHTML = buildTierPricingHTML(variant);
+                priceArea.innerHTML = newHTML;
+                console.log('Tier Pricing: Restored via observer for variant', variant.id);
               }
             } catch (e) {
               console.error('Tier Pricing: Error parsing product JSON', e);
             }
           }
+          
+          setTimeout(() => { isRestoring = false; }, 100);
         }
       });
     });
