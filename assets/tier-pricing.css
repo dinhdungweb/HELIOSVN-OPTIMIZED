@@ -58,7 +58,7 @@
   height: 12px;
 }
 
-/* Tier-specific colors */
+/* Tier-specific colors
 .tier-badge--black-diamond {
   background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
   color: #ffffff;
@@ -93,7 +93,7 @@
   background: linear-gradient(135deg, #fab320 0%, #ff8c00 100%);
   color: #000000;
   border: 1px solid #e09900;
-}
+} */
 
 /* ============================================
    PRICING DISPLAY
@@ -204,7 +204,7 @@
   .tier-pricing-prices {
     gap: 6px;
   }
-  
+
   .tier-login-link {
     font-size: 11px;
   }
