@@ -330,6 +330,6 @@
 }
 
 /* Ensure price-area shows tier pricing */
-.price-area:has(.tier-pricing-wrapper) {
+/* .price-area:has(.tier-pricing-wrapper) {
   min-height: 60px !important;
-}
+} */
