@@ -65,10 +65,7 @@
     
     html += '</div>';
     
-    // Login prompt
-    if (!tierInfo.hasCustomer) {
-      html += '<div class="tier-login-prompt"><a href="/account/login" class="tier-login-link">Đăng nhập để nhận giảm giá đến 20%</a></div>';
-    }
+
     
     html += '</div>';
     

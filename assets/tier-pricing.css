@@ -119,29 +119,7 @@
    LOGIN PROMPT
    ============================================ */
 
-.tier-login-prompt {
-  margin-top: 4px;
-}
 
-.tier-login-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #fab320;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: rgba(250, 179, 32, 0.1);
-}
-
-.tier-login-link:hover {
-  background: rgba(250, 179, 32, 0.2);
-  color: #ff8c00;
-  text-decoration: underline;
-}
 
 .tier-login-link::before {
   content: "🔓";
