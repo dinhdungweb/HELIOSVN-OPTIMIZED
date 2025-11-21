@@ -21,7 +21,7 @@
           "type": "question",
           "settings": {
             "question_text": "Câu 2: Khi đứng trước một mục tiêu mới, việc đầu tiên anh em nghĩ đến là gì?",
-            "options_json": "[{\"label\":\"Âm thầm bắt tay vào làm từng bước nhỏ, miễn là mỗi ngày đều tiến lên.\",\"weights\":{\"A\":1}},{\"label\":\"Làm luôn không do dự, thích cảm giác thử thách mạnh.\",\"weights\":{\"B\":1}},{\"label\":\"Ngồi quan sát dấu hiệu - nếu cảm thấy \\\"đúng thời điểm\\\", anh mới bắt đầu.\",\"weights\":{\"C\":1}},{\"label\":\"Lập kế hoạch chi tiết: đường đi - deadline - checklist rõ ràng rồi mới tiến hành.\",\"weights\":{\"D\":1}}]",
+            "options_json": "[{\"label\":\"Âm thầm bắt tay vào làm từng bước nhỏ, miễn là mỗi ngày đều tiến lên.\",\"weights\":{\"A\":1}},{\"label\":\"Làm luôn không do dự, thích cảm giác thử thách mạnh.\",\"weights\":{\"B\":1}},{\"label\":\"Ngồi quan sát dấu hiệu - nếu cảm thấy đúng thời điểm, anh mới bắt đầu.\",\"weights\":{\"C\":1}},{\"label\":\"Lập kế hoạch chi tiết: đường đi - deadline - checklist rõ ràng rồi mới tiến hành.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/khan-bandana-seravix-2.jpg",
             "question_image_alt": "Mục tiêu mới"
           }
@@ -48,7 +48,7 @@
           "type": "question",
           "settings": {
             "question_text": "Câu 5: Khi quyết định một điều quan trọng, anh em đặt nặng yếu tố nào nhất?",
-            "options_json": "[{\"label\":\"Mức độ bền vững, dài hạn.\",\"weights\":{\"A\":1}},{\"label\":\"Cơ hội tạo bứt phá lớn.\",\"weights\":{\"B\":1}},{\"label\":\"Cảm giác \\\"đúng linh cảm\\\".\",\"weights\":{\"C\":1}},{\"label\":\"Sự hợp lý, tính toán và kiểm soát.\",\"weights\":{\"D\":1}}]",
+            "options_json": "[{\"label\":\"Mức độ bền vững, dài hạn.\",\"weights\":{\"A\":1}},{\"label\":\"Cơ hội tạo bứt phá lớn.\",\"weights\":{\"B\":1}},{\"label\":\"Cảm giác đúng linh cảm.\",\"weights\":{\"C\":1}},{\"label\":\"Sự hợp lý, tính toán và kiểm soát.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/talis-charm-helios-black-silver-len-mau_2.webp",
             "question_image_alt": "Quyết định quan trọng"
           }
@@ -57,7 +57,7 @@
           "type": "question",
           "settings": {
             "question_text": "Câu 6: Một ngày hoàn hảo của anh em sẽ diễn ra như thế nào?",
-            "options_json": "[{\"label\":\"Làm được đúng những điều mình tự hứa với bản thân.\",\"weights\":{\"A\":1}},{\"label\":\"Học được điều mới, gặp người mới, có cảm giác mình đang \\\"lớn lên nhanh\\\".\",\"weights\":{\"B\":1}},{\"label\":\"Một ngày nhẹ nhàng, bình yên, cảm giác tinh thần được hồi phục.\",\"weights\":{\"C\":1}},{\"label\":\"Hoàn thành một danh sách công việc sạch sẽ, gọn gàng.\",\"weights\":{\"D\":1}}]",
+            "options_json": "[{\"label\":\"Làm được đúng những điều mình tự hứa với bản thân.\",\"weights\":{\"A\":1}},{\"label\":\"Học được điều mới, gặp người mới, có cảm giác mình đang lớn lên nhanh.\",\"weights\":{\"B\":1}},{\"label\":\"Một ngày nhẹ nhàng, bình yên, cảm giác tinh thần được hồi phục.\",\"weights\":{\"C\":1}},{\"label\":\"Hoàn thành một danh sách công việc sạch sẽ, gọn gàng.\",\"weights\":{\"D\":1}}]",
             "question_image": "shopify://shop_images/SRK08186.jpg",
             "question_image_alt": "Ngày hoàn hảo"
           }
