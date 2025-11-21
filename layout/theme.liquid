@@ -39,6 +39,7 @@
   {% endstyle %}
 
   {{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
+  {{ 'tier-pricing.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
 
@@ -328,5 +329,8 @@
     }
   </script>
   <script src="{{ 'price-range-filter.js' | asset_url }}" defer="defer"></script>
+  
+  {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
+  {% render 'tier-auto-discount' %}
 </body>
 </html>

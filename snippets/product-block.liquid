@@ -311,12 +311,15 @@
             <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
           
           {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
-            <!-- Nếu khách hàng đã đăng nhập và có tag => Hiển thị giá -->
+            <!-- Nếu khách hàng đã đăng nhập và có tag => Hiển thị giá với tier discount -->
             {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-            <span class="theme-money">{%- render "price", price: cheapest_variant.price -%}</span>
-            {% if on_sale %}
-              <span class="was-price theme-money">{%- render "price", price: cheapest_variant.compare_at_price -%}</span>
-            {% endif %}
+            {% render 'tier-price', 
+              price: cheapest_variant.price,
+              compare_at_price: cheapest_variant.compare_at_price,
+              customer: customer,
+              show_original: true,
+              show_badge: true
+            %}
             {% render 'unit-price', variant: cheapest_variant %}
           
           {% elsif settings.enable_locked_content %}
@@ -327,22 +330,28 @@
               <!-- Nếu sản phẩm cụ thể này bị khóa giá -->
               <b style="color:#FF0000">Sản phẩm dành cho khách đặc biệt</b>
             {% else %}
-              <!-- Nếu sản phẩm không bị khóa, hiển thị giá bình thường -->
+              <!-- Nếu sản phẩm không bị khóa, hiển thị giá với tier discount -->
               {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-              <span class="theme-money">{%- render "price", price: cheapest_variant.price -%}</span>
-              {% if on_sale %}
-                <span class="was-price theme-money">{%- render "price", price: cheapest_variant.compare_at_price -%}</span>
-              {% endif %}
+              {% render 'tier-price', 
+                price: cheapest_variant.price,
+                compare_at_price: cheapest_variant.compare_at_price,
+                customer: customer,
+                show_original: true,
+                show_badge: true
+              %}
               {% render 'unit-price', variant: cheapest_variant %}
             {% endif %}
           
           {% else %}
             <!-- Nếu không có bất kỳ điều kiện nào bị khóa -->
             {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-            <span class="theme-money">{%- render "price", price: cheapest_variant.price -%}</span>
-            {% if on_sale %}
-              <span class="was-price theme-money">{%- render "price", price: cheapest_variant.compare_at_price -%}</span>
-            {% endif %}
+            {% render 'tier-price', 
+              price: cheapest_variant.price,
+              compare_at_price: cheapest_variant.compare_at_price,
+              customer: customer,
+              show_original: true,
+              show_badge: true
+            %}
             {% render 'unit-price', variant: cheapest_variant %}
           {% endif %}
           
@@ -357,12 +366,15 @@
             <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
     
           {% else %}
-            <!-- Nếu không có bất kỳ điều kiện nào bị khóa -->
+            <!-- Nếu không có bất kỳ điều kiện nào bị khóa, hiển thị giá với tier discount -->
             {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-            <span class="theme-money">{%- render "price", price: cheapest_variant.price -%}</span>
-            {% if on_sale %}
-              <span class="was-price theme-money">{%- render "price", price: cheapest_variant.compare_at_price -%}</span>
-            {% endif %}
+            {% render 'tier-price', 
+              price: cheapest_variant.price,
+              compare_at_price: cheapest_variant.compare_at_price,
+              customer: customer,
+              show_original: true,
+              show_badge: true
+            %}
             {% render 'unit-price', variant: cheapest_variant %}
           {% endif %}
           

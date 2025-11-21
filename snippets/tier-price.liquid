@@ -1,0 +1,145 @@
+{% comment %}
+  Tier Pricing Display
+  
+  Parameters:
+  - price: Giá gốc của variant (required)
+  - compare_at_price: Giá so sánh (optional)
+  - customer: Customer object (optional)
+  - show_original: Hiển thị giá gốc (default: true)
+  - show_badge: Hiển thị badge tier (default: true)
+  
+  Usage:
+  {% render 'tier-price', 
+    price: variant.price, 
+    compare_at_price: variant.compare_at_price,
+    customer: customer,
+    show_original: true,
+    show_badge: true
+  %}
+{% endcomment %}
+
+{% liquid
+  assign tier_discount = 0
+  assign tier_name = ""
+  assign has_tier = false
+  
+  if customer
+    comment Tính tổng chi tiêu từ metafield hoặc total_spent
+    endcomment
+    if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
+      assign total_spent = customer.metafields.custom.total_spent | plus: 0
+    else
+      assign total_spent = customer.total_spent | divided_by: 100
+    endif
+    
+    comment Ưu tiên tags nếu có (cho trường hợp đặc biệt)
+    endcomment
+    if customer.tags contains "BLACK DIAMOND"
+      assign tier_discount = 20
+      assign tier_name = "BLACK DIAMOND"
+      assign has_tier = true
+    elsif customer.tags contains "DIAMOND"
+      assign tier_discount = 15
+      assign tier_name = "DIAMOND"
+      assign has_tier = true
+    elsif customer.tags contains "PLATINUM"
+      assign tier_discount = 12
+      assign tier_name = "PLATINUM"
+      assign has_tier = true
+    elsif customer.tags contains "GOLD"
+      assign tier_discount = 10
+      assign tier_name = "GOLD"
+      assign has_tier = true
+    elsif customer.tags contains "SILVER"
+      assign tier_discount = 7
+      assign tier_name = "SILVER"
+      assign has_tier = true
+    else
+      comment Tự động phân loại dựa trên total_spent
+      endcomment
+      if total_spent >= 100000000
+        assign tier_discount = 20
+        assign tier_name = "BLACK DIAMOND"
+        assign has_tier = true
+      elsif total_spent >= 20000000
+        assign tier_discount = 15
+        assign tier_name = "DIAMOND"
+        assign has_tier = true
+      elsif total_spent >= 10000000
+        assign tier_discount = 12
+        assign tier_name = "PLATINUM"
+        assign has_tier = true
+      elsif total_spent >= 6000000
+        assign tier_discount = 10
+        assign tier_name = "GOLD"
+        assign has_tier = true
+      elsif total_spent >= 3000000
+        assign tier_discount = 7
+        assign tier_name = "SILVER"
+        assign has_tier = true
+      else
+        assign tier_discount = 5
+        assign tier_name = "MEMBER"
+        assign has_tier = true
+      endif
+    endif
+  endif
+  
+  assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
+  assign tier_price = price | times: discount_multiplier | round
+  
+  if show_original == nil
+    assign show_original = true
+  endif
+  
+  if show_badge == nil
+    assign show_badge = true
+  endif
+  
+  assign has_sale = false
+  if compare_at_price and compare_at_price > price
+    assign has_sale = true
+  endif
+%}
+
+<div class="tier-pricing-wrapper" data-tier="{{ tier_name }}">
+  {% comment %} Tier Badge {% endcomment %}
+  {% if has_tier and show_badge and tier_discount > 0 %}
+    <span class="tier-badge tier-badge--{{ tier_name | handleize }}">
+      <svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+      </svg>
+      -{{ tier_discount }}% {{ tier_name }}
+    </span>
+  {% endif %}
+
+  <div class="tier-pricing-prices">
+    {% comment %} Giá gốc (nếu có tier discount) {% endcomment %}
+    {% if has_tier and show_original and tier_discount > 0 %}
+      <span class="tier-price-original">
+        <span class="theme-money">{%- render "price", price: price -%}</span>
+      </span>
+    {% endif %}
+
+    {% comment %} Giá sau tier discount {% endcomment %}
+    <span class="tier-price-final {% if has_tier and tier_discount > 0 %}tier-price-discounted{% endif %}">
+      <span class="theme-money">{%- render "price", price: tier_price -%}</span>
+    </span>
+
+    {% comment %} Compare at price (nếu có sale) {% endcomment %}
+    {% if has_sale %}
+      <span class="tier-price-compare">
+        <span class="theme-money">{%- render "price", price: compare_at_price -%}</span>
+      </span>
+    {% endif %}
+  </div>
+
+  {% comment %} Thông báo cho khách chưa đăng nhập {% endcomment %}
+  {% unless customer %}
+    <div class="tier-login-prompt">
+      <a href="{{ routes.account_login_url }}" class="tier-login-link">
+        Đăng nhập để nhận giảm giá đến 20%
+      </a>
+    </div>
+  {% endunless %}
+</div>

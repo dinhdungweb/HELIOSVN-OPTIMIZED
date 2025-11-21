@@ -1,0 +1,325 @@
+/* ============================================
+   TIER PRICING STYLES
+   ============================================ */
+
+.tier-pricing-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+/* ============================================
+   TIER BADGE
+   ============================================ */
+
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.tier-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tier-badge-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Tier-specific colors */
+.tier-badge--black-diamond {
+  background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+  color: #ffffff;
+  border: 1px solid #666;
+}
+
+.tier-badge--diamond {
+  background: linear-gradient(135deg, #b9f2ff 0%, #00d4ff 100%);
+  color: #000000;
+  border: 1px solid #00a8cc;
+}
+
+.tier-badge--platinum {
+  background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%);
+  color: #000000;
+  border: 1px solid #a8a8a8;
+}
+
+.tier-badge--gold {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000000;
+  border: 1px solid #d4af37;
+}
+
+.tier-badge--silver {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+  color: #000000;
+  border: 1px solid #a0a0a0;
+}
+
+.tier-badge--member {
+  background: linear-gradient(135deg, #fab320 0%, #ff8c00 100%);
+  color: #000000;
+  border: 1px solid #e09900;
+}
+
+/* ============================================
+   PRICING DISPLAY
+   ============================================ */
+
+.tier-pricing-prices {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Giá gốc (gạch ngang) */
+.tier-price-original {
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-size: 0.9em;
+  color: #999;
+}
+
+/* Giá sau tier discount */
+.tier-price-final {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: inherit;
+}
+
+.tier-price-final.tier-price-discounted {
+  color: #fab320;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+/* Compare at price (sale price) */
+.tier-price-compare {
+  text-decoration: line-through;
+  opacity: 0.5;
+  font-size: 0.85em;
+  color: #666;
+}
+
+/* ============================================
+   LOGIN PROMPT
+   ============================================ */
+
+.tier-login-prompt {
+  margin-top: 4px;
+}
+
+.tier-login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #fab320;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(250, 179, 32, 0.1);
+}
+
+.tier-login-link:hover {
+  background: rgba(250, 179, 32, 0.2);
+  color: #ff8c00;
+  text-decoration: underline;
+}
+
+.tier-login-link::before {
+  content: "🔓";
+  font-size: 14px;
+}
+
+/* ============================================
+   PRODUCT BLOCK INTEGRATION
+   ============================================ */
+
+.product-block .tier-pricing-wrapper {
+  margin: 4px 0 8px 0;
+}
+
+.product-block .tier-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+}
+
+.product-block .tier-price-final {
+  font-size: 1em;
+}
+
+.product-block .tier-price-final.tier-price-discounted {
+  font-size: 1.1em;
+}
+
+/* ============================================
+   PRODUCT PAGE INTEGRATION
+   ============================================ */
+
+.product-area .tier-pricing-wrapper {
+  margin: 12px 0;
+}
+
+.product-area .tier-badge {
+  font-size: 13px;
+  padding: 6px 12px;
+}
+
+.product-area .tier-price-final {
+  font-size: 1.5em;
+}
+
+.product-area .tier-price-final.tier-price-discounted {
+  font-size: 1.8em;
+}
+
+/* ============================================
+   CART INTEGRATION
+   ============================================ */
+
+.cart-item .tier-pricing-wrapper,
+.cart-drawer .tier-pricing-wrapper {
+  margin: 4px 0;
+}
+
+.cart-item .tier-badge,
+.cart-drawer .tier-badge {
+  font-size: 9px;
+  padding: 2px 6px;
+}
+
+.cart-item .tier-price-final,
+.cart-drawer .tier-price-final {
+  font-size: 1em;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .tier-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .tier-pricing-prices {
+    gap: 6px;
+  }
+
+  .tier-price-final {
+    font-size: 1em;
+  }
+
+  .tier-price-final.tier-price-discounted {
+    font-size: 1.1em;
+  }
+
+  .tier-login-link {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tier-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .tier-badge-icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .tier-pricing-prices {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .tier-price-original {
+    color: #aaa;
+  }
+
+  .tier-price-compare {
+    color: #888;
+  }
+
+  .tier-login-link {
+    background: rgba(250, 179, 32, 0.15);
+  }
+
+  .tier-login-link:hover {
+    background: rgba(250, 179, 32, 0.25);
+  }
+}
+
+/* ============================================
+   ANIMATION
+   ============================================ */
+
+@keyframes tier-badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.tier-badge--black-diamond {
+  animation: tier-badge-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.tier-pricing-wrapper:focus-within .tier-badge {
+  outline: 2px solid #fab320;
+  outline-offset: 2px;
+}
+
+.tier-login-link:focus {
+  outline: 2px solid #fab320;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  .tier-badge {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+  }
+
+  .tier-login-prompt {
+    display: none;
+  }
+}
