@@ -241,74 +241,36 @@
             if(evaluateRules(r.rule)) return r;
           }
         }
-        
-        // Custom logic for personality quiz
-        // Count answers by category
-        var counts = {};
-        Object.keys(state.scores).forEach(function(k){
-          counts[k] = state.scores[k] || 0;
-        });
-        
-        console.log('Quiz answer counts:', counts);
-        
-        var A = counts['A'] || 0;
-        var B = counts['B'] || 0;
-        var C = counts['C'] || 0;
-        var D = counts['D'] || 0;
-        
-        // Find max count
-        var maxCount = Math.max(A, B, C, D);
-        
-        // Apply rules in priority order:
-        // 1. Nhiều B: Rồng (highest priority for B)
-        if(B === maxCount && B > 0){
-          for(var j=0;j<results.length;j++){
-            if(results[j].category_key === 'rong') return results[j];
-          }
-        }
-        
-        // 2. Nhiều C: Chuông Hộ Mệnh
-        if(C === maxCount && C > 0){
-          for(var j=0;j<results.length;j++){
-            if(results[j].category_key === 'chuong_ho_menh') return results[j];
-          }
-        }
-        
-        // 3. Nhiều A và D: Đại Thụ (both A and D are high)
-        if(A === maxCount && D === maxCount && A > 0){
-          for(var j=0;j<results.length;j++){
-            if(results[j].category_key === 'dai_thu') return results[j];
-          }
-        }
-        
-        // 4. Nhiều A và C: Hoa nhỏ (both A and C are high)
-        if(A === maxCount && C === maxCount && A > 0){
-          for(var j=0;j<results.length;j++){
-            if(results[j].category_key === 'hoa_nho') return results[j];
-          }
-        }
-        
-        // 5. Nhiều A: Cá chép (default for A)
-        if(A === maxCount && A > 0){
-          for(var j=0;j<results.length;j++){
-            if(results[j].category_key === 'ca_chep') return results[j];
-          }
-        }
-        
-        // Fallback: highest_category
+        // highest_category fallback
         var bestKey = null, bestVal = -Infinity;
+        var tiedKeys = []; // Track categories with same highest score
+        
+        // Find highest score
         Object.keys(state.scores).forEach(function(k){
           var val = state.scores[k] || 0;
           if(val > bestVal){ 
             bestVal = val; 
             bestKey = k;
+            tiedKeys = [k]; // Reset tied keys
+          } else if(val === bestVal && val > 0){
+            tiedKeys.push(k); // Add to tied keys
           }
         });
         
+        // If multiple categories tied, pick first one that has a result
+        if(tiedKeys.length > 1){
+          console.log('Quiz: Multiple categories tied with score ' + bestVal + ':', tiedKeys);
+          for(var i=0; i<tiedKeys.length; i++){
+            for(var j=0; j<results.length; j++){
+              if(results[j].category_key === tiedKeys[i]) return results[j];
+            }
+          }
+        }
+        
+        // Single winner or no tie
         for(var j=0;j<results.length;j++){
           if(results[j].category_key === bestKey) return results[j];
         }
-        
         return results[0] || null;
       } catch(e) {
         console.error('Quiz: Error picking result', e);
