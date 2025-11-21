@@ -75,8 +75,9 @@
   // Check and update price area
   function checkAndUpdate() {
     if (!tierInfo.extracted) {
-      extractTierInfo();
-      return;
+      if (!extractTierInfo()) {
+        return; // Still not extracted, try again next time
+      }
     }
     
     if (updateCount >= MAX_UPDATES) {
@@ -124,15 +125,23 @@
   
   // Start checking
   function start() {
-    // Initial extraction
+    console.log('Tier Pricing Simple: Starting...');
+    
+    // Try to extract immediately
     extractTierInfo();
     
-    // Check every 100ms
+    // Run check immediately after a tiny delay
+    setTimeout(checkAndUpdate, 50);
+    setTimeout(checkAndUpdate, 150);
+    setTimeout(checkAndUpdate, 300);
+    
+    // Then check every 100ms
     const interval = setInterval(function() {
       checkAndUpdate();
       
       if (updateCount >= MAX_UPDATES) {
         clearInterval(interval);
+        console.log('Tier Pricing Simple: Stopped (max updates reached)');
       }
     }, 100);
     
