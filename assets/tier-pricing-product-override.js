@@ -96,9 +96,9 @@
     return html;
   }
   
-  // Method 1: Override theme.Product.prototype.updatePrice
+  // Method 1: Override theme.OptionManager.updatePrice
   function installOverride() {
-    if (typeof theme !== 'undefined' && theme.Product && theme.Product.prototype) {
+    if (typeof theme !== 'undefined' && theme.OptionManager) {
       // Make sure tier info is extracted first
       if (!tierInfo.extracted) {
         console.log('Tier Pricing: Waiting for tier info before installing override');
@@ -106,9 +106,9 @@
         return false;
       }
       
-      const originalUpdatePrice = theme.Product.prototype.updatePrice;
+      const originalUpdatePrice = theme.OptionManager.updatePrice;
       
-      theme.Product.prototype.updatePrice = function(variant, $container) {
+      theme.OptionManager.updatePrice = function(variant, $container) {
         const $priceArea = $container.find('.price-area');
         $priceArea.removeClass('on-sale');
         
@@ -125,7 +125,7 @@
       console.log('Tier Pricing: Override installed successfully with tier:', tierInfo.tier);
       return true;
     }
-    console.log('Tier Pricing: theme.Product not available yet');
+    console.log('Tier Pricing: theme.OptionManager not available yet');
     return false;
   }
   
@@ -213,14 +213,14 @@
   
   // Also try after delays to catch late-loading theme.js
   setTimeout(function() {
-    if (tierInfo.extracted && typeof theme !== 'undefined' && theme.Product) {
+    if (tierInfo.extracted && typeof theme !== 'undefined' && theme.OptionManager) {
       console.log('Tier Pricing: Retry override installation at 500ms');
       installOverride();
     }
   }, 500);
   
   setTimeout(function() {
-    if (tierInfo.extracted && typeof theme !== 'undefined' && theme.Product) {
+    if (tierInfo.extracted && typeof theme !== 'undefined' && theme.OptionManager) {
       console.log('Tier Pricing: Retry override installation at 1000ms');
       installOverride();
     }
