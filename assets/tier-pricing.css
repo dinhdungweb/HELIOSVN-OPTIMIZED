@@ -9,6 +9,26 @@
   margin: 8px 0;
 }
 
+/* Product block: Keep price inline with "Từ" text */
+.product-block .price .tier-pricing-wrapper {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.product-block .price .tier-pricing-wrapper .tier-badge {
+  display: none; /* Hide badge in product listing */
+}
+
+.product-block .price .tier-pricing-wrapper .tier-pricing-prices {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
 /* ============================================
    TIER BADGE
    ============================================ */
