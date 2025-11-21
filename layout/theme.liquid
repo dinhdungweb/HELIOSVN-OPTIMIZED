@@ -330,9 +330,9 @@
   </script>
   <script src="{{ 'price-range-filter.js' | asset_url }}" defer="defer"></script>
   
-  {% comment %} Tier Pricing Product Override - Fix variant change {% endcomment %}
+  {% comment %} Tier Pricing Product Simple - Force update {% endcomment %}
   {% if template.name == 'product' %}
-    <script src="{{ 'tier-pricing-product-override.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'tier-pricing-product-simple.js' | asset_url }}" defer="defer"></script>
   {% endif %}
   
   {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
