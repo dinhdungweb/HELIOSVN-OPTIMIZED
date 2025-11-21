@@ -69,15 +69,18 @@
   endif
 %}
 
-{% comment %} Debug: Always show for testing {% endcomment %}
+{% comment %} Test: Always render badge to check CSS {% endcomment %}
+<span class="tier-badge-overlay tier-badge-overlay--diamond" style="background: #00d4ff; color: #000;">
+  -15% TEST
+</span>
+
+{% comment %} Real logic {% endcomment %}
+{% if false %}
 {% if customer %}
   {% if has_tier and tier_discount > 0 %}
-    <span class="tier-badge-overlay tier-badge-overlay--{{ tier_name | handleize }}" data-debug="tier:{{ tier_name }},discount:{{ tier_discount }},spent:{{ total_spent }}">
+    <span class="tier-badge-overlay tier-badge-overlay--{{ tier_name | handleize }}">
       -{{ tier_discount }}%
     </span>
-  {% else %}
-    <span class="tier-badge-overlay tier-badge-overlay--member" data-debug="no-tier,spent:{{ total_spent }}">
-      MEMBER
-    </span>
   {% endif %}
+{% endif %}
 {% endif %}
