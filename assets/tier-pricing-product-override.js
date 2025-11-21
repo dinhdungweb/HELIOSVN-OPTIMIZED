@@ -106,6 +106,12 @@
         return false;
       }
       
+      // Check if already overridden
+      if (theme.OptionManager.updatePrice._tierPricingOverridden) {
+        console.log('Tier Pricing: Already overridden');
+        return true;
+      }
+      
       const originalUpdatePrice = theme.OptionManager.updatePrice;
       
       theme.OptionManager.updatePrice = function(variant, $container) {
@@ -122,7 +128,20 @@
         console.log('Tier Pricing: Updated via override', variant ? variant.id : 'none', tierInfo);
       };
       
+      // Mark as overridden
+      theme.OptionManager.updatePrice._tierPricingOverridden = true;
+      
       console.log('Tier Pricing: Override installed successfully with tier:', tierInfo.tier);
+      
+      // Trigger update immediately to apply tier pricing
+      setTimeout(function() {
+        const $variantInput = $('.product-area').find('[name="id"]').first();
+        if ($variantInput.length) {
+          console.log('Tier Pricing: Triggering variant update to apply tier pricing');
+          $variantInput.trigger('change.themeProductOptions');
+        }
+      }, 100);
+      
       return true;
     }
     console.log('Tier Pricing: theme.OptionManager not available yet');
