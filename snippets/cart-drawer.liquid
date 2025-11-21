@@ -28,12 +28,13 @@
                     </h3>
                     <span>{{ item.variant.title }}</span>
                     <div class="cart-price">
-                      {% if item.original_line_price > item.final_line_price %}
-                        <span class="original-price" style="text-decoration: line-through;">{{ item.original_line_price | money }}</span>
-                        <span class="discounted-price">{{ item.final_line_price | money }}</span>
-                      {% else %}
-                        <span>{{ item.original_line_price | money }}</span>
-                      {% endif %}
+                      {% render 'tier-price', 
+                        price: item.original_price,
+                        compare_at_price: item.variant.compare_at_price,
+                        customer: customer,
+                        show_original: false,
+                        show_badge: false
+                      %}
                     </div>
                     <div class="cart-drawer-quantity-selector">
                       <button class="cart-drawer-quantity-selector-minus" type="button">
@@ -75,18 +76,13 @@
                       <a href="{{ product.url }}" alt="{{ product.title }}">{{ product.title }}</a>
                       </div>
                       <div class="recommend-product-price">
-                      {% if product.compare_at_price > product.price %}
-                        <span class="original-price" style="text-decoration: line-through;">
-                          {{ product.compare_at_price | money }}
-                        </span>
-                        <span class="sale-price">
-                          {{ product.price | money }}
-                        </span>
-                      {% else %}
-                        <span class="regular-price">
-                          {{ product.price | money }}
-                        </span>
-                      {% endif %}
+                      {% render 'tier-price', 
+                        price: product.price,
+                        compare_at_price: product.compare_at_price,
+                        customer: customer,
+                        show_original: true,
+                        show_badge: true
+                      %}
                       </div>
                       {% if product.variants.size > 1 %}
                           {% assign sold_out = true %}

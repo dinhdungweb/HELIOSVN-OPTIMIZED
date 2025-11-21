@@ -382,10 +382,13 @@
                       Đăng nhập để hiện giá
                     {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
                       <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
-                        {% if current_variant.compare_at_price > current_variant.price %}
-                          <span class="was-price theme-money">{%- render "price", price: current_variant.compare_at_price -%}</span>
-                        {% endif %}
-                        <div class="price theme-money">{%- render "price", price: current_variant.price -%}</div>
+                        {% render 'tier-price', 
+                          price: current_variant.price,
+                          compare_at_price: current_variant.compare_at_price,
+                          customer: customer,
+                          show_original: true,
+                          show_badge: true
+                        %}
     
                         {% render 'unit-price', variant: current_variant %}
                       </div>
@@ -412,10 +415,13 @@
                         Đăng nhập để hiện giá
                       {% else %}  
                         <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
-                          {% if current_variant.compare_at_price > current_variant.price %}
-                            <span class="was-price theme-money">{%- render "price", price: current_variant.compare_at_price -%}</span>
-                          {% endif %}
-                          <div class="price theme-money">{%- render "price", price: current_variant.price -%}</div>
+                          {% render 'tier-price', 
+                            price: current_variant.price,
+                            compare_at_price: current_variant.compare_at_price,
+                            customer: customer,
+                            show_original: true,
+                            show_badge: true
+                          %}
       
                           {% render 'unit-price', variant: current_variant %}
                         </div>
@@ -437,10 +443,13 @@
                       {% endif %}
                     {% else %}
                       <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
-                          {% if current_variant.compare_at_price > current_variant.price %}
-                            <span class="was-price theme-money">{%- render "price", price: current_variant.compare_at_price -%}</span>
-                          {% endif %}
-                          <div class="price theme-money">{%- render "price", price: current_variant.price -%}</div>
+                          {% render 'tier-price', 
+                            price: current_variant.price,
+                            compare_at_price: current_variant.compare_at_price,
+                            customer: customer,
+                            show_original: true,
+                            show_badge: true
+                          %}
       
                           {% render 'unit-price', variant: current_variant %}
                         </div>
@@ -470,10 +479,13 @@
       
                     {% else %}
                       <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
-                          {% if current_variant.compare_at_price > current_variant.price %}
-                            <span class="was-price theme-money">{%- render "price", price: current_variant.compare_at_price -%}</span>
-                          {% endif %}
-                          <div class="price theme-money">{%- render "price", price: current_variant.price -%}</div>
+                          {% render 'tier-price', 
+                            price: current_variant.price,
+                            compare_at_price: current_variant.compare_at_price,
+                            customer: customer,
+                            show_original: true,
+                            show_badge: true
+                          %}
       
                           {% render 'unit-price', variant: current_variant %}
                         </div>
