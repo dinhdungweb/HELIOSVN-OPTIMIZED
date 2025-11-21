@@ -69,8 +69,15 @@
   endif
 %}
 
-{% if has_tier and tier_discount > 0 %}
-  <span class="tier-badge-overlay tier-badge-overlay--{{ tier_name | handleize }}">
-    -{{ tier_discount }}%
-  </span>
+{% comment %} Debug: Always show for testing {% endcomment %}
+{% if customer %}
+  {% if has_tier and tier_discount > 0 %}
+    <span class="tier-badge-overlay tier-badge-overlay--{{ tier_name | handleize }}" data-debug="tier:{{ tier_name }},discount:{{ tier_discount }},spent:{{ total_spent }}">
+      -{{ tier_discount }}%
+    </span>
+  {% else %}
+    <span class="tier-badge-overlay tier-badge-overlay--member" data-debug="no-tier,spent:{{ total_spent }}">
+      MEMBER
+    </span>
+  {% endif %}
 {% endif %}
