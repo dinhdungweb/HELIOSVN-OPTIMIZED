@@ -1,0 +1,91 @@
+{% comment %}
+  ============================================
+  TIER PRICING CSS CONFIGURATION
+  ============================================
+  
+  File này generate CSS variables từ tier-config.
+  Không cần sửa trực tiếp, chỉnh sửa tier-config.liquid
+{% endcomment %}
+
+{% render 'tier-config' %}
+
+<style>
+:root {
+  /* Tier 1: {{ tier_1_name }} */
+  --tier-1-color-start: {{ tier_1_color_start }};
+  --tier-1-color-end: {{ tier_1_color_end }};
+  --tier-1-text-color: {{ tier_1_text_color }};
+  --tier-1-discount: {{ tier_1_discount }}%;
+  
+  /* Tier 2: {{ tier_2_name }} */
+  --tier-2-color-start: {{ tier_2_color_start }};
+  --tier-2-color-end: {{ tier_2_color_end }};
+  --tier-2-text-color: {{ tier_2_text_color }};
+  --tier-2-discount: {{ tier_2_discount }}%;
+  
+  /* Tier 3: {{ tier_3_name }} */
+  --tier-3-color-start: {{ tier_3_color_start }};
+  --tier-3-color-end: {{ tier_3_color_end }};
+  --tier-3-text-color: {{ tier_3_text_color }};
+  --tier-3-discount: {{ tier_3_discount }}%;
+  
+  /* Tier 4: {{ tier_4_name }} */
+  --tier-4-color-start: {{ tier_4_color_start }};
+  --tier-4-color-end: {{ tier_4_color_end }};
+  --tier-4-text-color: {{ tier_4_text_color }};
+  --tier-4-discount: {{ tier_4_discount }}%;
+  
+  /* Tier 5: {{ tier_5_name }} */
+  --tier-5-color-start: {{ tier_5_color_start }};
+  --tier-5-color-end: {{ tier_5_color_end }};
+  --tier-5-text-color: {{ tier_5_text_color }};
+  --tier-5-discount: {{ tier_5_discount }}%;
+  
+  /* Tier 6: {{ tier_6_name }} */
+  --tier-6-color-start: {{ tier_6_color_start }};
+  --tier-6-color-end: {{ tier_6_color_end }};
+  --tier-6-text-color: {{ tier_6_text_color }};
+  --tier-6-discount: {{ tier_6_discount }}%;
+  
+  /* Badge Settings */
+  --badge-font-size: {{ badge_font_size }}px;
+  --badge-font-size-small: {{ badge_font_size_small }}px;
+  --badge-padding: {{ badge_padding_v }}px {{ badge_padding_h }}px;
+  --badge-border-radius: {{ badge_border_radius }}px;
+  
+  /* Price Settings */
+  --price-gap: {{ price_gap }}px;
+  --original-price-opacity: {{ original_price_opacity }};
+}
+
+/* Apply CSS variables to tier badges */
+.tier-badge--black-diamond {
+  background: linear-gradient(135deg, var(--tier-1-color-start) 0%, var(--tier-1-color-end) 100%);
+  color: var(--tier-1-text-color);
+}
+
+.tier-badge--diamond {
+  background: linear-gradient(135deg, var(--tier-2-color-start) 0%, var(--tier-2-color-end) 100%);
+  color: var(--tier-2-text-color);
+}
+
+.tier-badge--platinum {
+  background: linear-gradient(135deg, var(--tier-3-color-start) 0%, var(--tier-3-color-end) 100%);
+  color: var(--tier-3-text-color);
+}
+
+.tier-badge--gold {
+  background: linear-gradient(135deg, var(--tier-4-color-start) 0%, var(--tier-4-color-end) 100%);
+  color: var(--tier-4-text-color);
+}
+
+.tier-badge--silver {
+  background: linear-gradient(135deg, var(--tier-5-color-start) 0%, var(--tier-5-color-end) 100%);
+  color: var(--tier-5-text-color);
+}
+
+.tier-badge--member {
+  background: linear-gradient(135deg, var(--tier-6-color-start) 0%, var(--tier-6-color-end) 100%);
+  color: var(--tier-6-text-color);
+}
+</style>

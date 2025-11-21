@@ -40,6 +40,7 @@
 
   {{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'tier-pricing.css' | asset_url | stylesheet_tag }}
+  {% render 'tier-config-css' %}
 
   {{ content_for_header }}
 

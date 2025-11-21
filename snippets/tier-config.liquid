@@ -1,0 +1,197 @@
+{% comment %}
+  ============================================
+  TIER PRICING CONFIGURATION
+  ============================================
+  
+  Cấu hình tập trung cho hệ thống tier pricing.
+  Chỉnh sửa file này để thay đổi:
+  - Tên tier
+  - % Giảm giá
+  - Ngưỡng chi tiêu
+  - Màu sắc badge
+  
+  Last updated: 2024-11-21
+{% endcomment %}
+
+{% liquid
+  comment ============================================
+    TIER LEVELS CONFIGURATION
+    Thứ tự: Từ cao xuống thấp
+  ============================================
+  endcomment
+  
+  comment BLACK DIAMOND TIER
+  endcomment
+  assign tier_1_name = "BLACK DIAMOND"
+  assign tier_1_tag = "BLACK DIAMOND"
+  assign tier_1_discount = 20
+  assign tier_1_threshold = 100000000
+  assign tier_1_color_start = "#1a1a1a"
+  assign tier_1_color_end = "#4a4a4a"
+  assign tier_1_text_color = "#ffffff"
+  
+  comment DIAMOND TIER
+  endcomment
+  assign tier_2_name = "DIAMOND"
+  assign tier_2_tag = "DIAMOND"
+  assign tier_2_discount = 15
+  assign tier_2_threshold = 20000000
+  assign tier_2_color_start = "#b9f2ff"
+  assign tier_2_color_end = "#00d4ff"
+  assign tier_2_text_color = "#000000"
+  
+  comment PLATINUM TIER
+  endcomment
+  assign tier_3_name = "PLATINUM"
+  assign tier_3_tag = "PLATINUM"
+  assign tier_3_discount = 12
+  assign tier_3_threshold = 10000000
+  assign tier_3_color_start = "#e5e4e2"
+  assign tier_3_color_end = "#c0c0c0"
+  assign tier_3_text_color = "#000000"
+  
+  comment GOLD TIER
+  endcomment
+  assign tier_4_name = "GOLD"
+  assign tier_4_tag = "GOLD"
+  assign tier_4_discount = 10
+  assign tier_4_threshold = 6000000
+  assign tier_4_color_start = "#ffd700"
+  assign tier_4_color_end = "#ffed4e"
+  assign tier_4_text_color = "#000000"
+  
+  comment SILVER TIER
+  endcomment
+  assign tier_5_name = "SILVER"
+  assign tier_5_tag = "SILVER"
+  assign tier_5_discount = 7
+  assign tier_5_threshold = 3000000
+  assign tier_5_color_start = "#c0c0c0"
+  assign tier_5_color_end = "#e8e8e8"
+  assign tier_5_text_color = "#000000"
+  
+  comment MEMBER TIER (Base tier for logged in users)
+  endcomment
+  assign tier_6_name = "MEMBER"
+  assign tier_6_tag = ""
+  assign tier_6_discount = 5
+  assign tier_6_threshold = 0
+  assign tier_6_color_start = "#667eea"
+  assign tier_6_color_end = "#764ba2"
+  assign tier_6_text_color = "#ffffff"
+  
+  comment ============================================
+    DISPLAY SETTINGS
+  ============================================
+  endcomment
+  
+  comment Hiển thị giá gốc (gạch ngang)
+  endcomment
+  assign show_original_price = true
+  
+  comment Hiển thị badge tier
+  endcomment
+  assign show_tier_badge = true
+  
+  comment Hiển thị badge trên product page
+  endcomment
+  assign show_badge_on_product_page = true
+  
+  comment Hiển thị badge trên collection/listing
+  endcomment
+  assign show_badge_on_listing = true
+  
+  comment ============================================
+    METAFIELD SETTINGS
+  ============================================
+  endcomment
+  
+  comment Sử dụng custom metafield cho total_spent
+    Nếu false, sẽ dùng customer.total_spent mặc định
+  endcomment
+  assign use_custom_metafield = true
+  assign metafield_namespace = "custom"
+  assign metafield_key = "total_spent"
+  
+  comment ============================================
+    BADGE STYLE SETTINGS
+  ============================================
+  endcomment
+  
+  comment Font size cho badge (px)
+  endcomment
+  assign badge_font_size = 11
+  assign badge_font_size_small = 9
+  
+  comment Padding cho badge (px)
+  endcomment
+  assign badge_padding_v = 4
+  assign badge_padding_h = 10
+  
+  comment Border radius (px)
+  endcomment
+  assign badge_border_radius = 6
+  
+  comment ============================================
+    PRICE DISPLAY SETTINGS
+  ============================================
+  endcomment
+  
+  comment Gap giữa các giá (px)
+  endcomment
+  assign price_gap = 6
+  
+  comment Opacity cho giá gốc (0-1)
+  endcomment
+  assign original_price_opacity = 0.6
+  
+  comment ============================================
+    FEATURE FLAGS
+  ============================================
+  endcomment
+  
+  comment Bật/tắt tier pricing
+  endcomment
+  assign tier_pricing_enabled = true
+  
+  comment Ưu tiên tags thay vì total_spent
+    Nếu true: Customer có tag tier sẽ dùng tag
+    Nếu false: Luôn dùng total_spent
+  endcomment
+  assign prioritize_tags = true
+  
+  comment Hiển thị login prompt cho guest
+  endcomment
+  assign show_login_prompt = false
+  
+  comment ============================================
+    EXPORT CONFIG
+    Đừng sửa phần này
+  ============================================
+  endcomment
+  
+  assign tier_config = tier_1_name
+    | append: "|" | append: tier_1_tag
+    | append: "|" | append: tier_1_discount
+    | append: "|" | append: tier_1_threshold
+    | append: "||" | append: tier_2_name
+    | append: "|" | append: tier_2_tag
+    | append: "|" | append: tier_2_discount
+    | append: "|" | append: tier_2_threshold
+    | append: "||" | append: tier_3_name
+    | append: "|" | append: tier_3_tag
+    | append: "|" | append: tier_3_discount
+    | append: "|" | append: tier_3_threshold
+    | append: "||" | append: tier_4_name
+    | append: "|" | append: tier_4_tag
+    | append: "|" | append: tier_4_discount
+    | append: "|" | append: tier_4_threshold
+    | append: "||" | append: tier_5_name
+    | append: "|" | append: tier_5_tag
+    | append: "|" | append: tier_5_discount
+    | append: "|" | append: tier_5_threshold
+    | append: "||" | append: tier_6_name
+    | append: "|" | append: tier_6_tag
+    | append: "|" | append: tier_6_discount
+    | append: "|" | append: tier_6_threshold
+%}
