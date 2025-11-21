@@ -110,7 +110,7 @@
      data-customer-tier="{{ tier_name }}"
      data-customer-total-spent="{{ total_spent }}"
      data-tier-discount="{{ tier_discount }}"
-     data-has-customer="{{ customer | default: false }}">
+     data-has-customer="{% if customer %}true{% else %}false{% endif %}">
   {% comment %} Tier Badge {% endcomment %}
   {% if has_tier and show_badge and tier_discount > 0 %}
     <span class="tier-badge tier-badge--{{ tier_name | handleize }}">
