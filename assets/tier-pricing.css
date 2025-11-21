@@ -9,25 +9,26 @@
   margin: 8px 0;
 }
 
-/* Product block: Keep everything in column layout */
+/* Product block: Inline display */
 .product-block .price .tier-pricing-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin: 4px 0 0 0;
+  display: inline-block;
+  margin: 0;
+  vertical-align: baseline;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-badge {
-  font-size: 10px;
-  padding: 3px 8px;
-  align-self: flex-start;
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 6px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
+  vertical-align: baseline;
 }
 
 /* ============================================
