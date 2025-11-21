@@ -49,19 +49,19 @@
     
     html += '<div class="tier-pricing-prices">';
     
-    // Compare at price
-    if (variant.compare_at_price && variant.compare_at_price > variant.price) {
-      html += '<span class="tier-price-compare"><span class="theme-money">' + formatMoney(variant.compare_at_price) + '</span></span>';
-    }
+    // Tier price (hiển thị đầu tiên)
+    const priceClass = tierInfo.discount > 0 ? 'tier-price-final tier-price-discounted' : 'tier-price-final';
+    html += '<span class="' + priceClass + '"><span class="theme-money">' + formatMoney(tierPrice) + '</span></span>';
     
     // Original price
     if (tierInfo.discount > 0) {
       html += '<span class="tier-price-original"><span class="theme-money">' + formatMoney(variant.price) + '</span></span>';
     }
     
-    // Tier price
-    const priceClass = tierInfo.discount > 0 ? 'tier-price-final tier-price-discounted' : 'tier-price-final';
-    html += '<span class="' + priceClass + '"><span class="theme-money">' + formatMoney(tierPrice) + '</span></span>';
+    // Compare at price
+    if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+      html += '<span class="tier-price-compare"><span class="theme-money">' + formatMoney(variant.compare_at_price) + '</span></span>';
+    }
     
     html += '</div>';
     
