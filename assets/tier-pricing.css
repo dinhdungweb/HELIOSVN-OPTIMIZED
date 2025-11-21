@@ -16,12 +16,7 @@
 }
 
 .product-block .price .tier-pricing-wrapper .tier-badge {
-  display: inline-block;
-  font-size: 9px;
-  padding: 2px 6px;
-  margin-left: 4px;
-  vertical-align: middle;
-  white-space: nowrap;
+  display: none; /* Hide badge in price area, show on image instead */
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices {
@@ -31,6 +26,73 @@
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
   display: inline;
   white-space: nowrap;
+}
+
+/* ============================================
+   TIER BADGE OVERLAY (on product image)
+   ============================================ */
+
+.tier-badge-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Tier-specific colors for overlay */
+.tier-badge-overlay--black-diamond {
+  background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+  color: #ffffff;
+  border: 1px solid #666;
+}
+
+.tier-badge-overlay--diamond {
+  background: linear-gradient(135deg, #b9f2ff 0%, #00d4ff 100%);
+  color: #000000;
+  border: 1px solid #00d4ff;
+}
+
+.tier-badge-overlay--platinum {
+  background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%);
+  color: #000000;
+  border: 1px solid #a8a8a8;
+}
+
+.tier-badge-overlay--gold {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000000;
+  border: 1px solid #daa520;
+}
+
+.tier-badge-overlay--silver {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+  color: #000000;
+  border: 1px solid #a8a8a8;
+}
+
+.tier-badge-overlay--member {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border: 1px solid #667eea;
 }
 
 /* ============================================
