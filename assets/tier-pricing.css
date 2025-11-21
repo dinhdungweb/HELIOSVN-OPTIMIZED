@@ -228,12 +228,6 @@
     width: 10px;
     height: 10px;
   }
-
-  .tier-pricing-prices {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
 }
 
 /* ============================================
