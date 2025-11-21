@@ -179,9 +179,6 @@
           {% unless settings.prod_label_layout contains 'marquee' %}
             {% render 'product-label', product: product, cheapest_variant: cheapest_variant %}
           {% endunless %}
-          
-          {% comment %} Tier badge overlay {% endcomment %}
-          {% render 'tier-badge-overlay', customer: customer %}
         </div>
 
         {% if settings.prod_hover == "second_image" and product.media.size > 1 %}
