@@ -204,15 +204,7 @@
   .tier-pricing-prices {
     gap: 6px;
   }
-
-  .tier-price-final {
-    font-size: 1em;
-  }
-
-  .tier-price-final.tier-price-discounted {
-    font-size: 1.1em;
-  }
-
+  
   .tier-login-link {
     font-size: 11px;
   }
