@@ -121,12 +121,13 @@
 /* Giá sau tier discount */
 .tier-price-final {
   font-size: 1.1em;
-  font-weight: 600;
   color: inherit;
 }
 
 .tier-price-final.tier-price-discounted {
   color: #fab320;
+  font-weight: 700;
+  font-size: 1.2em;
 }
 
 /* Compare at price (sale price) */
