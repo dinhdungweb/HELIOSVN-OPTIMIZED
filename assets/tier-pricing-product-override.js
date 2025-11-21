@@ -10,7 +10,8 @@
   let tierInfo = {
     tier: '',
     discount: 0,
-    totalSpent: 0
+    totalSpent: 0,
+    extracted: false
   };
   
   // Function to extract tier info
@@ -20,21 +21,40 @@
       tierInfo.tier = tierWrapper.dataset.customerTier || '';
       tierInfo.discount = parseFloat(tierWrapper.dataset.tierDiscount || 0) / 100;
       tierInfo.totalSpent = parseFloat(tierWrapper.dataset.customerTotalSpent || 0);
+      tierInfo.extracted = true;
       console.log('Tier Pricing: Extracted tier info', tierInfo);
+      return true;
+    } else {
+      console.log('Tier Pricing: tier-pricing-wrapper not found yet');
+      return false;
     }
   }
   
-  // Extract tier info immediately
-  extractTierInfo();
-  
-  // Also extract after DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', extractTierInfo);
+  // Try to extract tier info multiple times
+  function tryExtractTierInfo(attempts = 0) {
+    if (extractTierInfo()) {
+      return true;
+    }
+    
+    if (attempts < 10) {
+      setTimeout(() => tryExtractTierInfo(attempts + 1), 100);
+    } else {
+      console.warn('Tier Pricing: Failed to extract tier info after 10 attempts');
+    }
+    return false;
   }
+  
+  // Start extraction
+  tryExtractTierInfo();
   
   // Function to rebuild tier pricing HTML
   function buildTierPricingHTML(variant) {
     if (!variant) return '<span class="current-price">Không có sẵn</span>';
+    
+    // Make sure tier info is extracted
+    if (!tierInfo.extracted) {
+      extractTierInfo();
+    }
     
     const tierPrice = Math.round(variant.price * (1 - tierInfo.discount));
     const originalPrice = variant.price;
@@ -79,6 +99,13 @@
   // Method 1: Override theme.Product.prototype.updatePrice
   function installOverride() {
     if (typeof theme !== 'undefined' && theme.Product && theme.Product.prototype) {
+      // Make sure tier info is extracted first
+      if (!tierInfo.extracted) {
+        console.log('Tier Pricing: Waiting for tier info before installing override');
+        setTimeout(installOverride, 100);
+        return false;
+      }
+      
       const originalUpdatePrice = theme.Product.prototype.updatePrice;
       
       theme.Product.prototype.updatePrice = function(variant, $container) {
@@ -92,12 +119,13 @@
         const newHTML = buildTierPricingHTML(variant);
         $priceArea.html(newHTML);
         
-        console.log('Tier Pricing: Updated via override', variant ? variant.id : 'none');
+        console.log('Tier Pricing: Updated via override', variant ? variant.id : 'none', tierInfo);
       };
       
-      console.log('Tier Pricing: Override installed');
+      console.log('Tier Pricing: Override installed successfully with tier:', tierInfo.tier);
       return true;
     }
+    console.log('Tier Pricing: theme.Product not available yet');
     return false;
   }
   
@@ -151,31 +179,51 @@
   
   // Install both methods
   function init() {
+    console.log('Tier Pricing: Init called, extracted:', tierInfo.extracted);
+    
+    // Wait for tier info to be extracted
+    if (!tierInfo.extracted) {
+      console.log('Tier Pricing: Waiting for tier info extraction...');
+      setTimeout(init, 100);
+      return;
+    }
+    
     // Try override first
     const overrideInstalled = installOverride();
     
     // Always install observer as backup
-    setTimeout(installObserver, 100);
+    setTimeout(installObserver, 200);
     
     console.log('Tier Pricing: Initialized', {
       override: overrideInstalled,
       tier: tierInfo.tier,
-      discount: tierInfo.discount
+      discount: tierInfo.discount,
+      extracted: tierInfo.extracted
     });
   }
   
-  // Run init
+  // Run init after DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(init, 100);
+    });
   } else {
-    init();
+    setTimeout(init, 100);
   }
   
-  // Also try after a delay to catch late-loading theme.js
+  // Also try after delays to catch late-loading theme.js
   setTimeout(function() {
-    if (typeof theme !== 'undefined' && theme.Product) {
+    if (tierInfo.extracted && typeof theme !== 'undefined' && theme.Product) {
+      console.log('Tier Pricing: Retry override installation at 500ms');
       installOverride();
     }
   }, 500);
+  
+  setTimeout(function() {
+    if (tierInfo.extracted && typeof theme !== 'undefined' && theme.Product) {
+      console.log('Tier Pricing: Retry override installation at 1000ms');
+      installOverride();
+    }
+  }, 1000);
   
 })();
