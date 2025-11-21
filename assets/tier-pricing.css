@@ -32,8 +32,10 @@
    TIER BADGE OVERLAY (on product image)
    ============================================ */
 
+.product-block .image,
+.product-block .image-inner,
 .product-block .image__first {
-  position: relative;
+  position: relative !important;
 }
 
 .tier-badge-overlay {
