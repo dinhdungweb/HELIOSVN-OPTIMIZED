@@ -22,6 +22,7 @@
   assign tier_discount = 0
   assign tier_name = ""
   assign has_tier = false
+  assign total_spent = 0
   
   if customer
     comment Tính tổng chi tiêu từ metafield hoặc total_spent
@@ -85,6 +86,8 @@
     endif
   endif
   
+  comment Tính giá tier (luôn tính, dù discount = 0)
+  endcomment
   assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
   assign tier_price = price | times: discount_multiplier | round
   
@@ -102,7 +105,12 @@
   endif
 %}
 
-<div class="tier-pricing-wrapper" data-tier="{{ tier_name }}">
+<div class="tier-pricing-wrapper" 
+     data-tier="{{ tier_name }}"
+     data-customer-tier="{{ tier_name }}"
+     data-customer-total-spent="{{ total_spent }}"
+     data-tier-discount="{{ tier_discount }}"
+     data-has-customer="{{ customer | default: false }}">
   {% comment %} Tier Badge {% endcomment %}
   {% if has_tier and show_badge and tier_discount > 0 %}
     <span class="tier-badge tier-badge--{{ tier_name | handleize }}">
