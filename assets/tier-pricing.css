@@ -171,11 +171,11 @@
   padding: 6px 12px;
 }
 
-.product-area .tier-price-final {
+.product-area > .tier-price-final {
   font-size: 1.3em;
 }
 
-.product-area .tier-price-final.tier-price-discounted {
+.product-area > .tier-price-final.tier-price-discounted {
   font-size: 1.3em;
 }
 
