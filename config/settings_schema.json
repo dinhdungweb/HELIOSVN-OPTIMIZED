@@ -1324,6 +1324,13 @@
                              "default":  "#ffffff"
                          },
                          {
+                             "type":  "text",
+                             "id":  "tier_1_discount_code",
+                             "label":  "Mã giảm giá (Discount Code)",
+                             "default":  "BLACK-DIAMOND-20",
+                             "info":  "Mã discount trong Shopify Admin → Discounts"
+                         },
+                         {
                              "type":  "header",
                              "content":  "Tier 2: DIAMOND (15%)"
                          },
@@ -1372,6 +1379,13 @@
                              "id":  "tier_2_text_color",
                              "label":  "Màu chữ",
                              "default":  "#000000"
+                         },
+                         {
+                             "type":  "text",
+                             "id":  "tier_2_discount_code",
+                             "label":  "Mã giảm giá (Discount Code)",
+                             "default":  "DIAMOND-15",
+                             "info":  "Mã discount trong Shopify Admin → Discounts"
                          },
                          {
                              "type":  "header",
@@ -1424,6 +1438,13 @@
                              "default":  "#000000"
                          },
                          {
+                             "type":  "text",
+                             "id":  "tier_3_discount_code",
+                             "label":  "Mã giảm giá (Discount Code)",
+                             "default":  "PLATINUM-12",
+                             "info":  "Mã discount trong Shopify Admin → Discounts"
+                         },
+                         {
                              "type":  "header",
                              "content":  "Tier 4: GOLD (10%)"
                          },
@@ -1472,6 +1493,13 @@
                              "id":  "tier_4_text_color",
                              "label":  "Màu chữ",
                              "default":  "#000000"
+                         },
+                         {
+                             "type":  "text",
+                             "id":  "tier_4_discount_code",
+                             "label":  "Mã giảm giá (Discount Code)",
+                             "default":  "GOLD-10",
+                             "info":  "Mã discount trong Shopify Admin → Discounts"
                          },
                          {
                              "type":  "header",
@@ -1524,6 +1552,13 @@
                              "default":  "#000000"
                          },
                          {
+                             "type":  "text",
+                             "id":  "tier_5_discount_code",
+                             "label":  "Mã giảm giá (Discount Code)",
+                             "default":  "SILVER-7",
+                             "info":  "Mã discount trong Shopify Admin → Discounts"
+                         },
+                         {
                              "type":  "header",
                              "content":  "Tier 6: MEMBER (5%)"
                          },
@@ -1560,6 +1595,13 @@
                              "id":  "tier_6_text_color",
                              "label":  "Màu chữ",
                              "default":  "#ffffff"
+                         },
+                         {
+                             "type":  "text",
+                             "id":  "tier_6_discount_code",
+                             "label":  "Mã giảm giá (Discount Code)",
+                             "default":  "MEMBER-5",
+                             "info":  "Mã discount trong Shopify Admin → Discounts"
                          },
                          {
                              "type":  "header",
