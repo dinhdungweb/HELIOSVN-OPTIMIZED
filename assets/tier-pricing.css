@@ -32,6 +32,10 @@
    TIER BADGE OVERLAY (on product image)
    ============================================ */
 
+.product-block .image__first {
+  position: relative;
+}
+
 .tier-badge-overlay {
   position: absolute;
   top: 8px;
@@ -45,6 +49,7 @@
   letter-spacing: 0.5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   animation: fadeInScale 0.3s ease;
+  pointer-events: none;
 }
 
 @keyframes fadeInScale {
