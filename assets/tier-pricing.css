@@ -16,7 +16,7 @@
   align-items: center;
   gap: 4px;
   margin: 0;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-badge {
