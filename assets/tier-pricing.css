@@ -167,12 +167,8 @@
    PRODUCT PAGE INTEGRATION
    ============================================ */
 
-.product-area .tier-pricing-wrapper {
-  margin: 12px 0;
-}
-
 .product-area .tier-badge {
-  font-size: 13px;
+  font-size: 12px;
   padding: 6px 12px;
 }
 
