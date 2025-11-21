@@ -39,14 +39,6 @@
     const tierSlug = tierInfo.tier.toLowerCase().replace(/\s+/g, '-');
     let html = '<div class="tier-pricing-wrapper tier-pricing-injected" data-tier="' + tierInfo.tier + '">';
     
-    // Badge
-    if (tierInfo.discount > 0 && tierInfo.tier) {
-      html += '<span class="tier-badge tier-badge--' + tierSlug + '">';
-      html += '<svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>';
-      html += ' -' + Math.round(tierInfo.discount * 100) + '% ' + tierInfo.tier;
-      html += '</span>';
-    }
-    
     html += '<div class="tier-pricing-prices">';
     
     // Tier price (hiển thị đầu tiên)
@@ -65,7 +57,13 @@
     
     html += '</div>';
     
-
+    // Badge (sau giá)
+    if (tierInfo.discount > 0 && tierInfo.tier) {
+      html += '<span class="tier-badge tier-badge--' + tierSlug + '">';
+      html += '<svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>';
+      html += ' -' + Math.round(tierInfo.discount * 100) + '% ' + tierInfo.tier;
+      html += '</span>';
+    }
     
     html += '</div>';
     
