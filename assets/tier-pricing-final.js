@@ -9,10 +9,11 @@
   let tierInfo = null;
   let isReady = false;
   
-  // Extract tier info from initial render
-  function extractTierInfo() {
-    const wrapper = document.querySelector('.tier-pricing-wrapper');
-    if (wrapper && !tierInfo) {
+  // Extract tier info from initial render or specific container
+  function extractTierInfo(container) {
+    const selector = container ? container + ' .tier-pricing-wrapper' : '.tier-pricing-wrapper';
+    const wrapper = document.querySelector(selector);
+    if (wrapper) {
       tierInfo = {
         tier: wrapper.dataset.customerTier || '',
         discount: parseFloat(wrapper.dataset.tierDiscount || 0) / 100,
@@ -169,8 +170,24 @@
     tierInfo = null;
     isReady = false;
     
-    // Re-run init
-    setTimeout(init, 100);
+    // Extract tier info from modal
+    setTimeout(() => {
+      if (extractTierInfo('#quick-buy-modal')) {
+        if (installInterceptor()) {
+          isReady = true;
+          
+          // Trigger variant change in modal
+          setTimeout(() => {
+            if (typeof $ !== 'undefined') {
+              const $variantInput = $('#quick-buy-modal .product-area [name="id"]').first();
+              if ($variantInput.length) {
+                $variantInput.trigger('change.themeProductOptions');
+              }
+            }
+          }, 200);
+        }
+      }
+    }, 300);
   }
   
   // Listen for quickbuy modal open
