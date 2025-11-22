@@ -140,6 +140,45 @@
     }
   }
   
+  // Re-initialize for dynamically loaded content (quickbuy modal)
+  function reinitForModal() {
+    // Reset state
+    tierInfo = null;
+    isReady = false;
+    
+    // Re-run init
+    setTimeout(init, 100);
+  }
+  
+  // Listen for quickbuy modal open
+  if (typeof $ !== 'undefined') {
+    $(document).on('modalOpen', '#quick-buy-modal', function() {
+      reinitForModal();
+    });
+    
+    // Also listen for DOM changes in modal
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length) {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1 && (node.matches('.product-area') || node.querySelector('.product-area'))) {
+              reinitForModal();
+            }
+          });
+        }
+      });
+    });
+    
+    // Observe modal container
+    const modalContainer = document.querySelector('#quick-buy-modal');
+    if (modalContainer) {
+      observer.observe(modalContainer, {
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+  
   // Start
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
