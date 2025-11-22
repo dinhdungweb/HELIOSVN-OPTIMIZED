@@ -142,46 +142,72 @@
         <footer class="cart-drawer-footer">
           {% comment %} Calculate tier pricing total {% endcomment %}
           {% assign tier_discount_percent = 0 %}
+          {% assign customer_tier = '' %}
           {% if customer %}
             {% if customer.tags contains 'BLACK DIAMOND' %}
               {% assign tier_discount_percent = settings.tier_black_diamond_discount | default: 20 %}
+              {% assign customer_tier = 'BLACK DIAMOND' %}
             {% elsif customer.tags contains 'PLATINUM' %}
               {% assign tier_discount_percent = settings.tier_platinum_discount | default: 15 %}
+              {% assign customer_tier = 'PLATINUM' %}
             {% elsif customer.tags contains 'GOLD' %}
               {% assign tier_discount_percent = settings.tier_gold_discount | default: 10 %}
+              {% assign customer_tier = 'GOLD' %}
             {% elsif customer.tags contains 'SILVER' %}
               {% assign tier_discount_percent = settings.tier_silver_discount | default: 5 %}
+              {% assign customer_tier = 'SILVER' %}
             {% endif %}
           {% endif %}
           
-          {% assign cart_tier_total = 0 %}
-          {% assign cart_tier_discount = 0 %}
-          {% for item in cart.items %}
-            {% assign discount_multiplier = 100 | minus: tier_discount_percent %}
-            {% assign item_tier_price = item.original_price | times: discount_multiplier | divided_by: 100 %}
-            {% assign item_tier_line_total = item_tier_price | times: item.quantity %}
-            {% assign cart_tier_total = cart_tier_total | plus: item_tier_line_total %}
-          {% endfor %}
-          {% assign cart_tier_discount = cart.original_total_price | minus: cart_tier_total %}
+          {% comment %} DEBUG - Remove after testing {% endcomment %}
+          <!-- 
+          Customer: {{ customer.email | default: 'Not logged in' }}
+          Customer Tags: {{ customer.tags | join: ', ' }}
+          Tier: {{ customer_tier }}
+          Discount %: {{ tier_discount_percent }}
+          -->
           
-          {% comment %} Show breakdown if there's tier discount or cart discount {% endcomment %}
-          {% if tier_discount_percent > 0 or cart.total_discounts > 0 %}
+          {% comment %} Calculate cart total with tier discount {% endcomment %}
+          {% if tier_discount_percent > 0 %}
+            {% assign discount_multiplier = 100 | minus: tier_discount_percent %}
+            {% assign cart_tier_total = cart.original_total_price | times: discount_multiplier | divided_by: 100 %}
+            {% assign cart_tier_discount = cart.original_total_price | minus: cart_tier_total %}
+          {% else %}
+            {% assign cart_tier_total = cart.original_total_price %}
+            {% assign cart_tier_discount = 0 %}
+          {% endif %}
+          
+          {% comment %} DEBUG {% endcomment %}
+          <!-- 
+          Original Total: {{ cart.original_total_price | money }}
+          Discount Multiplier: {{ discount_multiplier }}
+          Tier Total: {{ cart_tier_total | money }}
+          Tier Discount: {{ cart_tier_discount | money }}
+          -->
+          
+          {% comment %} Show price breakdown {% endcomment %}
+          {% if tier_discount_percent > 0 %}
             <div class="cart-drawer-footer-row">
               <h3>Tổng phụ</h3>
               <span>{{ cart.original_total_price | money }}</span>
             </div>
-            {% if tier_discount_percent > 0 %}
+            <div class="cart-drawer-footer-row">
+              <h3>Giảm giá {{ customer_tier }} (-{{ tier_discount_percent }}%)</h3>
+              <span>- {{ cart_tier_discount | money }}</span>
+            </div>
+          {% endif %}
+          
+          {% if cart.total_discounts > 0 %}
+            {% unless tier_discount_percent > 0 %}
               <div class="cart-drawer-footer-row">
-                <h3>Giảm giá tier</h3>
-                <span>- {{ cart_tier_discount | money }}</span>
+                <h3>Tổng phụ</h3>
+                <span>{{ cart.original_total_price | money }}</span>
               </div>
-            {% endif %}
-            {% if cart.total_discounts > 0 %}
-              <div class="cart-drawer-footer-row">
-                <h3>Giảm giá khác</h3>
-                <span>- {{ cart.total_discounts | money }}</span>
-              </div>
-            {% endif %}
+            {% endunless %}
+            <div class="cart-drawer-footer-row">
+              <h3>Giảm giá khác</h3>
+              <span>- {{ cart.total_discounts | money }}</span>
+            </div>
           {% endif %}
           
           <div class="cart-drawer-footer-row">
