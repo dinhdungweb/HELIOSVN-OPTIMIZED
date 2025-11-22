@@ -170,6 +170,7 @@
 @media (max-width: 661px) {
   .product-block .tier-badge {
     margin-top: 5px;
+    display: flex;
   }
 }
 
