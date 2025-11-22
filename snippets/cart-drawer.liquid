@@ -28,13 +28,22 @@
                     </h3>
                     <span>{{ item.variant.title }}</span>
                     <div class="cart-price">
-                      {% render 'tier-price', 
-                        price: item.original_price,
-                        compare_at_price: item.variant.compare_at_price,
-                        customer: customer,
-                        show_original: false,
-                        show_badge: false
-                      %}
+                      {% if item.original_price > item.final_price %}
+                        <span class="price-original" style="text-decoration: line-through; opacity: 0.6; margin-right: 8px;">
+                          {% render 'format-vnd', price: item.original_price %}
+                        </span>
+                        <span class="price-final">
+                          {% render 'format-vnd', price: item.final_price %}
+                        </span>
+                      {% else %}
+                        {% render 'tier-price', 
+                          price: item.original_price,
+                          compare_at_price: item.variant.compare_at_price,
+                          customer: customer,
+                          show_original: true,
+                          show_badge: false
+                        %}
+                      {% endif %}
                     </div>
                     <div class="cart-drawer-quantity-selector">
                       <button class="cart-drawer-quantity-selector-minus" type="button">
@@ -131,15 +140,17 @@
             {% endif %}
            </div>
         <footer class="cart-drawer-footer">
-          {% if cart.total_discounts > 0 %}
+          {% if cart.cart_level_discount_applications.size > 0 or cart.total_discounts > 0 %}
             <div class="cart-drawer-footer-row">
               <h3>Tổng phụ</h3>
               <span>{{ cart.original_total_price | money }}</span>
             </div>
-            <div class="cart-drawer-footer-row">
-              <h3>Giảm giá</h3>
-              <span>- {{ cart.total_discounts | money }}</span>
-            </div>
+            {% if cart.total_discounts > 0 %}
+              <div class="cart-drawer-footer-row">
+                <h3>Giảm giá</h3>
+                <span>- {{ cart.total_discounts | money }}</span>
+              </div>
+            {% endif %}
           {% endif %}
           <div class="cart-drawer-footer-row">
             <h3>Tổng cộng</h3>
