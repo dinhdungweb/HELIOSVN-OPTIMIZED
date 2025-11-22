@@ -25,6 +25,7 @@
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices {
   display: inline;
+  line-height: 1.5;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
