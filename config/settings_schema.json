@@ -1261,7 +1261,7 @@
                      ]
     },
     {
-        "name":  "🎯 Tier Pricing",
+        "name":  "Tier Pricing",
         "settings":  [
                          {
                              "type":  "paragraph",
@@ -1605,7 +1605,7 @@
                          },
                          {
                              "type":  "header",
-                             "content":  "⚙️ Display Settings"
+                             "content":  "Display Settings"
                          },
                          {
                              "type":  "checkbox",
@@ -1621,7 +1621,7 @@
                          },
                          {
                              "type":  "header",
-                             "content":  "🎨 Badge Style"
+                             "content":  "Badge Style"
                          },
                          {
                              "type":  "range",
@@ -1655,7 +1655,7 @@
                          },
                          {
                              "type":  "header",
-                             "content":  "🔧 Advanced"
+                             "content":  "Advanced"
                          },
                          {
                              "type":  "checkbox",
