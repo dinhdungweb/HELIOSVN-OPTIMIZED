@@ -336,6 +336,12 @@
     <script src="{{ 'tier-pricing-final.js' | asset_url }}" defer="defer"></script>
   {% endif %}
   
+  {% comment %} Tier Discount Codes Config {% endcomment %}
+  {% render 'tier-discount-codes-config' %}
+  
+  {% comment %} Tier Auto Apply Discount {% endcomment %}
+  <script src="{{ 'tier-auto-apply-discount.js' | asset_url }}" defer="defer"></script>
+  
   {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
   {% render 'tier-auto-discount' %}
 </body>
