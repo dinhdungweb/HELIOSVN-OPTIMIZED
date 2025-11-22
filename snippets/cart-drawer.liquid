@@ -157,7 +157,8 @@
           {% assign cart_tier_total = 0 %}
           {% assign cart_tier_discount = 0 %}
           {% for item in cart.items %}
-            {% assign item_tier_price = item.original_price | times: 100 | minus: tier_discount_percent | divided_by: 100 %}
+            {% assign discount_multiplier = 100 | minus: tier_discount_percent %}
+            {% assign item_tier_price = item.original_price | times: discount_multiplier | divided_by: 100 %}
             {% assign item_tier_line_total = item_tier_price | times: item.quantity %}
             {% assign cart_tier_total = cart_tier_total | plus: item_tier_line_total %}
           {% endfor %}
