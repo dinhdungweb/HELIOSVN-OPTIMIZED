@@ -180,7 +180,8 @@
       </span>
     {% endif %}
   </div>
-  {% comment %} Tier Badge (sau giá) {% endcomment %}
+</div>
+{% comment %} Tier Badge (sau giá) {% endcomment %}
   {% if has_tier and show_badge and tier_discount > 0 %}
     <span class="tier-badge tier-badge--{{ tier_name | handleize }}">
       <svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,4 +190,3 @@
       -{{ tier_discount }}% {{ tier_name }}
     </span>
   {% endif %}
-</div>
