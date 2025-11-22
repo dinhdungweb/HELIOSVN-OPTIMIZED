@@ -12,7 +12,6 @@
 .product-block .price .tier-pricing-wrapper {
   display: inline;
   margin: 0;
-  vertical-align: middle;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-badge {
