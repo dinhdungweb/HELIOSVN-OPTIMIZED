@@ -10,24 +10,43 @@
 
 /* Product block: Inline display - match theme default behavior */
 .product-block .price .tier-pricing-wrapper {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   margin: 0;
+  flex-wrap: wrap;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-badge {
   font-size: 9px;
   padding: 2px 6px;
-  vertical-align: top;
   white-space: nowrap;
+  margin-left: 8px;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
   display: inline;
   white-space: nowrap;
+}
+
+/* Mobile: Badge xuống dòng */
+@media (max-width: 767px) {
+  .product-block .price .tier-pricing-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  .product-block .price .tier-pricing-wrapper .tier-badge {
+    margin-left: 0;
+  }
 }
 
 /* ============================================
