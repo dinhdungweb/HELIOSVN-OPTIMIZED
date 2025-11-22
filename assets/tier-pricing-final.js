@@ -90,11 +90,16 @@
         const $productArea = this.closest('.product-area');
         
         if ($productArea.length) {
-          // Get variant input and product JSON from THIS product-area
+          // Get variant input from THIS product-area
           const variantInput = $productArea.find('[name="id"]')[0];
-          let productJson = $productArea.find('[id^="cc-product-json-"]')[0];
           
-          // Fallback: look in parent section
+          // Try multiple ways to find product JSON
+          let productJson = null;
+          
+          // 1. Try in product-area
+          productJson = $productArea.find('[id^="cc-product-json-"]')[0];
+          
+          // 2. Try in parent section
           if (!productJson) {
             const $section = $productArea.closest('[data-section-type="product-template"]');
             if ($section.length) {
@@ -102,7 +107,12 @@
             }
           }
           
-          if (variantInput && productJson) {
+          // 3. Try in entire document (fallback for product page)
+          if (!productJson) {
+            productJson = document.querySelector('[id^="cc-product-json-"]');
+          }
+          
+          if (variantInput && productJson && tierInfo) {
             try {
               const product = JSON.parse(productJson.textContent);
               const variant = product.variants.find(v => v.id == variantInput.value);
