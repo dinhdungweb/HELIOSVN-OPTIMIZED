@@ -86,23 +86,36 @@
     $.fn.html = function(value) {
       // If this is .price-area and we're setting HTML (not getting)
       if (value !== undefined && this.hasClass('price-area')) {
-        // Get current variant
-        const variantInput = document.querySelector('.product-area [name="id"]');
-        const productJson = document.querySelector('[id^="cc-product-json-"]');
+        // Get current product-area context
+        const $productArea = this.closest('.product-area');
         
-        if (variantInput && productJson) {
-          try {
-            const product = JSON.parse(productJson.textContent);
-            const variant = product.variants.find(v => v.id == variantInput.value);
-            
-            if (variant) {
-              const tierHTML = buildTierHTML(variant);
-              if (tierHTML) {
-                return originalHtml.call(this, tierHTML);
-              }
+        if ($productArea.length) {
+          // Get variant input and product JSON from THIS product-area
+          const variantInput = $productArea.find('[name="id"]')[0];
+          let productJson = $productArea.find('[id^="cc-product-json-"]')[0];
+          
+          // Fallback: look in parent section
+          if (!productJson) {
+            const $section = $productArea.closest('[data-section-type="product-template"]');
+            if ($section.length) {
+              productJson = $section.find('[id^="cc-product-json-"]')[0];
             }
-          } catch (e) {
-            // Fallback to original
+          }
+          
+          if (variantInput && productJson) {
+            try {
+              const product = JSON.parse(productJson.textContent);
+              const variant = product.variants.find(v => v.id == variantInput.value);
+              
+              if (variant) {
+                const tierHTML = buildTierHTML(variant);
+                if (tierHTML) {
+                  return originalHtml.call(this, tierHTML);
+                }
+              }
+            } catch (e) {
+              // Fallback to original
+            }
           }
         }
       }
