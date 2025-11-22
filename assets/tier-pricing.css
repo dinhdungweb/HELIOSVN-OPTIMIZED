@@ -31,7 +31,7 @@
 
 .product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
   display: inline;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   padding-right: 3px;
 }
 
