@@ -55,67 +55,66 @@
       return;
     }
     
-    console.log('Tier Auto Discount: Applying code', discountCode, 'for tier', tierInfo.tier);
+    console.log('Tier Auto Discount: Will apply code', discountCode, 'for tier', tierInfo.tier);
     
-    // Store discount code globally
+    // Store discount code for use across pages
+    sessionStorage.setItem('tier_discount_code', discountCode);
     window.tierDiscountCode = discountCode;
     
-    // 1. Modify all checkout links
-    function modifyCheckoutLinks() {
-      document.querySelectorAll('a[href*="/checkout"], [href*="/cart"]').forEach(link => {
-        const url = link.href;
-        if (url && !url.includes('discount=')) {
-          link.href = addDiscountToUrl(url, discountCode);
-        }
-      });
-    }
-    
-    // 2. Intercept form submissions
+    // 1. Intercept ALL form submissions (including Buy Now)
     document.addEventListener('submit', function(e) {
       const form = e.target;
       
-      // Product form with Buy Now button
       if (form.action && form.action.includes('/cart/add')) {
-        // Store for later use
-        sessionStorage.setItem('tier_discount_code', discountCode);
-        console.log('Tier Auto Discount: Stored code for Buy Now redirect');
-      }
-    }, true);
-    
-    // 3. Intercept checkout button clicks
-    document.addEventListener('click', function(e) {
-      const target = e.target.closest('button, a, input[type="submit"]');
-      if (!target) return;
-      
-      // Check if it's a checkout button
-      const isCheckoutBtn = target.name === 'checkout' || 
-                           target.classList.contains('checkout-button') ||
-                           (target.href && target.href.includes('/checkout'));
-      
-      if (isCheckoutBtn) {
-        console.log('Tier Auto Discount: Checkout button clicked');
+        console.log('Tier Auto Discount: Form submit intercepted, storing code');
         sessionStorage.setItem('tier_discount_code', discountCode);
         
-        // If it's a link, modify href
-        if (target.href && !target.href.includes('discount=')) {
-          e.preventDefault();
-          window.location.href = addDiscountToUrl(target.href, discountCode);
+        // Add hidden input with discount code
+        const existingInput = form.querySelector('input[name="discount"]');
+        if (!existingInput) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'return_to';
+          input.value = '/checkout?discount=' + encodeURIComponent(discountCode);
+          form.appendChild(input);
+          console.log('Tier Auto Discount: Added return_to with discount to form');
         }
       }
     }, true);
     
-    // 4. Modify checkout links periodically (for dynamic content)
-    modifyCheckoutLinks();
-    setInterval(modifyCheckoutLinks, 1000);
+    // 2. Modify product forms on page load
+    const productForms = document.querySelectorAll('form[action*="/cart/add"]');
+    productForms.forEach(form => {
+      // Add hidden input for return_to
+      const existingInput = form.querySelector('input[name="return_to"]');
+      if (!existingInput) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'return_to';
+        input.value = '/checkout?discount=' + encodeURIComponent(discountCode);
+        form.appendChild(input);
+        console.log('Tier Auto Discount: Added return_to to product form');
+      }
+    });
     
-    // 5. If we're on checkout page, apply stored code
-    if (window.location.pathname.includes('/checkout') || 
-        window.location.pathname.includes('/cart')) {
+    // 3. Intercept checkout links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href*="/checkout"]');
+      if (link && !link.href.includes('discount=')) {
+        e.preventDefault();
+        const newUrl = addDiscountToUrl(link.href, discountCode);
+        console.log('Tier Auto Discount: Redirecting to', newUrl);
+        window.location.href = newUrl;
+      }
+    }, true);
+    
+    // 4. If on cart/checkout page, apply stored code
+    if (window.location.pathname.includes('/checkout') || window.location.pathname.includes('/cart')) {
       const storedCode = sessionStorage.getItem('tier_discount_code');
       if (storedCode && !window.location.search.includes('discount=')) {
-        console.log('Tier Auto Discount: Applying stored code on checkout page');
-        sessionStorage.removeItem('tier_discount_code');
-        window.location.href = addDiscountToUrl(window.location.href, storedCode);
+        console.log('Tier Auto Discount: Applying stored code', storedCode);
+        const newUrl = addDiscountToUrl(window.location.href, storedCode);
+        window.location.replace(newUrl);
       }
     }
   }
