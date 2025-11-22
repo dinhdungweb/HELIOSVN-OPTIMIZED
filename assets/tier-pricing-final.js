@@ -18,7 +18,6 @@
         discount: parseFloat(wrapper.dataset.tierDiscount || 0) / 100,
         hasCustomer: wrapper.dataset.hasCustomer === 'true'
       };
-      console.log('Tier Pricing Final: Extracted', tierInfo);
       return true;
     }
     return false;
@@ -73,12 +72,10 @@
   // Override jQuery .html() for .price-area
   function installInterceptor() {
     if (typeof jQuery === 'undefined' || typeof $ === 'undefined') {
-      console.log('Tier Pricing Final: jQuery not available yet');
       return false;
     }
     
     if (!tierInfo) {
-      console.log('Tier Pricing Final: Tier info not extracted yet');
       return false;
     }
     
@@ -101,7 +98,6 @@
             if (variant) {
               const tierHTML = buildTierHTML(variant);
               if (tierHTML) {
-                console.log('Tier Pricing Final: Intercepted price update for variant', variant.id);
                 return originalHtml.call(this, tierHTML);
               }
             }
@@ -115,14 +111,11 @@
       return originalHtml.apply(this, arguments);
     };
     
-    console.log('Tier Pricing Final: Interceptor installed');
     return true;
   }
   
   // Initialize
   function init() {
-    console.log('Tier Pricing Final: Initializing...');
-    
     // Try to extract tier info
     if (extractTierInfo()) {
       // Try to install interceptor
@@ -135,7 +128,6 @@
             const $variantInput = $('.product-area [name="id"]').first();
             if ($variantInput.length) {
               $variantInput.trigger('change.themeProductOptions');
-              console.log('Tier Pricing Final: Triggered initial update');
             }
           }
         }, 200);
