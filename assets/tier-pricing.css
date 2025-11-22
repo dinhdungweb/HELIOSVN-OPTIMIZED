@@ -63,43 +63,6 @@
   height: 12px;
 }
 
-/* Tier-specific colors
-.tier-badge--black-diamond {
-  background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-  color: #ffffff;
-  border: 1px solid #666;
-}
-
-.tier-badge--diamond {
-  background: linear-gradient(135deg, #b9f2ff 0%, #00d4ff 100%);
-  color: #000000;
-  border: 1px solid #00a8cc;
-}
-
-.tier-badge--platinum {
-  background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%);
-  color: #000000;
-  border: 1px solid #a8a8a8;
-}
-
-.tier-badge--gold {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #000000;
-  border: 1px solid #d4af37;
-}
-
-.tier-badge--silver {
-  background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
-  color: #000000;
-  border: 1px solid #a0a0a0;
-}
-
-.tier-badge--member {
-  background: linear-gradient(135deg, #fab320 0%, #ff8c00 100%);
-  color: #000000;
-  border: 1px solid #e09900;
-} */
-
 /* ============================================
    PRICING DISPLAY
    ============================================ */
@@ -138,16 +101,6 @@
   color: #f2f2f2;
 }
 
-/* ============================================
-   LOGIN PROMPT
-   ============================================ */
-
-
-
-.tier-login-link::before {
-  content: "🔓";
-  font-size: 14px;
-}
 
 /* ============================================
    PRODUCT BLOCK INTEGRATION
@@ -212,6 +165,12 @@
 
   .tier-login-link {
     font-size: 11px;
+  }
+}
+
+@media (max-width: 661px) {
+  .product-block .tier-badge {
+    margin-top: 5px;
   }
 }
 
