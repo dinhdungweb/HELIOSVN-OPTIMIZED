@@ -367,15 +367,17 @@ document.addEventListener('DOMContentLoaded', function () {
     prizes.forEach(p => p.probability = (p.probability / totalProb) * 100);
   }
 
-  // Divide wheel according to probability (not equally)
+  // Divide wheel EQUALLY for visual (UI đẹp hơn)
   let currentAngle = 0;
+  const equalAngle = (Math.PI * 2) / prizes.length;
   prizes.forEach(p => {
     p.startAngle = currentAngle;
-    // Angle proportional to probability
-    p.angle = (p.probability / 100) * (Math.PI * 2);
-    p.endAngle = currentAngle + p.angle;
+    p.angle = equalAngle; // Chia đều cho đẹp
+    p.endAngle = currentAngle + equalAngle;
     currentAngle = p.endAngle;
   });
+  
+  // NOTE: Probability vẫn được dùng trong logic chọn phần thưởng (dòng 551-560)
 
   // Store boundary angles for pointer tick effect
   const boundaryAngles = [];
