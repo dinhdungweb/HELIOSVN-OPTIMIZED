@@ -51,9 +51,9 @@
     "main": {
       "type": "main-account",
       "settings": {
-        "content_black_diamond": "",
-        "content_diamond": "",
-        "content_platinum": "",
+        "content_black_diamond": "<section class=\"section\">\n        <div class=\"container\">\n            <div class=\"content\">\n                <h2>Tiêu đề của bạn</h2>\n                <p>\n                    Đây là nội dung mô tả sản phẩm hoặc dịch vụ của bạn. \n                    Bạn có thể thêm nhiều thông tin hơn để thu hút người dùng \n                    và giải thích giá trị mà bạn mang lại.\n                </p>\n                <a href=\"#\" class=\"btn\">Tìm hiểu thêm</a>\n            </div>\n\n            <div class=\"image-wrapper\">\n                <img src=\"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&amp;h=600&amp;fit=crop\" alt=\"Demo image\">\n            </div>\n        </div>\n    </section>",
+        "content_diamond": "<section class=\"section\">\n        <div class=\"container\">\n            <div class=\"content\">\n                <h2>Tiêu đề của bạn</h2>\n                <p>\n                    Đây là nội dung mô tả sản phẩm hoặc dịch vụ của bạn. \n                    Bạn có thể thêm nhiều thông tin hơn để thu hút người dùng \n                    và giải thích giá trị mà bạn mang lại.\n                </p>\n                <a href=\"#\" class=\"btn\">Tìm hiểu thêm</a>\n            </div>\n\n            <div class=\"image-wrapper\">\n                <img src=\"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&amp;h=600&amp;fit=crop\" alt=\"Demo image\">\n            </div>\n        </div>\n    </section>",
+        "content_platinum": "<section class=\"section\">\n        <div class=\"container\">\n            <div class=\"content\">\n                <h2>Tiêu đề của bạn</h2>\n                <p>\n                    Đây là nội dung mô tả sản phẩm hoặc dịch vụ của bạn. \n                    Bạn có thể thêm nhiều thông tin hơn để thu hút người dùng \n                    và giải thích giá trị mà bạn mang lại.\n                </p>\n                <a href=\"#\" class=\"btn\">Tìm hiểu thêm</a>\n            </div>\n\n            <div class=\"image-wrapper\">\n                <img src=\"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&amp;h=600&amp;fit=crop\" alt=\"Demo image\">\n            </div>\n        </div>\n    </section>",
         "content_gold": "",
         "content_silver": "",
         "content_member": ""
