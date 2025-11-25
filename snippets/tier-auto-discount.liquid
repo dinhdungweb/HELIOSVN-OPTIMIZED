@@ -5,7 +5,7 @@
   Sử dụng cho Option A (Free - không cần Shopify Plus)
 {% endcomment %}
 
-{% if customer %}
+{% if settings.tier_pricing_enabled and customer %}
   {% comment %} Tính total_spent {% endcomment %}
   {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
     {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
