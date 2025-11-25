@@ -51,8 +51,10 @@ Chọn Sản phẩm: [Click để chọn sản phẩm]
 2. Popup hiện ra với danh sách tất cả sản phẩm
 3. Tích chọn các sản phẩm muốn áp dụng tier pricing
 4. Click **Done** hoặc **Select**
-5. Có thể chọn tối đa 100 sản phẩm
+5. Có thể chọn tối đa 20 sản phẩm (giới hạn của Shopify)
 6. Có thể search sản phẩm theo tên
+
+**Lưu ý:** Nếu cần áp dụng cho nhiều hơn 20 sản phẩm, hãy dùng option "Chỉ các collection được chọn" thay vì chọn từng sản phẩm.
 
 **Ví dụ:**
 - Chọn: "Nhẫn Kim Cương 1ct", "Dây Chuyền Vàng 18K", "Bông Tai Ngọc Trai"
@@ -67,13 +69,14 @@ Collections: trang-suc-cao-cap,kim-cuong,vang-24k
 ```
 → Tier pricing chỉ hiển thị trên sản phẩm trong 3 collection này
 
-### Use Case 2: Chỉ Áp Dụng Cho 10 Sản Phẩm Best Seller
+### Use Case 2: Chỉ Áp Dụng Cho Sản Phẩm VIP
 ```
 Phạm vi: Chỉ các sản phẩm được chọn
-Sản phẩm: [Chọn 10 sản phẩm best seller]
+Sản phẩm: [Chọn tối đa 20 sản phẩm VIP/cao cấp]
 ```
-→ Tier pricing chỉ hiển thị trên 10 sản phẩm được chọn
+→ Tier pricing chỉ hiển thị trên các sản phẩm được chọn
 → Các sản phẩm khác giữ nguyên giá
+→ Phù hợp cho sản phẩm đặc biệt, limited edition
 
 ### Use Case 3: Áp Dụng Cho Tất Cả Trừ Phụ Kiện
 ```
@@ -109,11 +112,12 @@ Collections: [Chọn tất cả collections trừ "Phụ Kiện"]
 - Có thể search theo tên
 - Có thể chọn/bỏ chọn bất kỳ lúc nào
 - Collections: Tối đa 50
-- Products: Tối đa 100
+- Products: Tối đa 20 (giới hạn của Shopify)
 
 ### Giới Hạn Số Lượng
-- Nếu cần chọn nhiều hơn 100 sản phẩm → Dùng option "Collections"
+- Nếu cần chọn nhiều hơn 20 sản phẩm → Dùng option "Collections"
 - Nếu cần chọn nhiều hơn 50 collections → Dùng option "Tất cả sản phẩm"
+- Option "Products" phù hợp cho việc chọn một vài sản phẩm đặc biệt/VIP
 
 ### Performance
 - **Tất cả sản phẩm**: Nhanh nhất (không cần check)

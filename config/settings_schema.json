@@ -1309,8 +1309,8 @@
         "type": "product_list",
         "id": "tier_pricing_products",
         "label": "Chọn Sản phẩm",
-        "info": "Chỉ áp dụng khi chọn 'Chỉ các sản phẩm được chọn' ở trên",
-        "limit": 100
+        "info": "Chỉ áp dụng khi chọn 'Chỉ các sản phẩm được chọn' ở trên. Tối đa 20 sản phẩm",
+        "limit": 20
       },
       {
         "type": "header",
