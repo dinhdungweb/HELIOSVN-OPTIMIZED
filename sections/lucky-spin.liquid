@@ -555,17 +555,26 @@ document.addEventListener('DOMContentLoaded', function () {
   // Check if user can spin today
   function canSpinToday() {
     {% if customer %}
+      // Check tier - only SILVER and above can spin
+      const customerTags = '{{ customer.tags | join: "," }}';
+      const allowedTiers = ['SILVER', 'GOLD', 'PLATINUM', 'BLACK DIAMOND', 'DIAMOND'];
+      const hasTier = allowedTiers.some(tier => customerTags.includes(tier));
+      
+      if (!hasTier) {
+        return 'no_tier'; // Not eligible tier
+      }
+      
       const customerId = '{{ customer.id }}';
       const lastSpinDate = localStorage.getItem('lucky_spin_' + customerId);
       const today = new Date().toDateString();
       
       if (lastSpinDate === today) {
-        return false; // Already spun today
+        return 'already_spun'; // Already spun today
       }
       return true;
     {% else %}
       // Guest users can't spin
-      return false;
+      return 'not_logged_in';
     {% endif %}
   }
   
@@ -581,12 +590,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isSpinning) return;
     
     // Check if user can spin
-    if (!canSpinToday()) {
-      {% if customer %}
-        alert('Bạn đã quay hôm nay rồi! Vui lòng quay lại vào ngày mai.');
-      {% else %}
+    const canSpin = canSpinToday();
+    if (canSpin !== true) {
+      if (canSpin === 'not_logged_in') {
         alert('Vui lòng đăng nhập để tham gia quay thưởng!');
-      {% endif %}
+      } else if (canSpin === 'no_tier') {
+        alert('Chỉ khách hàng từ hạng SILVER trở lên mới được tham gia quay thưởng!');
+      } else if (canSpin === 'already_spun') {
+        alert('Bạn đã quay hôm nay rồi! Vui lòng quay lại vào ngày mai.');
+      }
       return;
     }
     
