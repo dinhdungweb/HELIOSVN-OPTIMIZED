@@ -87,7 +87,7 @@
           "type": "prize",
           "settings": {
             "text": "Black Sun",
-            "color": "#f8f9fa",
+            "color": "#fab320",
             "code": "LUCKY10",
             "probability": 1
           }
