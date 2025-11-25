@@ -416,14 +416,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     ctx.shadowBlur = 0; // Reset shadow
     
-    // Draw text with shadow and word wrap (vertical orientation)
+    // Draw text with shadow and word wrap (always upright)
     prizes.forEach(p => {
       ctx.save();
-      ctx.translate(centerX, centerY);
-      ctx.rotate(p.startAngle + p.angle / 2);
       
-      // Rotate 90 degrees more to make text vertical (perpendicular to radius)
-      ctx.rotate(Math.PI / 2);
+      // Calculate position on the wheel
+      const angle = p.startAngle + p.angle / 2;
+      const textRadius = radius * 0.65;
+      const x = centerX + Math.cos(angle) * textRadius;
+      const y = centerY + Math.sin(angle) * textRadius;
+      
+      ctx.translate(x, y);
+      
+      // Counter-rotate to keep text upright
+      // If text would be upside down, flip it 180 degrees
+      let textAngle = angle + Math.PI / 2;
+      if (textAngle > Math.PI / 2 && textAngle < Math.PI * 1.5) {
+        textAngle += Math.PI;
+      }
+      ctx.rotate(textAngle);
       
       ctx.textAlign = 'center';
       ctx.fillStyle = '#000'; // Màu đen cho text
@@ -451,13 +462,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       lines.push(currentLine);
       
-      // Draw each line (now vertical)
+      // Draw each line
       const lineHeight = 16;
       const totalHeight = lines.length * lineHeight;
-      const startX = -radius * 0.65; // Position text closer to edge
       
       lines.forEach((line, index) => {
-        ctx.fillText(line, startX, -(totalHeight / 2) + (index + 0.5) * lineHeight);
+        ctx.fillText(line, 0, -(totalHeight / 2) + (index + 0.5) * lineHeight);
       });
       
       ctx.restore();
