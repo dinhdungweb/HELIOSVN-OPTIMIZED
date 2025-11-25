@@ -1,1 +1,145 @@
-{"sections":{"main":{"type":"main-account","settings":{"content_black_diamond":"","content_diamond":"","content_platinum":"","content_gold":"","content_silver":"","content_member":""}},"featured_product_yTmTTn":{"type":"featured-product","blocks":{"vendor_and_type_dfDWKz":{"type":"vendor_and_type","settings":{"show_vendor":true,"show_type":false}},"title_nBU8tP":{"type":"title","settings":{}},"price_zT4CCb":{"type":"price","settings":{"show_tax_and_shipping":false}},"rating_4Q6zBa":{"type":"rating","settings":{}},"variant_picker_dDKgd8":{"type":"variant_picker","settings":{"variant_style":"underlined","show_realtime_availability":true}},"buy_buttons_36Rw9F":{"type":"buy_buttons","settings":{"show_quantity_selector":true,"enable_payment_button":false,"show_gift_card_recipient":false}}},"block_order":["vendor_and_type_dfDWKz","title_nBU8tP","price_zT4CCb","rating_4Q6zBa","variant_picker_dDKgd8","buy_buttons_36Rw9F"],"disabled":true,"settings":{"product":"chill-guy-key-cap-helios-silver","show_backorder_text":true,"slide_nav_style":"arrows","media_crop":"center","enable_zoom":true,"zoom_cursor":"plus-light","enable_video_looping":false,"highlight_selected_media":false}},"featured_collection_EGhrVE":{"type":"featured-collection","settings":{"title":"Sản Phẩm Mới","featured_collection_align":"center","collection":"new-products","layout":"carousel","featured_addtocart_hide":false,"show_vendor":false,"grid":4,"rows":2,"grid_mobile":"2","hide_swatches":false,"alternate_bg_color":false,"show_view_all":false}}},"order":["main","featured_product_yTmTTn","featured_collection_EGhrVE"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-account",
+      "settings": {
+        "content_black_diamond": "",
+        "content_diamond": "",
+        "content_platinum": "",
+        "content_gold": "",
+        "content_silver": "",
+        "content_member": ""
+      }
+    },
+    "featured_product_yTmTTn": {
+      "type": "featured-product",
+      "blocks": {
+        "vendor_and_type_dfDWKz": {
+          "type": "vendor_and_type",
+          "settings": {
+            "show_vendor": true,
+            "show_type": false
+          }
+        },
+        "title_nBU8tP": {
+          "type": "title",
+          "settings": {}
+        },
+        "price_zT4CCb": {
+          "type": "price",
+          "settings": {
+            "show_tax_and_shipping": false
+          }
+        },
+        "rating_4Q6zBa": {
+          "type": "rating",
+          "settings": {}
+        },
+        "variant_picker_dDKgd8": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_style": "underlined",
+            "show_realtime_availability": true
+          }
+        },
+        "buy_buttons_36Rw9F": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "enable_payment_button": false,
+            "show_gift_card_recipient": false
+          }
+        }
+      },
+      "block_order": [
+        "vendor_and_type_dfDWKz",
+        "title_nBU8tP",
+        "price_zT4CCb",
+        "rating_4Q6zBa",
+        "variant_picker_dDKgd8",
+        "buy_buttons_36Rw9F"
+      ],
+      "disabled": true,
+      "settings": {
+        "product": "chill-guy-key-cap-helios-silver",
+        "show_backorder_text": true,
+        "slide_nav_style": "arrows",
+        "media_crop": "center",
+        "enable_zoom": true,
+        "zoom_cursor": "plus-light",
+        "enable_video_looping": false,
+        "highlight_selected_media": false
+      }
+    },
+    "spin_wheel_NyEAXh": {
+      "type": "spin-wheel",
+      "blocks": {
+        "prize_Aw3GcY": {
+          "type": "prize",
+          "settings": {
+            "text": "Black Sun",
+            "color": "#f8f9fa",
+            "code": "LUCKY10",
+            "probability": 1
+          }
+        },
+        "prize_Cftcfk": {
+          "type": "prize",
+          "settings": {
+            "text": "Giảm 10%",
+            "color": "#f8f9fa",
+            "code": "LUCKY10",
+            "probability": 99
+          }
+        }
+      },
+      "block_order": [
+        "prize_Aw3GcY",
+        "prize_Cftcfk"
+      ],
+      "disabled": true,
+      "name": "Vòng Quay May Mắn",
+      "settings": {
+        "button_text": "QUAY",
+        "button_bg_color": "#fcbf49",
+        "button_text_color": "#000000"
+      }
+    },
+    "featured_collection_EGhrVE": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Sản Phẩm Mới",
+        "featured_collection_align": "center",
+        "collection": "new-products",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_product_yTmTTn",
+    "spin_wheel_NyEAXh",
+    "featured_collection_EGhrVE"
+  ]
+}
