@@ -1302,8 +1302,7 @@
         "type": "text",
         "id": "tier_pricing_collections",
         "label": "Collection handles (phân cách bằng dấu phẩy)",
-        "info": "Ví dụ: trang-suc,nhan-bac,day-chuyen. Chỉ áp dụng khi chọn 'Chỉ các collection cụ thể'",
-        "default": ""
+        "info": "Ví dụ: trang-suc,nhan-bac,day-chuyen. Chỉ áp dụng khi chọn 'Chỉ các collection cụ thể'"
       },
       {
         "type": "text",
