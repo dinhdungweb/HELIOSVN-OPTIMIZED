@@ -40,8 +40,10 @@
     assign selected_collections = settings.tier_pricing_collections
     if selected_collections != blank
       for selected_coll in selected_collections
+        assign selected_coll_id = selected_coll.id | plus: 0
         for product_coll in product.collections
-          if product_coll.id == selected_coll.id
+          assign product_coll_id = product_coll.id | plus: 0
+          if product_coll_id == selected_coll_id
             assign tier_allowed = true
             break
           endif
@@ -56,8 +58,10 @@
     endcomment
     assign selected_products = settings.tier_pricing_products
     if selected_products != blank
+      assign current_product_id = product.id | plus: 0
       for selected_prod in selected_products
-        if selected_prod.id == product.id
+        assign selected_prod_id = selected_prod.id | plus: 0
+        if selected_prod_id == current_product_id
           assign tier_allowed = true
           break
         endif
