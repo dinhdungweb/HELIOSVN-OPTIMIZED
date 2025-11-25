@@ -95,7 +95,7 @@
         "prize_Cftcfk": {
           "type": "prize",
           "settings": {
-            "text": "Giảm 10%",
+            "text": "Chúc bạn may mắn lần sau",
             "color": "#f8f9fa",
             "code": "LUCKY10",
             "probability": 99
