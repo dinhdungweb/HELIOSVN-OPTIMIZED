@@ -1275,6 +1275,45 @@
       },
       {
         "type": "header",
+        "content": "Phạm vi áp dụng"
+      },
+      {
+        "type": "select",
+        "id": "tier_pricing_scope",
+        "label": "Áp dụng Tier Pricing cho",
+        "default": "all",
+        "options": [
+          {
+            "value": "all",
+            "label": "Tất cả sản phẩm"
+          },
+          {
+            "value": "collections",
+            "label": "Chỉ các collection cụ thể"
+          },
+          {
+            "value": "products",
+            "label": "Chỉ các sản phẩm có tag"
+          }
+        ],
+        "info": "Chọn phạm vi áp dụng tier pricing"
+      },
+      {
+        "type": "text",
+        "id": "tier_pricing_collections",
+        "label": "Collection handles (phân cách bằng dấu phẩy)",
+        "info": "Ví dụ: trang-suc,nhan-bac,day-chuyen. Chỉ áp dụng khi chọn 'Chỉ các collection cụ thể'",
+        "default": ""
+      },
+      {
+        "type": "text",
+        "id": "tier_pricing_product_tag",
+        "label": "Product tag để bật tier pricing",
+        "info": "Sản phẩm có tag này sẽ hiển thị tier pricing. Ví dụ: tier-pricing. Chỉ áp dụng khi chọn 'Chỉ các sản phẩm có tag'",
+        "default": "tier-pricing"
+      },
+      {
+        "type": "header",
         "content": "Tier 1: BLACK DIAMOND (20%)"
       },
       {

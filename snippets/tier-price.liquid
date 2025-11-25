@@ -27,6 +27,40 @@
   assign prioritize_tags = settings.tier_prioritize_tags
   assign use_custom_metafield = settings.tier_use_custom_metafield
   
+  comment Kiểm tra phạm vi áp dụng
+  endcomment
+  assign tier_scope = settings.tier_pricing_scope | default: 'all'
+  assign tier_allowed = false
+  
+  if tier_scope == 'all'
+    assign tier_allowed = true
+  elsif tier_scope == 'collections' and product
+    assign allowed_collections = settings.tier_pricing_collections | split: ','
+    for coll_handle in allowed_collections
+      assign coll_handle_trimmed = coll_handle | strip
+      for coll in product.collections
+        if coll.handle == coll_handle_trimmed
+          assign tier_allowed = true
+          break
+        endif
+      endfor
+      if tier_allowed
+        break
+      endif
+    endfor
+  elsif tier_scope == 'products' and product
+    assign tier_tag = settings.tier_pricing_product_tag | strip
+    if product.tags contains tier_tag
+      assign tier_allowed = true
+    endif
+  endif
+  
+  comment Nếu không thuộc phạm vi, tắt tier pricing
+  endcomment
+  unless tier_allowed
+    assign tier_enabled = false
+  endunless
+  
   comment Đọc config từng tier từ settings
   endcomment
   assign tier_1_name = settings.tier_1_name

@@ -146,6 +146,40 @@
             assign prioritize_tags = settings.tier_prioritize_tags
             assign use_custom_metafield = settings.tier_use_custom_metafield
             
+            comment Kiểm tra phạm vi áp dụng cho sản phẩm này
+            endcomment
+            assign tier_scope = settings.tier_pricing_scope | default: 'all'
+            assign tier_allowed_for_item = false
+            
+            if tier_scope == 'all'
+              assign tier_allowed_for_item = true
+            elsif tier_scope == 'collections'
+              assign allowed_collections = settings.tier_pricing_collections | split: ','
+              for coll_handle in allowed_collections
+                assign coll_handle_trimmed = coll_handle | strip
+                for coll in item.product.collections
+                  if coll.handle == coll_handle_trimmed
+                    assign tier_allowed_for_item = true
+                    break
+                  endif
+                endfor
+                if tier_allowed_for_item
+                  break
+                endif
+              endfor
+            elsif tier_scope == 'products'
+              assign tier_tag = settings.tier_pricing_product_tag | strip
+              if item.product.tags contains tier_tag
+                assign tier_allowed_for_item = true
+              endif
+            endif
+            
+            comment Nếu sản phẩm không thuộc phạm vi, tắt tier cho item này
+            endcomment
+            unless tier_allowed_for_item
+              assign tier_enabled = false
+            endunless
+            
             assign tier_1_name = settings.tier_1_name
             assign tier_1_tag = settings.tier_1_tag
             assign tier_1_discount = settings.tier_1_discount
