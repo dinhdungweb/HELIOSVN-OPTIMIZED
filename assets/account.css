@@ -1145,10 +1145,6 @@ input:checked + .slider:before {
                 gap: 25px;
             }
 
-            .benefit-image {
-                font-size: 50px;
-            }
-
             .benefit-text {
                 font-size: 15px;
             }
