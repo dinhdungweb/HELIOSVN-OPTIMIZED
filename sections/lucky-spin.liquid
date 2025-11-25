@@ -555,12 +555,48 @@ document.addEventListener('DOMContentLoaded', function () {
   // Check if user can spin today
   function canSpinToday() {
     {% if customer %}
-      // Check tier - only SILVER and above can spin
-      const customerTags = '{{ customer.tags | join: "," }}';
-      const allowedTiers = ['SILVER', 'GOLD', 'PLATINUM', 'BLACK DIAMOND', 'DIAMOND'];
-      const hasTier = allowedTiers.some(tier => customerTags.includes(tier));
+      // Calculate tier based on total_spent (same logic as main-account.liquid)
+      {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+        {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+      {% else %}
+        {% assign total_spent = customer.total_spent | divided_by: 100 %}
+      {% endif %}
       
-      if (!hasTier) {
+      // Determine tier from tags first, then fallback to total_spent
+      let tier = 'MEMBER';
+      const customerTags = '{{ customer.tags | join: "," }}'.toUpperCase();
+      
+      if (customerTags.includes('BLACK DIAMOND')) {
+        tier = 'BLACK DIAMOND';
+      } else if (customerTags.includes('DIAMOND')) {
+        tier = 'DIAMOND';
+      } else if (customerTags.includes('PLATINUM')) {
+        tier = 'PLATINUM';
+      } else if (customerTags.includes('GOLD')) {
+        tier = 'GOLD';
+      } else if (customerTags.includes('SILVER')) {
+        tier = 'SILVER';
+      } else {
+        // No tag found, calculate from total_spent
+        const totalSpent = {{ total_spent }};
+        if (totalSpent >= 100000000) {
+          tier = 'BLACK DIAMOND';
+        } else if (totalSpent >= 20000000) {
+          tier = 'DIAMOND';
+        } else if (totalSpent >= 10000000) {
+          tier = 'PLATINUM';
+        } else if (totalSpent >= 6000000) {
+          tier = 'GOLD';
+        } else if (totalSpent >= 3000000) {
+          tier = 'SILVER';
+        } else {
+          tier = 'MEMBER';
+        }
+      }
+      
+      // Check if tier is eligible (SILVER and above)
+      const allowedTiers = ['SILVER', 'GOLD', 'PLATINUM', 'DIAMOND', 'BLACK DIAMOND'];
+      if (!allowedTiers.includes(tier)) {
         return 'no_tier'; // Not eligible tier
       }
       
