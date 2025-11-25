@@ -552,9 +552,46 @@ document.addEventListener('DOMContentLoaded', function () {
     lastAngle = currentAngle; // Cập nhật góc trước đó
   }
 
+  // Check if user can spin today
+  function canSpinToday() {
+    {% if customer %}
+      const customerId = '{{ customer.id }}';
+      const lastSpinDate = localStorage.getItem('lucky_spin_' + customerId);
+      const today = new Date().toDateString();
+      
+      if (lastSpinDate === today) {
+        return false; // Already spun today
+      }
+      return true;
+    {% else %}
+      // Guest users can't spin
+      return false;
+    {% endif %}
+  }
+  
+  function saveSpinDate() {
+    {% if customer %}
+      const customerId = '{{ customer.id }}';
+      const today = new Date().toDateString();
+      localStorage.setItem('lucky_spin_' + customerId, today);
+    {% endif %}
+  }
+
   document.getElementById('lucky-wheel-spin').addEventListener('click', function () {
     if (isSpinning) return;
+    
+    // Check if user can spin
+    if (!canSpinToday()) {
+      {% if customer %}
+        alert('Bạn đã quay hôm nay rồi! Vui lòng quay lại vào ngày mai.');
+      {% else %}
+        alert('Vui lòng đăng nhập để tham gia quay thưởng!');
+      {% endif %}
+      return;
+    }
+    
     isSpinning = true;
+    saveSpinDate(); // Save spin date
 
     const rnd = Math.random() * 100;
     let cumulative = 0;
