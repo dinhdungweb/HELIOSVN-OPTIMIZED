@@ -1097,10 +1097,6 @@ input:checked + .slider:before {
             margin: 0 auto;
         }
 
-        {% comment %} .benefits-section {
-            padding: 30px 0px;
-        } {% endcomment %}
-
         .section-title {
             text-align: center;
             font-size: 32px;
