@@ -1139,10 +1139,6 @@ input:checked + .slider:before {
 
         /* Mobile responsive */
         @media (max-width: 768px) {
-            {% comment %} .benefits-section {
-                padding: 40px 0px;
-            } {% endcomment %}
-
             .section-title {
                 font-size: 24px;
                 margin-bottom: 30px;
