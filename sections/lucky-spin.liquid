@@ -416,19 +416,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     ctx.shadowBlur = 0; // Reset shadow
     
-    // Draw text with shadow
+    // Draw text with shadow and word wrap
     prizes.forEach(p => {
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(p.startAngle + p.angle / 2);
       ctx.textAlign = 'right';
-      ctx.fillStyle = 'white';
-      ctx.font = '14px Font-1736240127176';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-      ctx.shadowBlur = 2;
+      ctx.fillStyle = '#000'; // Màu đen cho text
+      ctx.font = 'bold 14px Font-1736240127176';
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+      ctx.shadowBlur = 3;
       ctx.shadowOffsetX = 1;
       ctx.shadowOffsetY = 1;
-      ctx.fillText(p.text, radius * 0.75, 5);
+      
+      // Word wrap for long text
+      const maxWidth = radius * 0.4;
+      const words = p.text.split(' ');
+      const lines = [];
+      let currentLine = words[0];
+      
+      for (let i = 1; i < words.length; i++) {
+        const testLine = currentLine + ' ' + words[i];
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth) {
+          lines.push(currentLine);
+          currentLine = words[i];
+        } else {
+          currentLine = testLine;
+        }
+      }
+      lines.push(currentLine);
+      
+      // Draw each line
+      const lineHeight = 16;
+      const startY = -(lines.length - 1) * lineHeight / 2;
+      lines.forEach((line, index) => {
+        ctx.fillText(line, radius * 0.75, startY + index * lineHeight);
+      });
+      
       ctx.restore();
     });
     ctx.shadowBlur = 0; // Reset shadow
