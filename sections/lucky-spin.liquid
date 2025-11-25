@@ -361,17 +361,19 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
+  // Normalize probabilities to sum to 100
   const totalProb = prizes.reduce((sum, p) => sum + p.probability, 0);
   if (totalProb !== 100) {
     prizes.forEach(p => p.probability = (p.probability / totalProb) * 100);
   }
 
+  // Divide wheel according to probability (not equally)
   let currentAngle = 0;
-  const equalAngle = (Math.PI * 2) / prizes.length;
   prizes.forEach(p => {
     p.startAngle = currentAngle;
-    p.angle = equalAngle;
-    p.endAngle = currentAngle + equalAngle;
+    // Angle proportional to probability
+    p.angle = (p.probability / 100) * (Math.PI * 2);
+    p.endAngle = currentAngle + p.angle;
     currentAngle = p.endAngle;
   });
 
