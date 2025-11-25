@@ -416,12 +416,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     ctx.shadowBlur = 0; // Reset shadow
     
-    // Draw text with shadow and word wrap
+    // Draw text with shadow and word wrap (vertical orientation)
     prizes.forEach(p => {
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(p.startAngle + p.angle / 2);
-      ctx.textAlign = 'right';
+      
+      // Rotate 90 degrees more to make text vertical (perpendicular to radius)
+      ctx.rotate(Math.PI / 2);
+      
+      ctx.textAlign = 'center';
       ctx.fillStyle = '#000'; // Màu đen cho text
       ctx.font = 'bold 14px Font-1736240127176';
       ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
@@ -447,11 +451,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       lines.push(currentLine);
       
-      // Draw each line
+      // Draw each line (now vertical)
       const lineHeight = 16;
-      const startY = -(lines.length - 1) * lineHeight / 2;
+      const totalHeight = lines.length * lineHeight;
+      const startX = -radius * 0.65; // Position text closer to edge
+      
       lines.forEach((line, index) => {
-        ctx.fillText(line, radius * 0.75, startY + index * lineHeight);
+        ctx.fillText(line, startX, -(totalHeight / 2) + (index + 0.5) * lineHeight);
       });
       
       ctx.restore();
