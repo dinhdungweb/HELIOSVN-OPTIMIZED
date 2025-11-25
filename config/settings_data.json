@@ -109,6 +109,7 @@
     "currency_code_enabled": true,
     "cart_currency_code_enabled": true,
     "tier_pricing_enabled": true,
+    "tier_pricing_scope": "products",
     "tier_1_discount": 50,
     "tier_1_discount_code": "DRAJ65B2Q28X",
     "tier_2_discount": 50,
