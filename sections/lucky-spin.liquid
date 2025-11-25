@@ -677,7 +677,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentRotation = targetAngle % (Math.PI * 2); // Keep within 2PI
 
         setTimeout(() => {
-          document.getElementById('modal-prize-text').innerText = `${selectedPrize.text} - Mã: ${selectedPrize.code}`;
+          document.getElementById('modal-prize-text').innerText = `${selectedPrize.text}`;
           document.getElementById('lucky-wheel-modal').style.display = 'flex';
         }, 500);
         return;
