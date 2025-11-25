@@ -127,7 +127,7 @@
       <li class="tab-link active" data-tab="rewards">Welcome to Helios</li>
       <li class="tab-link" data-tab="account">Tài khoản</li>
       <li class="tab-link" data-tab="orders">Đơn hàng</li>
-      <li class="tab-link" data-tab="benefits">Befenits / Promos</li>
+      {% comment %} <li class="tab-link" data-tab="benefits">Befenits / Promos</li> {% endcomment %}
       <li class="tab-link" data-tab="discord">Helios Club</li>
       <!-- <li class="tab-link" data-tab="wishlist">Yêu thích</li> -->
     </ul>
@@ -141,6 +141,101 @@
           <img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/1.4_DESIGN_NH_CHAO_M_NG_THANH_VIEN_M_I-01.jpg?v=1743569220" alt=""/>
         </div>
       </div>
+      <style>
+        .befenits-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .benefits-section {
+            padding: 30px 0px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .benefit-card {
+            text-align: center;
+        }
+
+        .benefit-image {
+            width: 100%;
+            background: #ffffff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+        }
+
+        .benefit-text {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.6;
+            text-transform: uppercase;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .benefits-section {
+                padding: 40px 0px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .benefit-image {
+                font-size: 50px;
+            }
+
+            .benefit-text {
+                font-size: 15px;
+            }
+        }
+    </style>
+
+
+    <div class="befenits-container">
+        <div class="benefits-section">
+            <h2 class="section-title">Đặc quyền thành viên</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+		    <div class="benefit-image"><img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z7259963369438_ec7429242ff9a2df74da93a5468d2689.jpg?v=1764043415" loading="lazy"></div>
+                    <p class="benefit-text">Sản phẩm chỉ dành cho member</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-image"><img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/SRK00417.jpg?v=1764043415" loading="lazy"></div>
+                    <p class="benefit-text">Nhận thông tin sản phẩm mới nhất</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-image"><img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z7259917099574_52ff3fb875c398980791c9c98be4b9b6.jpg?v=1764043414" loading="lazy"></div>
+                    <p class="benefit-text">Quà tặng miễn phí</p>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div id="account" class="customer-tab-content">
@@ -184,7 +279,7 @@
       {% endpaginate %}
     </div>
 
-    <div id="benefits" class="customer-tab-content">
+    {% comment %} <div id="benefits" class="customer-tab-content">
       <h3 style="text-align:left">Benefits & Promos</h3>
       <div class="custom-tier-content">
         {% case tier %}
@@ -202,7 +297,7 @@
             {{ section.settings.content_member | raw }}
         {% endcase %}
       </div>
-    </div>
+    </div> {% endcomment %}
 
     <div id="discord" class="customer-tab-content">
       <h3 style="text-align:left; margin-bottom: 20px;">Helios Community</h3>
@@ -214,6 +309,7 @@
       <p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>
       <a href="https://www.facebook.com/groups/508707569692422" title=""><button>Tham gia ngay</button></a>
     </div>
+    
 
     <!-- <div id="wishlist" class="customer-tab-content">
       <h3 style="text-align:left">Wishlist</h3>
