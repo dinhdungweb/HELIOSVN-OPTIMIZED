@@ -1,6 +1,5 @@
 {{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
 
-
 <!-- Tính tổng chi tiêu -->
 {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
   {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
@@ -58,6 +57,27 @@
     {% assign next_tier_amount = total_spent %}
   {% endif %}
 {% endif %}
+
+<div class="custom-tier-content">
+        {% case tier %}
+          {% when "BLACK DIAMOND" %}
+            <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
+            <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
+            <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
+          {% when "DIAMOND" %}
+            <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
+            <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
+            <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
+          {% when "PLATINUM" %}
+            {{ section.settings.content_platinum | raw }}
+          {% when "GOLD" %}
+            {{ section.settings.content_gold | raw }}
+          {% when "SILVER" %}
+            {{ section.settings.content_silver | raw }}
+          {% else %}
+            {{ section.settings.content_member | raw }}
+        {% endcase %}
+      </div>
 
 <!-- Tính phần trăm tiến trình -->
 {% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
