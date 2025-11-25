@@ -1,5 +1,46 @@
 {{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
 
+<div class="custom-tier-content">
+        {% case tier %}
+          {% when "BLACK DIAMOND" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
+              <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
+              <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
+            </div>
+          {% when "DIAMOND" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG" CỦA HELIOS
+              <br>BẠN LÀ TOP 1% KHÁCH HÀNG CAO CẤP NHẤT CỦA CHÚNG TÔI
+              <br>CÁC TRẢI NGHIỆM VÀ SẢN PHẨM ĐẶC QUYỀN LÀ MÓN QUÀ CHO SỰ ĐỒNG HÀNH CỦA BẠN</p>
+            </div>
+          {% when "PLATINUM" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "BẠCH KIM" CỦA HELIOS
+              <br>BẠN ĐANG THUỘC VÀO NHÓM KHÁCH HÀNG CAO CẤP CỦA CHÚNG TÔI
+              <br>CÁC ƯU ĐÃI VÀ TRẢI NGHIỆM ĐỀU SẼ ĐƯỢC ƯU TIÊN CHO BẠN</p>
+            </div>
+          {% when "GOLD" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
+              <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
+              <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
+            </div>
+          {% when "SILVER" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG" CỦA HELIOS
+              <br>BẠN LÀ TOP 1% KHÁCH HÀNG CAO CẤP NHẤT CỦA CHÚNG TÔI
+              <br>CÁC TRẢI NGHIỆM VÀ SẢN PHẨM ĐẶC QUYỀN LÀ MÓN QUÀ CHO SỰ ĐỒNG HÀNH CỦA BẠN</p>
+            </div>
+          {% else %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
+              <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
+              <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
+            </div>
+        {% endcase %}
+      </div>
+
 <!-- Tính tổng chi tiêu -->
 {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
   {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
@@ -57,27 +98,6 @@
     {% assign next_tier_amount = total_spent %}
   {% endif %}
 {% endif %}
-
-<div class="custom-tier-content">
-        {% case tier %}
-          {% when "BLACK DIAMOND" %}
-            <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
-            <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
-            <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
-          {% when "DIAMOND" %}
-            <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
-            <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
-            <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
-          {% when "PLATINUM" %}
-            {{ section.settings.content_platinum | raw }}
-          {% when "GOLD" %}
-            {{ section.settings.content_gold | raw }}
-          {% when "SILVER" %}
-            {{ section.settings.content_silver | raw }}
-          {% else %}
-            {{ section.settings.content_member | raw }}
-        {% endcase %}
-      </div>
 
 <!-- Tính phần trăm tiến trình -->
 {% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
