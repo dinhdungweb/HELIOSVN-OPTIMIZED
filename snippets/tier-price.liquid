@@ -35,23 +35,33 @@
   if tier_scope == 'all'
     assign tier_allowed = true
   elsif tier_scope == 'collections' and product
-    assign allowed_collections = settings.tier_pricing_collections | split: ','
-    for coll_handle in allowed_collections
-      assign coll_handle_trimmed = coll_handle | strip
-      for coll in product.collections
-        if coll.handle == coll_handle_trimmed
+    comment Kiểm tra xem product có trong collections được chọn không
+    endcomment
+    assign selected_collections = settings.tier_pricing_collections
+    if selected_collections != blank
+      for selected_coll in selected_collections
+        for product_coll in product.collections
+          if product_coll.id == selected_coll.id
+            assign tier_allowed = true
+            break
+          endif
+        endfor
+        if tier_allowed
+          break
+        endif
+      endfor
+    endif
+  elsif tier_scope == 'products' and product
+    comment Kiểm tra xem product có trong danh sách được chọn không
+    endcomment
+    assign selected_products = settings.tier_pricing_products
+    if selected_products != blank
+      for selected_prod in selected_products
+        if selected_prod.id == product.id
           assign tier_allowed = true
           break
         endif
       endfor
-      if tier_allowed
-        break
-      endif
-    endfor
-  elsif tier_scope == 'products' and product
-    assign tier_tag = settings.tier_pricing_product_tag | strip
-    if product.tags contains tier_tag
-      assign tier_allowed = true
     endif
   endif
   

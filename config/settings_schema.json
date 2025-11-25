@@ -1289,27 +1289,28 @@
           },
           {
             "value": "collections",
-            "label": "Chỉ các collection cụ thể"
+            "label": "Chỉ các collection được chọn"
           },
           {
             "value": "products",
-            "label": "Chỉ các sản phẩm có tag"
+            "label": "Chỉ các sản phẩm được chọn"
           }
         ],
         "info": "Chọn phạm vi áp dụng tier pricing"
       },
       {
-        "type": "text",
+        "type": "collection_list",
         "id": "tier_pricing_collections",
-        "label": "Collection handles (phân cách bằng dấu phẩy)",
-        "info": "Ví dụ: trang-suc,nhan-bac,day-chuyen. Chỉ áp dụng khi chọn 'Chỉ các collection cụ thể'"
+        "label": "Chọn Collections",
+        "info": "Chỉ áp dụng khi chọn 'Chỉ các collection được chọn' ở trên",
+        "limit": 50
       },
       {
-        "type": "text",
-        "id": "tier_pricing_product_tag",
-        "label": "Product tag để bật tier pricing",
-        "info": "Sản phẩm có tag này sẽ hiển thị tier pricing. Ví dụ: tier-pricing. Chỉ áp dụng khi chọn 'Chỉ các sản phẩm có tag'",
-        "default": "tier-pricing"
+        "type": "product_list",
+        "id": "tier_pricing_products",
+        "label": "Chọn Sản phẩm",
+        "info": "Chỉ áp dụng khi chọn 'Chỉ các sản phẩm được chọn' ở trên",
+        "limit": 100
       },
       {
         "type": "header",

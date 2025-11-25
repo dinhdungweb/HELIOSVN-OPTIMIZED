@@ -23,35 +23,40 @@ Tính năng này cho phép bạn kiểm soát tier pricing áp dụng cho:
 - Tier pricing sẽ hiển thị trên mọi sản phẩm
 - Không cần cấu hình thêm
 
-#### Option 2: Chỉ Các Collection Cụ Thể
+#### Option 2: Chỉ Các Collection Được Chọn
 ```
-Áp dụng Tier Pricing cho: Chỉ các collection cụ thể
-Collection handles: trang-suc,nhan-bac,day-chuyen
+Áp dụng Tier Pricing cho: Chỉ các collection được chọn
+Chọn Collections: [Click để chọn collections]
 ```
 
-**Cách lấy collection handle:**
-1. Vào **Products** → **Collections**
-2. Click vào collection muốn áp dụng
-3. Xem URL: `https://admin.shopify.com/store/xxx/collections/HANDLE-O-DAY`
-4. Copy phần `HANDLE-O-DAY`
+**Cách chọn collections:**
+1. Click vào field **"Chọn Collections"**
+2. Popup hiện ra với danh sách tất cả collections
+3. Tích chọn các collections muốn áp dụng tier pricing
+4. Click **Done** hoặc **Select**
+5. Có thể chọn tối đa 50 collections
 
 **Ví dụ:**
-- Collection "Trang Sức Bạc" có handle: `trang-suc-bac`
-- Collection "Nhẫn Cưới" có handle: `nhan-cuoi`
-- Nhập vào settings: `trang-suc-bac,nhan-cuoi`
+- Chọn: "Trang Sức Bạc", "Nhẫn Cưới", "Dây Chuyền Vàng"
+- Chỉ sản phẩm trong 3 collections này mới có tier pricing
 
-#### Option 3: Chỉ Các Sản Phẩm Có Tag
+#### Option 3: Chỉ Các Sản Phẩm Được Chọn
 ```
-Áp dụng Tier Pricing cho: Chỉ các sản phẩm có tag
-Product tag: tier-pricing
+Áp dụng Tier Pricing cho: Chỉ các sản phẩm được chọn
+Chọn Sản phẩm: [Click để chọn sản phẩm]
 ```
 
-**Cách thêm tag cho sản phẩm:**
-1. Vào **Products** → **All products**
-2. Click vào sản phẩm muốn áp dụng tier pricing
-3. Scroll xuống phần **Tags**
-4. Thêm tag: `tier-pricing` (hoặc tag bạn đã cấu hình)
-5. Click **Save**
+**Cách chọn sản phẩm:**
+1. Click vào field **"Chọn Sản phẩm"**
+2. Popup hiện ra với danh sách tất cả sản phẩm
+3. Tích chọn các sản phẩm muốn áp dụng tier pricing
+4. Click **Done** hoặc **Select**
+5. Có thể chọn tối đa 100 sản phẩm
+6. Có thể search sản phẩm theo tên
+
+**Ví dụ:**
+- Chọn: "Nhẫn Kim Cương 1ct", "Dây Chuyền Vàng 18K", "Bông Tai Ngọc Trai"
+- Chỉ 3 sản phẩm này mới có tier pricing
 
 ## Use Cases
 
@@ -62,20 +67,21 @@ Collections: trang-suc-cao-cap,kim-cuong,vang-24k
 ```
 → Tier pricing chỉ hiển thị trên sản phẩm trong 3 collection này
 
-### Use Case 2: Loại Trừ Sản Phẩm Sale
+### Use Case 2: Chỉ Áp Dụng Cho 10 Sản Phẩm Best Seller
 ```
-Phạm vi: Chỉ các sản phẩm có tag
-Tag: tier-pricing
+Phạm vi: Chỉ các sản phẩm được chọn
+Sản phẩm: [Chọn 10 sản phẩm best seller]
 ```
-→ Chỉ thêm tag `tier-pricing` cho sản phẩm KHÔNG đang sale
-→ Sản phẩm sale không có tag → không hiển thị tier pricing
+→ Tier pricing chỉ hiển thị trên 10 sản phẩm được chọn
+→ Các sản phẩm khác giữ nguyên giá
 
 ### Use Case 3: Áp Dụng Cho Tất Cả Trừ Phụ Kiện
 ```
-Phạm vi: Chỉ các collection cụ thể
-Collections: nhan,day-chuyen,bong-tai,vong-tay,lac
+Phạm vi: Chỉ các collection được chọn
+Collections: [Chọn tất cả collections trừ "Phụ Kiện"]
 ```
-→ Liệt kê tất cả collection trừ "phu-kien"
+→ Chọn: Nhẫn, Dây Chuyền, Bông Tai, Vòng Tay, Lắc
+→ Không chọn: Phụ Kiện
 
 ## Kiểm Tra Hoạt Động
 
@@ -98,17 +104,16 @@ Collections: nhan,day-chuyen,bong-tai,vong-tay,lac
 
 ## Lưu Ý Quan Trọng
 
-### Collection Handles
-- Phải nhập chính xác handle (không phải tên hiển thị)
-- Phân cách bằng dấu phẩy `,`
-- Không có khoảng trắng thừa
-- Ví dụ đúng: `nhan-bac,day-chuyen,bong-tai`
-- Ví dụ sai: `nhan bac, day chuyen , bong tai`
+### Collection/Product Picker
+- Sử dụng picker có sẵn của Shopify (dễ dùng, không sai)
+- Có thể search theo tên
+- Có thể chọn/bỏ chọn bất kỳ lúc nào
+- Collections: Tối đa 50
+- Products: Tối đa 100
 
-### Product Tags
-- Tag phải khớp chính xác (case-sensitive)
-- Nếu settings là `tier-pricing`, sản phẩm phải có tag `tier-pricing`
-- Tag `Tier-Pricing` hoặc `TIER-PRICING` sẽ KHÔNG hoạt động
+### Giới Hạn Số Lượng
+- Nếu cần chọn nhiều hơn 100 sản phẩm → Dùng option "Collections"
+- Nếu cần chọn nhiều hơn 50 collections → Dùng option "Tất cả sản phẩm"
 
 ### Performance
 - **Tất cả sản phẩm**: Nhanh nhất (không cần check)
@@ -129,26 +134,25 @@ Collections: nhan,day-chuyen,bong-tai,vong-tay,lac
 2. Chỉ thêm tag cho sản phẩm muốn áp dụng
 3. Không thêm tag cho sản phẩm muốn loại trừ
 
-### Collection Handle Không Hoạt Động
-1. Vào collection trong admin
-2. Copy handle từ URL
-3. Paste vào settings
-4. Đảm bảo không có khoảng trắng thừa
+### Không Thấy Collection/Product Trong Picker
+1. Đảm bảo collection/product đã được publish
+2. Refresh lại trang customize
+3. Thử search theo tên trong picker
 
 ## Ví Dụ Cấu Hình Thực Tế
 
 ### Cửa Hàng Trang Sức
 ```
-Phạm vi: Chỉ các collection cụ thể
-Collections: nhan-kim-cuong,day-chuyen-vang,bong-tai-ngoc-trai
+Phạm vi: Chỉ các collection được chọn
+Collections: [Chọn] Nhẫn Kim Cương, Dây Chuyền Vàng, Bông Tai Ngọc Trai
 ```
 
 ### Cửa Hàng Thời Trang
 ```
-Phạm vi: Chỉ các sản phẩm có tag
-Tag: vip-pricing
+Phạm vi: Chỉ các sản phẩm được chọn
+Sản phẩm: [Chọn] Áo Khoác Da, Giày Sneaker Limited, Túi Xách Cao Cấp
 ```
-→ Thêm tag `vip-pricing` cho sản phẩm cao cấp
+→ Chỉ áp dụng cho sản phẩm cao cấp
 
 ### Cửa Hàng Điện Tử
 ```
